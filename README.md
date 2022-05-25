@@ -1,1 +1,3 @@
 # mazes
+Dabbling with mazes
+
