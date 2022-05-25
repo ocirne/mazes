@@ -32,8 +32,8 @@ class Cell:
             list.append(self.north)
         if self.south is not None:
             list.append(self.south)
-        if self.east is not None:
-            list.append(self.east)
         if self.west is not None:
             list.append(self.west)
+        if self.east is not None:
+            list.append(self.east)
         return list
