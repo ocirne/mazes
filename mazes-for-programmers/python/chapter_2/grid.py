@@ -48,3 +48,22 @@ class Grid:
             for cell in row:
                 if cell:
                     yield cell
+
+    def __str__(self):
+        output = "+" + "---+" * self.columns + "\n"
+        for row in self.each_row():
+            top = "|"
+            bottom = "+"
+            for cell in row:
+                if not cell:
+                    cell = Cell(-1, -1)
+                body = "   "
+                east_boundary = " " if cell.is_linked(cell.east) else "|"
+                top += body + east_boundary
+
+                south_boundary = "   " if cell.is_linked(cell.south) else "---"
+                corner = "+"
+                bottom += south_boundary + corner
+            output += top + "\n" + bottom + "\n"
+
+        return output
