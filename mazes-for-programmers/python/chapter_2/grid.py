@@ -11,20 +11,20 @@ class Grid:
 
     def prepare_grid(self):
         return [
-            Cell(row, column)
+            [Cell(row, column) for column in range(self.columns)]
             for row in range(self.rows)
-            for column in range(self.columns)
         ]
 
     def configure_cells(self):
         for cell in self.each_cell():
             row, col = cell.row, cell.column
-            cell.north = self.grid[row - 1, col]
-            cell.south = self.grid[row + 1, col]
-            cell.west = self.grid[row, col - 1]
-            cell.east = self.grid[row, col + 1]
+            cell.north = self[row - 1, col]
+            cell.south = self[row + 1, col]
+            cell.west = self[row, col - 1]
+            cell.east = self[row, col + 1]
 
-    def __getitem__(self, row, column):
+    def __getitem__(self, position):
+        row, column = position
         if not 0 <= row < self.rows:
             return None
         if not 0 <= column < self.columns:
