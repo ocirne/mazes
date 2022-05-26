@@ -25,6 +25,8 @@ class Sidewinder:
 
 
 if __name__ == "__main__":
-    grid = Grid(4, 4)
+    grid = Grid(10, 10)
     Sidewinder().on(grid)
     print(grid)
+
+    grid.to_png()
