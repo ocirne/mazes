@@ -28,5 +28,6 @@ if __name__ == "__main__":
     grid = Grid(10, 10)
     Sidewinder().on(grid)
     print(grid)
+    print(grid.to_str_unicode())
 
     grid.to_png()

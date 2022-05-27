@@ -26,6 +26,13 @@ class Cell:
     def is_linked(self, cell):
         return cell in self.links
 
+    def wall_size(self, cell):
+        if cell is None:
+            return 2
+        if cell not in self.links:
+            return 1
+        return 0
+
     def neighbors(self):
         list = []
         if self.north is not None:
