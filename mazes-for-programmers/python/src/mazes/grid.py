@@ -12,10 +12,7 @@ class Grid:
         self.configure_cells()
 
     def prepare_grid(self):
-        return [
-            [Cell(row, column) for column in range(self.columns)]
-            for row in range(self.rows)
-        ]
+        return [[Cell(row, column) for column in range(self.columns)] for row in range(self.rows)]
 
     def configure_cells(self):
         for cell in self.each_cell():
@@ -74,35 +71,28 @@ class Grid:
     # TODO golf it
     WALLS = {
         (0, 0, 0, 0): " ",
-
         (2, 2, 2, 2): "\u254B",
-
         (2, 2, 0, 0): "\u2503",
         (2, 0, 2, 0): "\u251B",
         (2, 0, 0, 2): "\u2517",
         (0, 2, 2, 0): "\u2513",
         (0, 2, 0, 2): "\u250F",
         (0, 0, 2, 2): "\u2501",
-
         (2, 2, 1, 0): "\u2528",
         (2, 2, 0, 1): "\u2520",
         (1, 0, 2, 2): "\u2537",
         (0, 1, 2, 2): "\u252F",
-
         (1, 1, 1, 1): "\u253C",
-
         (1, 1, 1, 0): "\u2524",
         (1, 1, 0, 1): "\u251C",
         (1, 0, 1, 1): "\u2534",
         (0, 1, 1, 1): "\u252C",
-
         (1, 1, 0, 0): "\u2502",
         (1, 0, 1, 0): "\u2518",
         (1, 0, 0, 1): "\u2514",
         (0, 1, 1, 0): "\u2510",
         (0, 1, 0, 1): "\u250C",
         (0, 0, 1, 1): "\u2500",
-
         (1, 0, 0, 0): "\u2575",
         (0, 1, 0, 0): "\u2577",
         (0, 0, 1, 0): "\u2574",
@@ -110,7 +100,7 @@ class Grid:
     }
 
     def to_str_unicode(self):
-        output = ''
+        output = ""
         output += self.WALLS.get((0, 2, 0, 2))
         for cell in self.grid[0]:
             north_boundary = self.WALLS.get((0, 0, 2, 2)) * 3

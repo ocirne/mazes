@@ -11,9 +11,7 @@ class Sidewinder:
                 run.append(cell)
                 at_eastern_boundary = cell.east is None
                 at_northern_boundary = cell.north is None
-                should_close_out = at_eastern_boundary or (
-                    not at_northern_boundary and randint(0, 2) == 0
-                )
+                should_close_out = at_eastern_boundary or (not at_northern_boundary and randint(0, 2) == 0)
                 if should_close_out:
                     member = choice(run)
                     if member.north:
