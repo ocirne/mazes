@@ -1,6 +1,6 @@
 from cell import Cell
 from random import randint
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageColor
 from datetime import datetime
 
 
@@ -139,33 +139,41 @@ class Grid:
 
         return output
 
+    def background_color_for(self, cell):
+        return None
+
     def to_png(self, cell_size=100, wall_size=3, filename=None):
         img_width = cell_size * self.columns
         img_height = cell_size * self.rows
 
-        # TODO PIL.ImageColor
-        background = (255, 255, 255, 255)  # White
-        wall = (0, 0, 0, 255)  # Black
+        background = ImageColor.getrgb("white")
+        wall = ImageColor.getrgb("black")
 
-        img = Image.new("RGBA", (img_width + 1, img_height + 1), background)
+        img = Image.new("RGB", (img_width + 1, img_height + 1), background)
         draw = ImageDraw.Draw(img)
 
-        for cell in self.each_cell():
-            x1 = cell.column * cell_size
-            y1 = cell.row * cell_size
-            x2 = (cell.column + 1) * cell_size
-            y2 = (cell.row + 1) * cell_size
+        for mode in ["backgrounds", "walls"]:
+            for cell in self.each_cell():
+                x1 = cell.column * cell_size
+                y1 = cell.row * cell_size
+                x2 = (cell.column + 1) * cell_size
+                y2 = (cell.row + 1) * cell_size
 
-            if not cell.north:
-                draw.line((x1, y1, x2, y1), fill=wall, width=wall_size)
-            if not cell.west:
-                draw.line((x1, y1, x1, y2), fill=wall, width=wall_size)
-
-            if not cell.is_linked(cell.east):
-                draw.line((x2, y1, x2, y2), fill=wall, width=wall_size)
-            if not cell.is_linked(cell.south):
-                draw.line((x1, y2, x2, y2), fill=wall, width=wall_size)
+                if mode == "backgrounds":
+                    color = self.background_color_for(cell)
+                    if color is not None:
+                        draw.rectangle((x1, y1, x2, y2), fill=color, outline=color)
+                else:
+                    if not cell.north:
+                        draw.line((x1, y1, x2, y1), fill=wall, width=wall_size)
+                    if not cell.west:
+                        draw.line((x1, y1, x1, y2), fill=wall, width=wall_size)
+                    if not cell.is_linked(cell.east):
+                        draw.line((x2, y1, x2, y2), fill=wall, width=wall_size)
+                    if not cell.is_linked(cell.south):
+                        draw.line((x1, y2, x2, y2), fill=wall, width=wall_size)
 
         if filename is None:
             filename = datetime.now().strftime("images/%Y-%m-%d-%H%M%S.png")
+        print("write to file", filename)
         img.save(filename)
