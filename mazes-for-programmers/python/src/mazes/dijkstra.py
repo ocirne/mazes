@@ -9,4 +9,8 @@ distances = start.distances()
 grid.set_distances(distances)
 
 print(grid)
-print(grid.to_str_unicode())
+
+grid.distances = distances.path_to(grid[grid.rows - 1, 0])
+print(grid)
+
+# print(grid.to_str_unicode())

@@ -10,7 +10,7 @@ class DistanceGrid(Grid):
         self.distances = distances
 
     def contents_of(self, cell):
-        if self.distances and self.distances[cell] is not None:
+        if self.distances and cell in self.distances and self.distances[cell] is not None:
             return " %2s" % self.distances[cell]
         else:
             return super().contents_of(cell)
