@@ -28,4 +28,4 @@ if __name__ == "__main__":
     print(grid)
     print(grid.to_str_unicode())
 
-    grid.to_png()
+    grid.to_img()

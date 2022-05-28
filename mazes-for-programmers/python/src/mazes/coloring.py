@@ -8,4 +8,4 @@ start = grid[grid.rows // 2, grid.columns // 2]
 
 grid.set_distances(start.distances())
 
-grid.to_png(cell_size=20)
+grid.to_img(cell_size=20)

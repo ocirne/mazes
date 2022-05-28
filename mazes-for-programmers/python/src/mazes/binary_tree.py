@@ -22,4 +22,4 @@ if __name__ == "__main__":
     BinaryTree().on(grid)
     print(grid)
 
-    grid.to_png()
+    grid.to_img()

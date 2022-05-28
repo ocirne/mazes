@@ -142,7 +142,7 @@ class Grid:
     def background_color_for(self, cell):
         return None
 
-    def to_png(self, cell_size=100, wall_size=3, filename=None):
+    def to_img(self, cell_size=100, wall_size=3, filename=None, extension="png", save=True):
         img_width = cell_size * self.columns
         img_height = cell_size * self.rows
 
@@ -173,7 +173,10 @@ class Grid:
                     if not cell.is_linked(cell.south):
                         draw.line((x1, y2, x2, y2), fill=wall, width=wall_size)
 
-        if filename is None:
-            filename = datetime.now().strftime("images/%Y-%m-%d-%H%M%S.png")
-        print("write to file", filename)
-        img.save(filename)
+        if save:
+            if filename is None:
+                filename = datetime.now().strftime("images/%%Y-%%m-%%d-%%H%%M%%S.%s" % extension)
+            print("write to file", filename)
+            img.save(filename)
+        else:
+            return img
