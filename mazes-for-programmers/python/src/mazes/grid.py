@@ -31,8 +31,8 @@ class Grid:
         return self.grid[row][column]
 
     def random_cell(self):
-        row = randint(self.rows)
-        column = randint(len(self.grid[row]))
+        row = randint(0, self.rows)
+        column = randint(0, len(self.grid[row]))
         return self[row, column]
 
     def size(self):
@@ -142,7 +142,7 @@ class Grid:
     def background_color_for(self, cell):
         return None
 
-    def to_img(self, cell_size=100, wall_size=3, filename=None, extension="png", save=True):
+    def to_img(self, cell_size=100, wall_size=3, filename=None, lfd=0, extension="png", save=True):
         img_width = cell_size * self.columns
         img_height = cell_size * self.rows
 
@@ -175,7 +175,7 @@ class Grid:
 
         if save:
             if filename is None:
-                filename = datetime.now().strftime("images/%%Y-%%m-%%d-%%H%%M%%S.%s" % extension)
+                filename = datetime.now().strftime("images/%%Y-%%m-%%d-%%H%%M%%S-%s.%s" % (lfd, extension))
             print("write to file", filename)
             img.save(filename)
         else:
