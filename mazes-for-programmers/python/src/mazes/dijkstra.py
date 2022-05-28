@@ -1,7 +1,7 @@
 from distance_grid import DistanceGrid
 from sidewinder import Sidewinder
 
-grid = DistanceGrid(5, 5)
+grid = DistanceGrid(20, 20)
 Sidewinder.on(grid)
 
 start = grid[0, 0]

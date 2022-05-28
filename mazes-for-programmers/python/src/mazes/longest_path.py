@@ -1,7 +1,7 @@
 from distance_grid import DistanceGrid
 from binary_tree import BinaryTree
 
-grid = DistanceGrid(5, 5)
+grid = DistanceGrid(20, 40)
 BinaryTree.on(grid)
 
 start_helper = grid[0, 0]
