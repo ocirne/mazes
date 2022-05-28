@@ -1,7 +1,7 @@
 from cell import Cell
 from random import randint
 from PIL import Image, ImageDraw
-from datetime import date, datetime
+from datetime import datetime
 
 
 class Grid:
@@ -48,6 +48,9 @@ class Grid:
                 if cell:
                     yield cell
 
+    def contents_of(self, cell):
+        return "   "
+
     def __str__(self):
         output = "+" + "---+" * self.columns + "\n"
         for row in self.each_row():
@@ -56,7 +59,7 @@ class Grid:
             for cell in row:
                 if not cell:
                     cell = Cell(-1, -1)
-                body = "   "
+                body = self.contents_of(cell)
                 east_boundary = " " if cell.is_linked(cell.east) else "|"
                 top += body + east_boundary
 
@@ -119,7 +122,7 @@ class Grid:
             for cell in row:
                 if not cell:
                     cell = Cell(-1, -1)
-                body = "   "
+                body = self.contents_of(cell)
                 e = cell.wall_size(cell.east)
                 east_boundary = self.WALLS.get((e, e, 0, 0))
                 top += body + east_boundary
