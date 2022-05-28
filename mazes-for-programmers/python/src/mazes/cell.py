@@ -61,3 +61,6 @@ class Cell:
                     new_frontier.append(linked)
             frontier = new_frontier
         return distances
+
+    def __str__(self):
+        return "%s %s" % (self.row, self.column)
