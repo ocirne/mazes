@@ -6,8 +6,9 @@ from sidewinder import Sidewinder
 from aldous_broder import AldousBroder
 from wilsons import Wilsons
 from hunt_and_kill import HuntAndKill
+from recursive_backtracker import RecursiveBacktracker
 
-algorithms = [BinaryTree, Sidewinder, AldousBroder, Wilsons, HuntAndKill]
+algorithms = [BinaryTree, Sidewinder, AldousBroder, Wilsons, HuntAndKill, RecursiveBacktracker]
 
 tries = 100
 size = 20
