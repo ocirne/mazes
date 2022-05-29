@@ -100,40 +100,48 @@ class Grid:
         (0, 1, 0, 0): "\u2577",
         (0, 0, 1, 0): "\u2574",
         (0, 0, 0, 1): "\u2576",
+        (0, 2, 1, 2): "\u2532",
+        (1, 2, 0, 2): "\u2522",
     }
+
+    def walls(self, n, s, w, e):
+        if (n, s, w, e) in self.WALLS:
+            return self.WALLS[(n, s, w, e)]
+        print("missing:", (n, s, w, e))
+        raise
 
     def to_str_unicode(self):
         output = ""
-        output += self.WALLS.get((0, 2, 0, 2))
+        output += self.walls(0, 2, 0, 2)
         for cell in self.grid[0]:
-            north_boundary = self.WALLS.get((0, 0, 2, 2)) * 3
+            north_boundary = self.walls(0, 0, 2, 2) * 3
             s = cell.wall_size(cell.east)
             w = cell.wall_size(cell.north)
             e = cell.east.wall_size(cell.east.north) if cell.east is not None else 0
-            corner = self.WALLS.get((0, s, w, e))
+            corner = self.walls(0, s, w, e)
             output += north_boundary + corner
         output += "\n"
         for row in self.each_row():
             cell = row[0]
-            top = self.WALLS.get((2, 2, 0, 0))
+            top = self.walls(2, 2, 0, 0)
             s = cell.south.wall_size(cell.south.west) if cell.south is not None else 0
             e = cell.wall_size(cell.south)
-            bottom = self.WALLS.get((2, s, 0, e))
+            bottom = self.walls(2, s, 0, e)
             for cell in row:
                 if not cell:
                     cell = Cell(-1, -1)
                 body = self.contents_of(cell)
                 e = cell.wall_size(cell.east)
-                east_boundary = self.WALLS.get((e, e, 0, 0))
+                east_boundary = self.walls(e, e, 0, 0)
                 top += body + east_boundary
 
                 s = cell.wall_size(cell.south)
-                south_boundary = self.WALLS.get((0, 0, s, s)) * 3
+                south_boundary = self.walls(0, 0, s, s) * 3
                 n = cell.wall_size(cell.east)
                 s = cell.south.wall_size(cell.south.east) if cell.south is not None else 0
                 w = cell.wall_size(cell.south)
                 e = cell.east.wall_size(cell.east.south) if cell.east is not None else 0
-                corner = self.WALLS.get((n, s, w, e))
+                corner = self.walls(n, s, w, e)
                 bottom += south_boundary + corner
             output += top + "\n" + bottom + "\n"
 
