@@ -1,3 +1,4 @@
+from grid import Grid
 from random import choice
 
 
@@ -21,3 +22,11 @@ class Wilsons:
                 path[index].link(path[index + 1])
                 unvisited.remove(path[index])
         return grid
+
+
+# Demo
+if __name__ == "__main__":
+    grid = Grid(20, 20)
+    Wilsons.on(grid)
+
+    grid.to_img()
