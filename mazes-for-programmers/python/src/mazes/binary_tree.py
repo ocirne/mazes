@@ -23,3 +23,5 @@ if __name__ == "__main__":
     print(grid)
 
     grid.to_img()
+    deadends = grid.deadends()
+    print("%s dead-ends" % len(deadends))

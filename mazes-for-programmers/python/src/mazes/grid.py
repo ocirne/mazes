@@ -180,3 +180,6 @@ class Grid:
             img.save(filename)
         else:
             return img
+
+    def deadends(self):
+        return [cell for cell in self.each_cell() if len(cell.links) == 1]
