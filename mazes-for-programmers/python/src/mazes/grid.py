@@ -31,8 +31,8 @@ class Grid:
         return self.grid[row][column]
 
     def random_cell(self):
-        row = randint(0, self.rows)
-        column = randint(0, len(self.grid[row]))
+        row = randint(0, self.rows - 1)
+        column = randint(0, len(self.grid[row]) - 1)
         return self[row, column]
 
     def size(self):
