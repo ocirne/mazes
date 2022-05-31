@@ -1,4 +1,4 @@
-from cell import Cell
+from cell import Cell, wall_size
 from random import randint
 from PIL import Image, ImageDraw, ImageColor
 from datetime import datetime
@@ -72,115 +72,148 @@ class Grid:
 
     # see https://www.compart.com/de/unicode/block/U+2500
     # TODO golf it
-    WALLS = {
+    SPRITE = {
         (0, 0, 0, 0): " ",
-        (2, 2, 2, 2): "\u254B",
-        (2, 2, 0, 0): "\u2503",
-        (2, 0, 2, 0): "\u251B",
-        (2, 0, 0, 2): "\u2517",
-        (0, 2, 2, 0): "\u2513",
-        (0, 2, 0, 2): "\u250F",
-        (0, 0, 2, 2): "\u2501",
-        (2, 2, 1, 0): "\u2528",
-        (2, 2, 0, 1): "\u2520",
-        (1, 0, 2, 2): "\u2537",
-        (0, 1, 2, 2): "\u252F",
-        (1, 1, 1, 1): "\u253C",
-        (1, 1, 1, 0): "\u2524",
-        (1, 1, 0, 1): "\u251C",
-        (1, 0, 1, 1): "\u2534",
-        (0, 1, 1, 1): "\u252C",
-        (1, 1, 0, 0): "\u2502",
-        (1, 0, 1, 0): "\u2518",
-        (1, 0, 0, 1): "\u2514",
-        (0, 1, 1, 0): "\u2510",
-        (0, 1, 0, 1): "\u250C",
+        # u250x
         (0, 0, 1, 1): "\u2500",
-        (1, 0, 0, 0): "\u2575",
-        (0, 1, 0, 0): "\u2577",
-        (0, 0, 1, 0): "\u2574",
-        (0, 0, 0, 1): "\u2576",
-        (2, 0, 0, 0): "\u2579",
-        (0, 2, 0, 0): "\u257B",
-        (0, 0, 2, 0): "\u2578",
-        (0, 0, 0, 2): "\u257A",
-        (0, 2, 1, 2): "\u2532",
+        (0, 0, 2, 2): "\u2501",
+        (1, 1, 0, 0): "\u2502",
+        (2, 2, 0, 0): "\u2503",
+        (0, 1, 0, 1): "\u250C",
+        (0, 1, 0, 2): "\u250D",
+        (0, 2, 0, 1): "\u250E",
+        (0, 2, 0, 2): "\u250F",
+        # u251x
+        (0, 1, 1, 0): "\u2510",
+        (0, 1, 2, 0): "\u2511",
+        (0, 2, 1, 0): "\u2512",
+        (0, 2, 2, 0): "\u2513",
+        (1, 0, 0, 1): "\u2514",
+        (1, 0, 0, 2): "\u2515",
+        (2, 0, 0, 1): "\u2516",
+        (2, 0, 0, 2): "\u2517",
+        (1, 0, 1, 0): "\u2518",
+        (1, 0, 2, 0): "\u2519",
+        (2, 0, 1, 0): "\u251A",
+        (2, 0, 2, 0): "\u251B",
+        (1, 1, 0, 1): "\u251C",
+        (1, 1, 0, 2): "\u251D",
+        (2, 1, 0, 1): "\u251E",
+        (1, 2, 0, 1): "\u251F",
+        # u252x
+        (2, 2, 0, 1): "\u2520",
+        (2, 1, 0, 2): "\u2521",
         (1, 2, 0, 2): "\u2522",
+        # 3 ?
+        (1, 1, 1, 0): "\u2524",
+        (1, 1, 2, 0): "\u2525",
+        (2, 1, 1, 0): "\u2526",
+        (1, 2, 1, 0): "\u2527",
+        (2, 2, 1, 0): "\u2528",
+        (2, 1, 2, 0): "\u2529",
+        (1, 2, 2, 0): "\u252A",
+        # B ?
+        (0, 1, 1, 1): "\u252C",
+        (0, 1, 2, 1): "\u252D",
+        (0, 1, 1, 2): "\u252E",
+        (0, 1, 2, 2): "\u252F",
+        # u253x
+        (0, 2, 1, 1): "\u2530",
+        (0, 2, 2, 1): "\u2531",
+        (0, 2, 1, 2): "\u2532",
+        # 3 ?
+        (1, 0, 1, 1): "\u2534",
+        (1, 0, 2, 1): "\u2535",
+        (1, 0, 1, 2): "\u2536",
+        (1, 0, 2, 2): "\u2537",
+        (2, 0, 1, 1): "\u2538",
+        (2, 0, 2, 1): "\u2539",
+        (2, 0, 1, 2): "\u253A",
+        # B ?
+        (1, 1, 1, 1): "\u253C",
+        # D ?
+        # E ?
+        (1, 1, 2, 2): "\u253F",
+        # u254x
         (2, 2, 1, 1): "\u2542",
         (2, 1, 2, 1): "\u2543",
         (2, 1, 1, 2): "\u2544",
         (1, 2, 2, 1): "\u2545",
         (1, 2, 1, 2): "\u2546",
-        (1, 1, 2, 2): "\u253F",
-        (1, 2, 0, 0): "\u257D",
-        (1, 0, 2, 0): "\u2519",
-        (1, 0, 0, 2): "\u2515",
-        (2, 1, 0, 0): "\u257F",
-        (0, 1, 2, 0): "\u2511",
-        (0, 1, 0, 2): "\u250D",
-        (2, 0, 1, 0): "\u251A",
-        (0, 2, 1, 0): "\u2512",
+        (2, 2, 2, 2): "\u254B",
+        # u257x
+        (0, 0, 1, 0): "\u2574",
+        (1, 0, 0, 0): "\u2575",
+        (0, 0, 0, 1): "\u2576",
+        (0, 1, 0, 0): "\u2577",
+        (0, 0, 2, 0): "\u2578",
+        (2, 0, 0, 0): "\u2579",
+        (0, 0, 0, 2): "\u257A",
+        (0, 2, 0, 0): "\u257B",
         (0, 0, 1, 2): "\u257C",
-        (2, 0, 0, 1): "\u2516",
-        (0, 2, 0, 1): "\u250E",
+        (1, 2, 0, 0): "\u257D",
         (0, 0, 2, 1): "\u257E",
-        (2, 1, 1, 0): "\u2526",
-        (2, 1, 0, 1): "\u251E",
-        (2, 0, 1, 1): "\u2538",
-        (1, 2, 1, 0): "\u2527",
-        (1, 2, 0, 1): "\u251F",
-        (0, 2, 1, 1): "\u2530",
-        (1, 1, 2, 0): "\u2525",
-        (1, 0, 2, 1): "\u2535",
-        (0, 1, 2, 1): "\u252D",
-        (1, 1, 0, 2): "\u251D",
-        (1, 0, 1, 2): "\u2536",
-        (0, 1, 1, 2): "\u252E",
+        (2, 1, 0, 0): "\u257F",
     }
 
-    def walls(self, n, s, w, e):
-        if (n, s, w, e) in self.WALLS:
-            return self.WALLS[(n, s, w, e)]
+    def sprite(self, n, s, w, e):
+        if (n, s, w, e) in self.SPRITE:
+            return self.SPRITE[(n, s, w, e)]
         print("missing:", (n, s, w, e))
         raise
 
+    def horizontal_wall(self, cell1, cell2):
+        """
+        --
+        """
+        v = wall_size(cell1, cell2)
+        return self.sprite(0, 0, v, v) * 3
+
+    def vertical_wall(self, cell1, cell2):
+        """
+        |
+        """
+        v = wall_size(cell1, cell2)
+        return self.sprite(v, v, 0, 0)
+
+    def corner(self, cell1, cell2, cell3, cell4):
+        """
+        1 2
+        3 4
+        """
+        n = wall_size(cell1, cell2)
+        s = wall_size(cell3, cell4)
+        w = wall_size(cell1, cell3)
+        e = wall_size(cell2, cell4)
+        return self.sprite(n, s, w, e)
+
     def to_str_unicode(self):
         output = ""
-        output += self.walls(0, 2, 0, 2)
-        for cell in self.grid[0]:
-            if not cell:
-                cell = Cell(-1, -1)
-            north_boundary = self.walls(0, 0, 2, 2) * 3
-            s = cell.wall_size(cell.east)
-            w = cell.wall_size(cell.north)
-            e = cell.east.wall_size(cell.east.north) if cell.east is not None else 0
-            corner = self.walls(0, s, w, e)
-            output += north_boundary + corner
+        # top left corner
+        output += self.corner(None, None, None, self[0, 0])
+
+        # top boundary: for every cell top boundary and top right corner
+        for x in range(self.columns):
+            top_boundary = self.horizontal_wall(None, self[x, 0])
+            top_right_corner = self.corner(None, None, self[x, 0], self[x + 1, 0])
+            output += top_boundary + top_right_corner
         output += "\n"
-        for row in self.each_row():
-            cell = row[0]
-            if not cell:
-                cell = Cell(-1, -1)
-            top = self.walls(2, 2, 0, 0)
-            s = cell.south.wall_size(cell.south.west) if cell.south is not None else 0
-            e = cell.wall_size(cell.south)
-            bottom = self.walls(2, s, 0, e)
-            for cell in row:
-                if not cell:
-                    cell = Cell(-1, -1)
-                body = self.contents_of(cell)
-                e = cell.wall_size(cell.east)
-                east_boundary = self.walls(e, e, 0, 0)
+
+        for y in range(self.rows):
+            # first cell handles the left wall and bottom left corner
+            top = self.vertical_wall(None, self[0, y])
+            bottom_left_corner = self.corner(None, self[0, y], None, self[0, y + 1])
+            bottom = bottom_left_corner
+
+            # every cell handle right wall and bottom right corner
+            for x in range(self.columns):
+                body = self.contents_of(self[x, y])
+                east_boundary = self.vertical_wall(self[x, y], self[x + 1, y])
                 top += body + east_boundary
 
-                s = cell.wall_size(cell.south)
-                south_boundary = self.walls(0, 0, s, s) * 3
-                n = cell.wall_size(cell.east)
-                s = cell.south.wall_size(cell.south.east) if cell.south is not None else 0
-                w = cell.wall_size(cell.south)
-                e = cell.east.wall_size(cell.east.south) if cell.east is not None else 0
-                corner = self.walls(n, s, w, e)
-                bottom += south_boundary + corner
+                south_boundary = self.horizontal_wall(self[x, y], self[x, y + 1])
+                bottom_right_corner = self.corner(self[x, y], self[x + 1, y], self[x, y + 1], self[x + 1, y + 1])
+                bottom += south_boundary + bottom_right_corner
             output += top + "\n" + bottom + "\n"
 
         return output

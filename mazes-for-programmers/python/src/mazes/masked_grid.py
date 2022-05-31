@@ -1,3 +1,5 @@
+from random import randint
+
 from grid import Grid
 from cell import Cell
 from mask import Mask
@@ -26,10 +28,9 @@ class MaskedGrid(Grid):
 # Simple mask
 
 if __name__ == "__main__":
-    mask = Mask(5, 5)
-    mask[0, 0] = False
-    mask[2, 2] = False
-    mask[4, 4] = False
+    mask = Mask(15, 15)
+    for i in range(20):
+        mask[randint(0, 14), randint(0, 14)] = False
 
     grid = MaskedGrid(mask)
     RecursiveBacktracker.on(grid)

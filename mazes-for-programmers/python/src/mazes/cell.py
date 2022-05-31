@@ -64,3 +64,13 @@ class Cell:
 
     def __str__(self):
         return "%s %s" % (self.row, self.column)
+
+
+def wall_size(cell1, cell2):
+    if cell1 is None and cell2 is None:
+        return 0
+    if cell1 is None or cell2 is None:
+        return 2
+    if cell2 not in cell1.links:
+        return 1
+    return 0
