@@ -35,3 +35,4 @@ if __name__ == "__main__":
     RecursiveBacktracker.on(grid)
 
     print(grid)
+    print(grid.to_str_unicode())
