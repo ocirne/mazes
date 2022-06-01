@@ -2,6 +2,17 @@ from random import randint
 
 
 class Mask:
+    @staticmethod
+    def from_txt(file):
+        lines = [line.strip() for line in open(file).readlines()]
+        rows = len(lines)
+        columns = len(lines[0])
+        mask = Mask(rows, columns)
+        for row in range(rows):
+            for col in range(columns):
+                mask[row, col] = lines[row][col] == "."
+        return mask
+
     def __init__(self, rows, columns):
         self.rows = rows
         self.columns = columns

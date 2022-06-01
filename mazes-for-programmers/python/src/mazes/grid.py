@@ -261,9 +261,9 @@ class Grid:
 
         if save:
             if filename is None:
-                filename = datetime.now().strftime("images/%%Y-%%m-%%d-%%H%%M%%S-%s.%s" % (lfd, extension))
+                filename = datetime.now().strftime("%%Y-%%m-%%d-%%H%%M%%S-%s.%s" % (lfd, extension))
             print("write to file", filename)
-            img.save(filename)
+            img.save("images/" + filename)
         else:
             return img
 
