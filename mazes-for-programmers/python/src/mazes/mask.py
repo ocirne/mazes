@@ -1,16 +1,28 @@
 from random import randint
 
+from PIL import Image, ImageColor
+
 
 class Mask:
     @staticmethod
-    def from_txt(file):
-        lines = [line.strip() for line in open(file).readlines()]
+    def from_txt(filename):
+        lines = [line.strip() for line in open(filename).readlines()]
         rows = len(lines)
         columns = len(lines[0])
         mask = Mask(rows, columns)
         for row in range(rows):
             for col in range(columns):
                 mask[row, col] = lines[row][col] == "."
+        return mask
+
+    @staticmethod
+    def from_png(filename):
+        image = Image.open(filename).convert("RGB")
+        mask = Mask(image.height, image.width)
+        pixels = image.load()
+        for row in range(mask.rows):
+            for col in range(mask.columns):
+                mask[row, col] = pixels[col, row] == ImageColor.getrgb("black")
         return mask
 
     def __init__(self, rows, columns):
