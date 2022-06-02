@@ -12,6 +12,8 @@ from recursive_backtracker import RecursiveBacktracker
 class PolarGrid(Grid):
     def __init__(self, rows):
         super().__init__(rows, 1)
+        self.distances = None
+        self.maximum = None
 
     def prepare_grid(self):
         rows = []
@@ -61,29 +63,35 @@ class PolarGrid(Grid):
 
         center = img_size // 2
 
-        for cell in self.each_cell():
-            if cell.row == 0:
-                continue
-            theta = 2 * pi / len(self.grid[cell.row])
-            inner_radius = cell.row * cell_size
-            outer_radius = (cell.row + 1) * cell_size
-            theta_ccw = cell.column * theta
-            theta_cw = (cell.column + 1) * theta
+        for mode in ["backgrounds", "walls"]:
+            for cell in self.each_cell():
+                if cell.row == 0:
+                    continue
+                theta = 2 * pi / len(self.grid[cell.row])
+                inner_radius = cell.row * cell_size
+                outer_radius = (cell.row + 1) * cell_size
+                theta_ccw = cell.column * theta
+                theta_cw = (cell.column + 1) * theta
 
-            ax = center + (inner_radius * cos(theta_ccw))
-            ay = center + (inner_radius * sin(theta_ccw))
-            # bx = center + (outer_radius * cos(theta_ccw))
-            # by = center + (outer_radius * sin(theta_ccw))
+                ax = center + (inner_radius * cos(theta_ccw))
+                ay = center + (inner_radius * sin(theta_ccw))
+                bx = center + (outer_radius * cos(theta_ccw))
+                by = center + (outer_radius * sin(theta_ccw))
 
-            cx = center + (inner_radius * cos(theta_cw))
-            cy = center + (inner_radius * sin(theta_cw))
-            dx = center + (outer_radius * cos(theta_cw))
-            dy = center + (outer_radius * sin(theta_cw))
+                cx = center + (inner_radius * cos(theta_cw))
+                cy = center + (inner_radius * sin(theta_cw))
+                dx = center + (outer_radius * cos(theta_cw))
+                dy = center + (outer_radius * sin(theta_cw))
 
-            if not cell.is_linked(cell.inward):
-                draw.line((ax, ay, cx, cy), fill=wall, width=wall_size)
-            if not cell.is_linked(cell.cw):
-                draw.line((cx, cy, dx, dy), fill=wall, width=wall_size)
+                if mode == "backgrounds":
+                    color = self.background_color_for(cell)
+                    if color is not None:
+                        draw.polygon((ax, ay, bx, by, dx, dy, cx, cy), fill=color, outline=color)
+                else:
+                    if not cell.is_linked(cell.inward):
+                        draw.line((ax, ay, cx, cy), fill=wall, width=wall_size)
+                    if not cell.is_linked(cell.cw):
+                        draw.line((cx, cy, dx, dy), fill=wall, width=wall_size)
         draw.ellipse((0, 0, img_size, img_size), width=wall_size, outline=wall)
 
         if save:
@@ -94,9 +102,27 @@ class PolarGrid(Grid):
         else:
             return img
 
+    def set_distances(self, distances):
+        self.distances = distances
+        farthest, self.maximum = distances.max()
+
+    def background_color_for(self, cell):
+        if cell not in self.distances:
+            return None
+        distance = self.distances[cell]
+        intensity = (self.maximum - distance) / self.maximum
+        dark = round(255 * intensity)
+        bright = 128 + round(127 * intensity)
+        return dark, bright, dark
+
 
 # Demo
 if __name__ == "__main__":
-    grid = PolarGrid(42)
+    grid = PolarGrid(20)
     RecursiveBacktracker.on(grid)
+
+    start = grid[0, 0]
+    distances = start.distances()
+    grid.set_distances(distances)
+
     grid.to_png()
