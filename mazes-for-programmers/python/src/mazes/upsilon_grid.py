@@ -106,9 +106,26 @@ class UpsilonGrid(Grid):
         else:
             return img
 
+    def set_distances(self, distances):
+        self.distances = distances
+        farthest, self.maximum = distances.max()
+
+    def background_color_for(self, cell):
+        if cell not in self.distances:
+            return None
+        distance = self.distances[cell]
+        intensity = (self.maximum - distance) / self.maximum
+        dark = round(255 * intensity)
+        bright = 128 + round(127 * intensity)
+        return dark, bright, dark
+
 
 if __name__ == "__main__":
     grid = UpsilonGrid(10, 10)
     RecursiveBacktracker.on(grid)
+
+    start = grid[0, 0]
+    distances = start.distances()
+    grid.set_distances(distances)
 
     grid.to_png()
