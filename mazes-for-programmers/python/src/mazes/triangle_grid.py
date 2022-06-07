@@ -23,7 +23,7 @@ class TriangleGrid(Grid):
             else:
                 cell.north = self[row - 1, col]
 
-    def to_png(self, size=10, wall_size=3, filename=None, lfd=0, extension="png", save=True):
+    def to_img(self, size=10, wall_size=3, filename=None, lfd=0, extension="png", save=True):
         half_width = size / 2.0
         height = size * math.sqrt(3) / 2.0
         half_height = height / 2.0
@@ -83,4 +83,4 @@ if __name__ == "__main__":
     grid = TriangleGrid(10, 17)
     RecursiveBacktracker.on(grid)
 
-    grid.to_png()
+    grid.to_img()

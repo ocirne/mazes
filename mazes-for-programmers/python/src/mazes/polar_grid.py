@@ -52,7 +52,7 @@ class PolarGrid(Grid):
         col = randint(0, len(self.grid[row]) - 1)
         return self.grid[row][col]
 
-    def to_png(self, cell_size=10, wall_size=3, filename=None, lfd=0, extension="png", save=True):
+    def to_img(self, cell_size=10, wall_size=3, filename=None, lfd=0, extension="png", save=True):
         img_size = 2 * self.rows * cell_size
 
         background = ImageColor.getrgb("white")
@@ -125,4 +125,4 @@ if __name__ == "__main__":
     distances = start.distances()
     grid.set_distances(distances)
 
-    grid.to_png()
+    grid.to_img()

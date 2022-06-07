@@ -25,7 +25,7 @@ class UpsilonGrid(Grid):
                 cell.southeast = self[row + 1, col + 1]
                 cell.southwest = self[row + 1, col - 1]
 
-    def to_png(self, size=10, wall_size=3, filename=None, lfd=0, extension="png", save=True):
+    def to_img(self, size=10, wall_size=3, filename=None, lfd=0, extension="png", save=True):
         c_size = size
         half_c_size = c_size / 2
         a_size = size / math.sqrt(2)
@@ -128,4 +128,4 @@ if __name__ == "__main__":
     distances = start.distances()
     grid.set_distances(distances)
 
-    grid.to_png()
+    grid.to_img()

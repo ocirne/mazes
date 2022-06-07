@@ -29,7 +29,7 @@ class HexGrid(Grid):
             cell.south = self[row + 1, col]
             cell.southeast = self[south_diagonal, col + 1]
 
-    def to_png(self, size=10, wall_size=3, filename=None, lfd=0, extension="png", save=True):
+    def to_img(self, size=10, wall_size=3, filename=None, lfd=0, extension="png", save=True):
         a_size = size / 2.0
         b_size = size * math.sqrt(3) / 2.0
         # width = size * 2
@@ -92,4 +92,4 @@ if __name__ == "__main__":
     grid = HexGrid(10, 10)
     RecursiveBacktracker.on(grid)
 
-    grid.to_png()
+    grid.to_img()
