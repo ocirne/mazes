@@ -1,5 +1,5 @@
 from cell import Cell, wall_size
-from random import randint
+from random import choice, randint, sample, random
 from PIL import Image, ImageDraw, ImageColor
 from datetime import datetime
 
@@ -269,3 +269,16 @@ class Grid:
 
     def deadends(self):
         return [cell for cell in self.each_cell() if len(cell.links) == 1]
+
+    def braid(self, p=1.0):
+        deadends = self.deadends()
+        for cell in sample(deadends, len(deadends)):
+            if len(cell.links) != 1 or random() > p:
+                continue
+            neighbors = [n for n in cell.neighbors() if not cell.is_linked(n)]
+            best = [n for n in neighbors if len(n.links) == 1]
+            if not best:
+                best = neighbors
+
+            neighbor = choice(best)
+            cell.link(neighbor)
