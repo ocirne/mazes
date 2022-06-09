@@ -92,7 +92,7 @@ class PolarGrid(Grid):
                         draw.line((ax, ay, cx, cy), wall, wall_size)
                     if not cell.is_linked(cell.cw):
                         draw.line((cx, cy, dx, dy), wall, wall_size)
-        draw.ellipse((0, 0, img_size, img_size), wall_size, wall)
+        draw.ellipse((0, 0, img_size, img_size), outline=wall, width=wall_size)
 
         if save:
             if filename is None:
@@ -125,4 +125,4 @@ if __name__ == "__main__":
     distances = start.distances()
     grid.set_distances(distances)
 
-    grid.to_img()
+    grid.to_img(filename="polar_grid.png")
