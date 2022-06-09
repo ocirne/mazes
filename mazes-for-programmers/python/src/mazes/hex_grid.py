@@ -64,20 +64,20 @@ class HexGrid(Grid):
                     color = self.background_color_for(cell)
                     if color is not None:
                         points = ((x_fw, y_m), (x_nw, y_n), (x_ne, y_n), (x_fe, y_m), (x_ne, y_s), (x_nw, y_s))
-                        draw.polygon(points, fill=color, outline=color)
+                        draw.polygon(points, color, color)
                 else:
                     if not cell.southwest:
-                        draw.line((x_fw, y_m, x_nw, y_s), fill=wall, width=wall_size)
+                        draw.line((x_fw, y_m, x_nw, y_s), wall, wall_size)
                     if not cell.northwest:
-                        draw.line((x_fw, y_m, x_nw, y_n), fill=wall, width=wall_size)
+                        draw.line((x_fw, y_m, x_nw, y_n), wall, wall_size)
                     if not cell.north:
-                        draw.line((x_nw, y_n, x_ne, y_n), fill=wall, width=wall_size)
+                        draw.line((x_nw, y_n, x_ne, y_n), wall, wall_size)
                     if not cell.is_linked(cell.northeast):
-                        draw.line((x_ne, y_n, x_fe, y_m), fill=wall, width=wall_size)
+                        draw.line((x_ne, y_n, x_fe, y_m), wall, wall_size)
                     if not cell.is_linked(cell.southeast):
-                        draw.line((x_fe, y_m, x_ne, y_s), fill=wall, width=wall_size)
+                        draw.line((x_fe, y_m, x_ne, y_s), wall, wall_size)
                     if not cell.is_linked(cell.south):
-                        draw.line((x_ne, y_s, x_nw, y_s), fill=wall, width=wall_size)
+                        draw.line((x_ne, y_s, x_nw, y_s), wall, wall_size)
 
         if save:
             if filename is None:

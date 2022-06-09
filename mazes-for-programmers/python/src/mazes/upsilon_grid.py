@@ -77,26 +77,26 @@ class UpsilonGrid(Grid):
                             points = (p0, p1, p2, p3, p4, p5, p6, p7)
                         else:
                             points = (p0, p2, p4, p6)
-                        draw.polygon(points, fill=color, outline=color)
+                        draw.polygon(points, color, color)
                 else:
                     if not cell.west:
-                        draw.line((p0, p1), fill=wall, width=wall_size)
+                        draw.line((p0, p1), wall, wall_size)
                     if not cell.north:
-                        draw.line((p2, p3), fill=wall, width=wall_size)
+                        draw.line((p2, p3), wall, wall_size)
                     if not cell.is_linked(cell.east):
-                        draw.line((p4, p5), fill=wall, width=wall_size)
+                        draw.line((p4, p5), wall, wall_size)
                     if not cell.is_linked(cell.south):
-                        draw.line((p6, p7), fill=wall, width=wall_size)
+                        draw.line((p6, p7), wall, wall_size)
 
                     if cell.is_octogon():
                         if not cell.northwest:
-                            draw.line((p1, p2), fill=wall, width=wall_size)
+                            draw.line((p1, p2), wall, wall_size)
                         if not cell.is_linked(cell.northeast):
-                            draw.line((p3, p4), fill=wall, width=wall_size)
+                            draw.line((p3, p4), wall, wall_size)
                         if not cell.is_linked(cell.southeast):
-                            draw.line((p5, p6), fill=wall, width=wall_size)
+                            draw.line((p5, p6), wall, wall_size)
                         if not cell.southwest:
-                            draw.line((p7, p0), fill=wall, width=wall_size)
+                            draw.line((p7, p0), wall, wall_size)
 
         if save:
             if filename is None:

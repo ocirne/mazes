@@ -86,13 +86,13 @@ class PolarGrid(Grid):
                 if mode == "backgrounds":
                     color = self.background_color_for(cell)
                     if color is not None:
-                        draw.polygon((ax, ay, bx, by, dx, dy, cx, cy), fill=color, outline=color)
+                        draw.polygon((ax, ay, bx, by, dx, dy, cx, cy), color, color)
                 else:
                     if not cell.is_linked(cell.inward):
-                        draw.line((ax, ay, cx, cy), fill=wall, width=wall_size)
+                        draw.line((ax, ay, cx, cy), wall, wall_size)
                     if not cell.is_linked(cell.cw):
-                        draw.line((cx, cy, dx, dy), fill=wall, width=wall_size)
-        draw.ellipse((0, 0, img_size, img_size), width=wall_size, outline=wall)
+                        draw.line((cx, cy, dx, dy), wall, wall_size)
+        draw.ellipse((0, 0, img_size, img_size), wall_size, wall)
 
         if save:
             if filename is None:

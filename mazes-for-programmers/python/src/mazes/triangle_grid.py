@@ -57,18 +57,18 @@ class TriangleGrid(Grid):
                     color = self.background_color_for(cell)
                     if color is not None:
                         points = ((west_x, base_y), (mid_x, apex_y), (east_x, base_y))
-                        draw.polygon(points, fill=color, outline=color)
+                        draw.polygon(points, color, color)
                 else:
                     if not cell.west:
-                        draw.line((west_x, base_y, mid_x, apex_y), fill=wall, width=wall_size)
+                        draw.line((west_x, base_y, mid_x, apex_y), wall, wall_size)
                     if not cell.is_linked(cell.east):
-                        draw.line((east_x, base_y, mid_x, apex_y), fill=wall, width=wall_size)
+                        draw.line((east_x, base_y, mid_x, apex_y), wall, wall_size)
 
                     no_south = cell.is_upright() and not cell.is_linked(cell.south)
                     not_linked = not cell.is_upright() and not cell.is_linked(cell.north)
 
                     if no_south or not_linked:
-                        draw.line((east_x, base_y, west_x, base_y), fill=wall, width=wall_size)
+                        draw.line((east_x, base_y, west_x, base_y), wall, wall_size)
 
         if save:
             if filename is None:

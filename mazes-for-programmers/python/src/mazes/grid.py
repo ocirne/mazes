@@ -263,16 +263,16 @@ class Grid:
         if mode == "backgrounds":
             color = self.background_color_for(cell)
             if color is not None:
-                draw.rectangle((x1, y1, x2, y2), fill=color, outline=color)
+                draw.rectangle((x1, y1, x2, y2), color, color)
         else:
             if not cell.north:
-                draw.line((x1, y1, x2, y1), fill=wall, width=wall_size)
+                draw.line((x1, y1, x2, y1), wall, wall_size)
             if not cell.west:
-                draw.line((x1, y1, x1, y2), fill=wall, width=wall_size)
+                draw.line((x1, y1, x1, y2), wall, wall_size)
             if not cell.is_linked(cell.east):
-                draw.line((x2, y1, x2, y2), fill=wall, width=wall_size)
+                draw.line((x2, y1, x2, y2), wall, wall_size)
             if not cell.is_linked(cell.south):
-                draw.line((x1, y2, x2, y2), fill=wall, width=wall_size)
+                draw.line((x1, y2, x2, y2), wall, wall_size)
 
     def cell_coordinates_with_inset(self, x, y, cell_size, inset):
         x1, x4 = x, x + cell_size
@@ -292,28 +292,28 @@ class Grid:
             ...
         else:
             if cell.is_linked(cell.north):
-                draw.line((x2, y1, x2, y2), wall, width=wall_size)
-                draw.line((x3, y1, x3, y2), wall, width=wall_size)
+                draw.line((x2, y1, x2, y2), wall, wall_size)
+                draw.line((x3, y1, x3, y2), wall, wall_size)
             else:
-                draw.line((x2, y2, x3, y2), wall, width=wall_size)
+                draw.line((x2, y2, x3, y2), wall, wall_size)
 
             if cell.is_linked(cell.south):
-                draw.line((x2, y3, x2, y4), wall, width=wall_size)
-                draw.line((x3, y3, x3, y4), wall, width=wall_size)
+                draw.line((x2, y3, x2, y4), wall, wall_size)
+                draw.line((x3, y3, x3, y4), wall, wall_size)
             else:
-                draw.line((x2, y3, x3, y3), wall, width=wall_size)
+                draw.line((x2, y3, x3, y3), wall, wall_size)
 
             if cell.is_linked(cell.west):
-                draw.line((x1, y2, x2, y2), wall, width=wall_size)
-                draw.line((x1, y3, x2, y3), wall, width=wall_size)
+                draw.line((x1, y2, x2, y2), wall, wall_size)
+                draw.line((x1, y3, x2, y3), wall, wall_size)
             else:
-                draw.line((x2, y2, x2, y3), wall, width=wall_size)
+                draw.line((x2, y2, x2, y3), wall, wall_size)
 
             if cell.is_linked(cell.east):
-                draw.line((x3, y2, x4, y2), wall, width=wall_size)
-                draw.line((x3, y3, x4, y3), wall, width=wall_size)
+                draw.line((x3, y2, x4, y2), wall, wall_size)
+                draw.line((x3, y3, x4, y3), wall, wall_size)
             else:
-                draw.line((x3, y2, x3, y3), wall, width=wall_size)
+                draw.line((x3, y2, x3, y3), wall, wall_size)
 
     def deadends(self):
         return [cell for cell in self.each_cell() if len(cell.links) == 1]
