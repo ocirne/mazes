@@ -288,8 +288,17 @@ class Grid:
     def to_img_with_inset(self, draw, cell, mode, cell_size, wall, wall_size, x, y, inset):
         x1, x2, x3, x4, y1, y2, y3, y4 = self.cell_coordinates_with_inset(x, y, cell_size, inset)
         if mode == "backgrounds":
-            # TODO
-            ...
+            color = self.background_color_for(cell)
+            if color is not None:
+                draw.rectangle((x2, y2, x3, y3), color, color)
+                if cell.is_linked(cell.north):
+                    draw.rectangle((x2, y1, x3, y2), color, color)
+                if cell.is_linked(cell.south):
+                    draw.rectangle((x2, y3, x3, y4), color, color)
+                if cell.is_linked(cell.west):
+                    draw.rectangle((x1, y2, x2, y3), color, color)
+                if cell.is_linked(cell.east):
+                    draw.rectangle((x3, y2, x4, y3), color, color)
         else:
             if cell.is_linked(cell.north):
                 draw.line((x2, y1, x2, y2), wall, wall_size)

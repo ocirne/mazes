@@ -12,7 +12,7 @@ class ColoredGrid(Grid):
         farthest, self.maximum = distances.max()
 
     def background_color_for(self, cell):
-        if cell not in self.distances:
+        if self.distances is None or cell not in self.distances:
             return None
         distance = self.distances[cell]
         intensity = (self.maximum - distance) / self.maximum
