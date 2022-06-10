@@ -4,6 +4,7 @@ from cell import Cell
 class UnderCell(Cell):
     def __init__(self, over_cell):
         super().__init__(over_cell.row, over_cell.column)
+        self.over_cell = over_cell
 
         if over_cell.horizontal_passage():
             self.north = over_cell.north
