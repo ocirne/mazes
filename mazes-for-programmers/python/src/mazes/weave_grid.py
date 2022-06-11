@@ -60,7 +60,7 @@ class WeaveGrid(Grid):
         farthest, self.maximum = distances.max()
 
     def background_color_for(self, cell):
-        if cell not in self.distances:
+        if cell is None or cell not in self.distances:
             return None
         distance = self.distances[cell]
         intensity = (self.maximum - distance) / self.maximum
@@ -68,7 +68,12 @@ class WeaveGrid(Grid):
         return 0, bright, 0
 
     def background_color_for_under_cell(self, cell):
-        r, g, b = self.background_color_for(cell.over_cell)
+        if cell is None:
+            return None
+        t = self.background_color_for(cell.over_cell)
+        if t is None:
+            return None
+        r, g, b = t
         return 0, 0, g
 
 
