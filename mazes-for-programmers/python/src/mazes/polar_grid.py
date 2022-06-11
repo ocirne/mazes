@@ -120,27 +120,32 @@ class PolarGrid(Grid):
         r2 = r1 + radius_inset
         r3 = r4 - radius_inset
 
-        theta_inset = inset * theta
         t1, t4 = t, t + theta
-        t2 = t1 + theta_inset
-        t3 = t4 - theta_inset
+
+        theta_inset_1 = inset * theta * r1 / r1
+        theta_inset_2 = inset * theta * r1 / r2
+        theta_inset_3 = inset * theta * r1 / r3
+        theta_inset_4 = inset * theta * r1 / r4
 
         a = self.to_polar(center, r2, t1)
         b = self.to_polar(center, r3, t1)
-        c = self.to_polar(center, r1, t2)
-        d = self.to_polar(center, r2, t2)
-        e = self.to_polar(center, r3, t2)
-        f = self.to_polar(center, r4, t2)
-        g = self.to_polar(center, r1, t3)
-        h = self.to_polar(center, r2, t3)
-        i = self.to_polar(center, r3, t3)
-        k = self.to_polar(center, r4, t3)
+        c = self.to_polar(center, r1, t1 + theta_inset_1)
+        d = self.to_polar(center, r2, t1 + theta_inset_2)
+        e = self.to_polar(center, r3, t1 + theta_inset_3)
+        f = self.to_polar(center, r4, t1 + theta_inset_4)
+        g = self.to_polar(center, r1, t4 - theta_inset_1)
+        h = self.to_polar(center, r2, t4 - theta_inset_2)
+        i = self.to_polar(center, r3, t4 - theta_inset_3)
+        k = self.to_polar(center, r4, t4 - theta_inset_4)
         m = self.to_polar(center, r2, t4)
         n = self.to_polar(center, r3, t4)
 
         return a, b, c, d, e, f, g, h, i, k, m, n
 
-    def to_img_with_polar_inset(self, draw, cell, mode, cell_size, wall, wall_size, center, r, t, theta, inset):
+    # 'PolarGrid.to_img_with_polar_inset' is too complex (19)
+    def to_img_with_polar_inset(  # noqa: C901
+        self, draw, cell, mode, cell_size, wall, wall_size, center, r, t, theta, inset
+    ):
         """
           a     b
         c d --- e f
@@ -162,10 +167,18 @@ class PolarGrid(Grid):
                     draw.polygon((a, b, e, d), color, color)
                 if cell.is_linked(cell.inward):
                     draw.polygon((c, d, h, g), color, color)
-        # TODO
-        #                if cell.is_linked(cell.outward):
-        #                    color = ImageColor.getrgb("gray")
-        #                    draw.polygon((e, f, k, i), color, color)
+
+                if len(cell.outward) == 1 and cell.is_linked(cell.outward[0]):
+                    draw.polygon((e, f, k, i), color, color)
+                elif len(cell.outward) == 2:
+                    sub_theta = theta / len(cell.outward)
+                    for index, o in enumerate(cell.outward):
+                        sub_t = t + index * sub_theta
+                        a, b, c, d, e, f, g, h, i, k, m, n = self.cell_coordinates_with_polar_inset(
+                            r, sub_t, theta / 2, cell_size, center, 2 * inset
+                        )
+                        if cell.is_linked(o):
+                            draw.polygon((e, f, k, i), color, color)
 
         else:
             if cell.is_linked(cell.cw):
@@ -186,12 +199,28 @@ class PolarGrid(Grid):
             else:
                 draw.line((d, h), wall, wall_size)
 
-            if cell.outward or cell.is_linked(cell.east):
-                #                draw.line((x3, y2, x4, y2), wall, wall_size)
-                #                draw.line((x3, y3, x4, y3), wall, wall_size)
-                ...
-            else:
+            if not cell.outward:
                 draw.line((e, i), wall, wall_size)
+            elif len(cell.outward) == 1:
+                if cell.is_linked(cell.outward[0]):
+                    draw.line((e, f), wall, wall_size)
+                    draw.line((i, k), wall, wall_size)
+                else:
+                    draw.line((e, i), wall, wall_size)
+            elif len(cell.outward) == 2:
+                sub_theta = theta / len(cell.outward)
+                for index, o in enumerate(cell.outward):
+                    sub_t = t + index * sub_theta
+                    a, b, c, d, e, f, g, h, i, k, m, n = self.cell_coordinates_with_polar_inset(
+                        r, sub_t, theta / 2, cell_size, center, 2 * inset
+                    )
+                    if cell.is_linked(o):
+                        draw.line((e, f), wall, wall_size)
+                        draw.line((i, k), wall, wall_size)
+                    else:
+                        draw.line((e, i), wall, wall_size)
+            else:
+                raise NotImplementedError
 
     def set_distances(self, distances):
         self.distances = distances
@@ -209,13 +238,13 @@ class PolarGrid(Grid):
 
 # Demo
 if __name__ == "__main__":
-    grid = PolarGrid(5)
+    grid = PolarGrid(10)
     RecursiveBacktracker.on(grid)
 
     start = grid[0, 0]
     distances = start.distances()
     grid.set_distances(distances)
 
-    grid.to_img(cell_size=80, wall_size=10, filename="polar_grid.png")
+    grid.to_img(cell_size=80, wall_size=3, filename="polar_grid.png")
 
-    grid.to_img(cell_size=80, wall_size=10, inset=0.2, filename="polar_grid_inset.png")
+    grid.to_img(cell_size=80, wall_size=3, inset=0.1, filename="polar_grid_inset.png")
