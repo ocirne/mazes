@@ -1,5 +1,6 @@
 from random import choice
 from grid import Grid
+from image_saver import save
 
 
 class HuntAndKill:
@@ -28,4 +29,4 @@ class HuntAndKill:
 if __name__ == "__main__":
     grid = Grid(20, 20)
     HuntAndKill.on(grid)
-    grid.to_img()
+    save(grid.to_img(), filename="hunt_and_kill.png")

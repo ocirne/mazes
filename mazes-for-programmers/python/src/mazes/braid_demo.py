@@ -1,6 +1,6 @@
 from colored_grid import ColoredGrid
 from recursive_backtracker import RecursiveBacktracker
-
+from image_saver import save
 
 if __name__ == "__main__":
     grid = ColoredGrid(21, 21)
@@ -10,7 +10,7 @@ if __name__ == "__main__":
     distances = start.distances()
     grid.set_distances(distances)
 
-    grid.to_img(filename="foo.png")
+    save(grid.to_img(), filename="recursive_backtracker_non_braided.png")
 
     grid.braid(0.5)
 
@@ -18,4 +18,4 @@ if __name__ == "__main__":
     distances = start.distances()
     grid.set_distances(distances)
 
-    grid.to_img(filename="foo_braided.png")
+    save(grid.to_img(), filename="recursive_backtracker_braided.png")

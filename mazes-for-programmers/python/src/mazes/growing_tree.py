@@ -1,6 +1,7 @@
 from random import choice, randint
 
 from colored_grid import ColoredGrid
+from image_saver import save
 
 
 class GrowingTree:
@@ -25,10 +26,10 @@ def create_growing_tree_grid(desc, select_cell):
     grid = ColoredGrid(21, 21)
     start = grid[10, 10]
     GrowingTree.on(grid, select_cell, start)
-    grid.to_img(filename="growing_tree_%s.png" % desc)
+    save(grid.to_img(), filename="growing_tree_%s.png" % desc)
 
     grid.set_distances(start.distances())
-    grid.to_img(filename="growing_tree_%s_colored.png" % desc)
+    save(grid.to_img(), filename="growing_tree_%s_colored.png" % desc)
 
 
 # Demo

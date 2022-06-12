@@ -2,6 +2,7 @@ from random import randint
 
 from over_cell import OverCell
 from kruskals import Kruskals, State
+from image_saver import save
 from weave_grid import WeaveGrid
 
 
@@ -56,9 +57,9 @@ if __name__ == "__main__":
 
     Kruskals.on(grid, state)
 
-    grid.to_img(inset=0.2, filename="kruskals_weave.png")
+    save(grid.to_img(inset=0.2), filename="kruskals_weave.png")
 
     start = grid[0, 0]
     grid.set_distances(start.distances())
 
-    grid.to_img(inset=0.2, filename="kruskal_weave_colored.png")
+    save(grid.to_img(inset=0.2), filename="kruskal_weave_colored.png")

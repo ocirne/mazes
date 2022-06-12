@@ -1,7 +1,8 @@
-from heapq import heappush, heappop, heapify
+from heapq import heappush, heappop
 from random import choice, randint
 
 from colored_grid import ColoredGrid
+from image_saver import save
 
 
 class SimplifiedPrims:
@@ -47,19 +48,21 @@ def simplified_prims_demo():
     grid = ColoredGrid(21, 21)
     start = grid[10, 10]
     SimplifiedPrims.on(grid, start)
-    grid.to_img(filename="prims_simple.png")
+    save(grid.to_img(), filename="prims_simple.png")
     grid.set_distances(start.distances())
-    grid.to_img(filename="prims_simple_colored.png")
+    save(grid.to_img(), filename="prims_simple_colored.png")
 
 
 def true_prims_demo():
     grid = ColoredGrid(21, 21)
     start = grid[10, 10]
     TruePrims.on(grid, start)
-    grid.to_img(filename="prims_true.png")
+    save(grid.to_img(), filename="prims_true.png")
     grid.set_distances(start.distances())
-    grid.to_img(filename="prims_true_colored.png")
+    save(grid.to_img(), filename="prims_true_colored.png")
 
+
+#
 
 # Demo
 if __name__ == "__main__":

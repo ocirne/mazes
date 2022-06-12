@@ -1,4 +1,3 @@
-from datetime import datetime
 import math
 
 from PIL import Image, ImageColor, ImageDraw
@@ -6,6 +5,7 @@ from PIL import Image, ImageColor, ImageDraw
 from grid import Grid
 from hex_cell import HexCell
 from recursive_backtracker import RecursiveBacktracker
+from image_saver import save
 
 
 class HexGrid(Grid):
@@ -29,7 +29,7 @@ class HexGrid(Grid):
             cell.south = self[row + 1, col]
             cell.southeast = self[south_diagonal, col + 1]
 
-    def to_img(self, size=10, wall_size=3, filename=None, lfd=0, extension="png", save=True):
+    def to_img(self, size=10, wall_size=3):
         a_size = size / 2.0
         b_size = size * math.sqrt(3) / 2.0
         # width = size * 2
@@ -79,17 +79,11 @@ class HexGrid(Grid):
                     if not cell.is_linked(cell.south):
                         draw.line((x_ne, y_s, x_nw, y_s), wall, wall_size)
 
-        if save:
-            if filename is None:
-                filename = datetime.now().strftime("%%Y-%%m-%%d-%%H%%M%%S-%s.%s" % (lfd, extension))
-            print("write to file", filename)
-            img.save("images/" + filename)
-        else:
-            return img
+        return img
 
 
 if __name__ == "__main__":
     grid = HexGrid(10, 10)
     RecursiveBacktracker.on(grid)
 
-    grid.to_img()
+    save(grid.to_img(), filename="hex_grid.png")

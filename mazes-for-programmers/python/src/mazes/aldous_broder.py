@@ -1,6 +1,8 @@
 from grid import Grid
 from random import choice
 
+from image_saver import save
+
 
 class AldousBroder:
     @staticmethod
@@ -20,4 +22,4 @@ class AldousBroder:
 if __name__ == "__main__":
     grid = Grid(20, 20)
     AldousBroder.on(grid)
-    grid.to_img()
+    save(grid.to_img(), "aldous_broder.png")

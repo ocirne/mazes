@@ -1,6 +1,7 @@
 from grid import Grid
 from over_cell import OverCell
 from recursive_backtracker import RecursiveBacktracker
+from image_saver import save
 from under_cell import UnderCell
 
 
@@ -23,12 +24,14 @@ class WeaveGrid(Grid):
         for cell in self.under_cells:
             yield cell
 
-    def to_img(self, cell_size=100, wall_size=3, inset=0.1, filename=None, lfd=0, extension="png", save=True):
-        super().to_img(cell_size, wall_size, inset, filename, lfd, extension, save)
+    def to_img(self, cell_size=100, wall_size=3, inset=0.1):
+        return super().to_img(cell_size, wall_size, inset)
 
     def to_img_with_inset(self, draw, cell, mode, cell_size, wall_color, floor_color, wall_size, x, y, inset):
         if isinstance(cell, OverCell):
-            super().to_img_with_inset(draw, cell, mode, cell_size, wall_color, floor_color, wall_size, x, y, inset)
+            return super().to_img_with_inset(
+                draw, cell, mode, cell_size, wall_color, floor_color, wall_size, x, y, inset
+            )
         else:
             x1, x2, x3, x4, y1, y2, y3, y4 = self.cell_coordinates_with_inset(x, y, cell_size, inset)
             if mode == "backgrounds":
@@ -86,4 +89,5 @@ if __name__ == "__main__":
     distances = start.distances()
     grid.set_distances(distances)
 
-    grid.to_img(filename="weave.png")
+    save(grid.to_img(), filename="weave.png")
+#

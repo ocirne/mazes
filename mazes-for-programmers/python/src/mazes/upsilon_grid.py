@@ -1,9 +1,9 @@
-from datetime import datetime
 import math
 
 from PIL import Image, ImageColor, ImageDraw
 
 from grid import Grid
+from image_saver import save
 from upsilon_cell import UpsilonCell
 from recursive_backtracker import RecursiveBacktracker
 
@@ -25,7 +25,7 @@ class UpsilonGrid(Grid):
                 cell.southeast = self[row + 1, col + 1]
                 cell.southwest = self[row + 1, col - 1]
 
-    def to_img(self, size=10, wall_size=3, filename=None, lfd=0, extension="png", save=True):
+    def to_img(self, size=10, wall_size=3):
         c_size = size
         half_c_size = c_size / 2
         a_size = size / math.sqrt(2)
@@ -98,13 +98,7 @@ class UpsilonGrid(Grid):
                         if not cell.southwest:
                             draw.line((p7, p0), wall, wall_size)
 
-        if save:
-            if filename is None:
-                filename = datetime.now().strftime("%%Y-%%m-%%d-%%H%%M%%S-%s.%s" % (lfd, extension))
-            print("write to file", filename)
-            img.save("images/" + filename)
-        else:
-            return img
+        return img
 
     def set_distances(self, distances):
         self.distances = distances
@@ -128,4 +122,4 @@ if __name__ == "__main__":
     distances = start.distances()
     grid.set_distances(distances)
 
-    grid.to_img()
+    save(grid.to_img(), filename="upsilon.png")

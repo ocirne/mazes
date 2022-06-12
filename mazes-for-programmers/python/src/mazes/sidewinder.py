@@ -1,5 +1,6 @@
 from random import choice, randint
 from grid import Grid
+from image_saver import save
 
 
 class Sidewinder:
@@ -28,4 +29,4 @@ if __name__ == "__main__":
     print(grid)
     print(grid.to_str_unicode())
 
-    grid.to_img()
+    save(grid.to_img(), filename="sidewinder.png")

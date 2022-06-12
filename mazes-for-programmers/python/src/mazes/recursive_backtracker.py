@@ -1,5 +1,6 @@
 from random import choice
 from grid import Grid
+from image_saver import save
 
 
 class RecursiveBacktracker:
@@ -24,4 +25,4 @@ class RecursiveBacktracker:
 if __name__ == "__main__":
     grid = Grid(20, 20)
     RecursiveBacktracker.on(grid)
-    grid.to_img()
+    save(grid.to_img(), filename="recursive_backtracker.png")

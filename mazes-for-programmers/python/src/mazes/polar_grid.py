@@ -1,4 +1,3 @@
-from datetime import datetime
 from math import cos, sin, pi
 from random import randint
 
@@ -7,6 +6,7 @@ from PIL import ImageColor, ImageDraw, Image
 from grid import Grid
 from polar_cell import PolarCell
 from recursive_backtracker import RecursiveBacktracker
+from image_saver import save
 
 
 class PolarGrid(Grid):
@@ -52,7 +52,7 @@ class PolarGrid(Grid):
         col = randint(0, len(self.grid[row]) - 1)
         return self.grid[row][col]
 
-    def to_img(self, cell_size=10, wall_size=3, inset=None, filename=None, lfd=0, extension="png", save=True):
+    def to_img(self, cell_size=10, wall_size=3, inset=None):
         img_size = 2 * self.rows * cell_size
 
         background = ImageColor.getrgb("black")
@@ -79,13 +79,7 @@ class PolarGrid(Grid):
                     self.to_img_without_polar_inset(draw, cell, mode, cell_size, wall, wall_size, center, r, t, theta)
                     draw.ellipse((0, 0, img_size, img_size), outline=wall, width=wall_size)
 
-        if save:
-            if filename is None:
-                filename = datetime.now().strftime("%%Y-%%m-%%d-%%H%%M%%S-%s.%s" % (lfd, extension))
-            print("write to file", filename)
-            img.save("images/" + filename)
-        else:
-            return img
+        return img
 
     def to_img_without_polar_inset(self, draw, cell, mode, cell_size, wall, wall_size, center, r, t, theta):
         r1, r4 = r, r + cell_size
@@ -142,7 +136,7 @@ class PolarGrid(Grid):
 
         return a, b, c, d, e, f, g, h, i, k, m, n
 
-    # 'PolarGrid.to_img_with_polar_inset' is too complex (19)
+    # 'PolarGrid._to_img__with_polar_inset' is too complex (19)
     def to_img_with_polar_inset(  # noqa: C901
         self, draw, cell, mode, cell_size, wall, wall_size, center, r, t, theta, inset
     ):
@@ -245,6 +239,5 @@ if __name__ == "__main__":
     distances = start.distances()
     grid.set_distances(distances)
 
-    grid.to_img(cell_size=80, wall_size=3, filename="polar_grid.png")
-
-    grid.to_img(cell_size=80, wall_size=3, inset=0.1, filename="polar_grid_inset.png")
+    save(grid.to_img(cell_size=80, wall_size=3), filename="polar_grid.png")
+    save(grid.to_img(cell_size=80, wall_size=3, inset=0.1), filename="polar_grid_inset.png")

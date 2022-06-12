@@ -1,6 +1,8 @@
 from grid import Grid
 from random import choice
 
+from image_saver import save
+
 
 class Wilsons:
     @staticmethod
@@ -29,4 +31,4 @@ if __name__ == "__main__":
     grid = Grid(20, 20)
     Wilsons.on(grid)
 
-    grid.to_img()
+    save(grid.to_img(), filename="wilsons.png")

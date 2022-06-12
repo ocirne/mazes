@@ -1,5 +1,6 @@
 from random import choice
 from grid import Grid
+from image_saver import save
 
 
 class BinaryTree:
@@ -22,6 +23,6 @@ if __name__ == "__main__":
     BinaryTree().on(grid)
     print(grid)
 
-    grid.to_img()
+    save(grid.to_img(), filename="binary_tree.png")
     deadends = grid.deadends()
     print("%s dead-ends" % len(deadends))

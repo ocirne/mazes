@@ -1,6 +1,7 @@
 from random import sample, randint
 
 from grid import Grid
+from image_saver import save
 
 
 class State:
@@ -78,4 +79,4 @@ if __name__ == "__main__":
     grid = Grid(20, 20)
     Kruskals.on(grid)
 
-    grid.to_img(filename="kruskals.png")
+    save(grid.to_img(), filename="kruskals.png")

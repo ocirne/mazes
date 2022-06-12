@@ -1,7 +1,6 @@
 from cell import Cell, wall_size
 from random import choice, randint, sample, random
 from PIL import Image, ImageDraw, ImageColor
-from datetime import datetime
 
 
 class Grid:
@@ -228,7 +227,7 @@ class Grid:
     def background_color_for(self, cell):
         return None
 
-    def to_img(self, cell_size=100, wall_size=3, inset=0.0, filename=None, lfd=0, extension="png", save=True):
+    def to_img(self, cell_size=100, wall_size=3, inset=0.0):
         img_width = cell_size * self.columns
         img_height = cell_size * self.rows
         inset = int(cell_size * inset)
@@ -249,13 +248,7 @@ class Grid:
                 else:
                     self.to_img_without_inset(draw, cell, mode, cell_size, wall_color, floor_color, wall_size, x, y)
 
-        if save:
-            if filename is None:
-                filename = datetime.now().strftime("%%Y-%%m-%%d-%%H%%M%%S-%s.%s" % (lfd, extension))
-            print("write to file", filename)
-            img.save("images/" + filename)
-        else:
-            return img
+        return img
 
     def to_img_without_inset(self, draw, cell, mode, cell_size, wall_color, floor_color, wall_size, x1, y1):
         x2 = x1 + cell_size
