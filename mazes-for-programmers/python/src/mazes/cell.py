@@ -11,6 +11,9 @@ class Cell:
         self.east = None
         self.west = None
 
+    def __gt__(self, other):
+        return self.row < other.row
+
     def link(self, cell, bidi=True):
         self.links[cell] = True
         if bidi:

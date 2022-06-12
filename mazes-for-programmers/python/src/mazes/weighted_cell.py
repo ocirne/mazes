@@ -21,6 +21,3 @@ class WeightedCell(Cell):
                     heappush(pending, (total_weight, neighbor))
                     weights[neighbor] = total_weight
         return weights
-
-    def __gt__(self, other):
-        return self.weight < other.weight
