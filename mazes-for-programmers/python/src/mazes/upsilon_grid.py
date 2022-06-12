@@ -9,6 +9,11 @@ from recursive_backtracker import RecursiveBacktracker
 
 
 class UpsilonGrid(Grid):
+    def __init__(self, rows, columns):
+        self.distances = None
+        self.maximum = None
+        super().__init__(rows, columns)
+
     def prepare_grid(self):
         return [[UpsilonCell(row, column) for column in range(self.columns)] for row in range(self.rows)]
 
@@ -25,10 +30,12 @@ class UpsilonGrid(Grid):
                 cell.southeast = self[row + 1, col + 1]
                 cell.southwest = self[row + 1, col - 1]
 
-    def to_img(self, size=10, wall_size=3):
-        c_size = size
+    def to_img(self, cell_size=10, wall_size=3, inset=0.0):
+        if inset != 0.0:
+            raise NotImplementedError
+        c_size = cell_size
         half_c_size = c_size / 2
-        a_size = size / math.sqrt(2)
+        a_size = cell_size / math.sqrt(2)
         corrected_size = c_size + a_size
 
         img_width = int(corrected_size * (self.columns + 1))

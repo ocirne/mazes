@@ -18,14 +18,14 @@ standard_deviation = {}
 
 for algorithm in algorithms:
     print("running %s ..." % algorithm.__name__)
-    deadend_counts = []
+    dead_end_counts = []
     for _ in range(tries):
         grid = Grid(size, size)
         algorithm.on(grid)
-        deadend_counts.append(len(grid.deadends()))
+        dead_end_counts.append(len(grid.dead_ends()))
 
-    averages[algorithm] = mean(deadend_counts)
-    standard_deviation[algorithm] = stdev(deadend_counts)
+    averages[algorithm] = mean(dead_end_counts)
+    standard_deviation[algorithm] = stdev(dead_end_counts)
 
 total_cells = size * size
 print()

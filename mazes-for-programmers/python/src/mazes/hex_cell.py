@@ -10,17 +10,17 @@ class HexCell(Cell):
         self.southwest = None
 
     def neighbors(self):
-        list = []
+        result = []
         if self.northwest is not None:
-            list.append(self.northwest)
+            result.append(self.northwest)
         if self.north is not None:
-            list.append(self.north)
+            result.append(self.north)
         if self.northeast is not None:
-            list.append(self.northeast)
+            result.append(self.northeast)
         if self.southwest is not None:
-            list.append(self.southwest)
+            result.append(self.southwest)
         if self.south is not None:
-            list.append(self.south)
+            result.append(self.south)
         if self.southeast is not None:
-            list.append(self.southeast)
-        return list
+            result.append(self.southeast)
+        return result

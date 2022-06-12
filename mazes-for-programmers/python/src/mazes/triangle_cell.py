@@ -6,13 +6,13 @@ class TriangleCell(Cell):
         return (self.row + self.column) % 2 == 0
 
     def neighbors(self):
-        list = []
+        result = []
         if self.west is not None:
-            list.append(self.west)
+            result.append(self.west)
         if self.east is not None:
-            list.append(self.east)
+            result.append(self.east)
         if (not self.is_upright()) and (self.north is not None):
-            list.append(self.north)
+            result.append(self.north)
         if (self.is_upright()) and (self.south is not None):
-            list.append(self.south)
-        return list
+            result.append(self.south)
+        return result

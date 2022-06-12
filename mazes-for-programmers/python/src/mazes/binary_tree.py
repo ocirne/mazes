@@ -24,5 +24,5 @@ if __name__ == "__main__":
     print(grid)
 
     save(grid.to_img(), filename="binary_tree.png")
-    deadends = grid.deadends()
-    print("%s dead-ends" % len(deadends))
+    dead_ends = grid.dead_ends()
+    print("%s dead-ends" % len(dead_ends))

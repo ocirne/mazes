@@ -40,16 +40,16 @@ class Cell:
         return 0
 
     def neighbors(self):
-        list = []
+        result = []
         if self.north is not None:
-            list.append(self.north)
+            result.append(self.north)
         if self.south is not None:
-            list.append(self.south)
+            result.append(self.south)
         if self.west is not None:
-            list.append(self.west)
+            result.append(self.west)
         if self.east is not None:
-            list.append(self.east)
-        return list
+            result.append(self.east)
+        return result
 
     def distances(self):
         distances = Distances(self)

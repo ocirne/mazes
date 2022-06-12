@@ -8,22 +8,23 @@ from weave_grid import WeaveGrid
 
 class SimpleOverCell(OverCell):
     def neighbors(self):
-        list = []
+        result = []
         if self.north is not None:
-            list.append(self.north)
+            result.append(self.north)
         if self.south is not None:
-            list.append(self.south)
+            result.append(self.south)
         if self.west is not None:
-            list.append(self.west)
+            result.append(self.west)
         if self.east is not None:
-            list.append(self.east)
-        return list
+            result.append(self.east)
+        return result
 
 
 class PreconfiguredGrid(WeaveGrid):
     def __init__(self, rows, columns):
         super().__init__(rows, columns)
         self.distances = []
+        self.maximum = None
 
     def prepare_grid(self):
         return [[SimpleOverCell(row, column, self) for column in range(self.columns)] for row in range(self.rows)]

@@ -23,12 +23,14 @@ class TriangleGrid(Grid):
             else:
                 cell.north = self[row - 1, col]
 
-    def to_img(self, size=10, wall_size=3):
-        half_width = size / 2.0
-        height = size * math.sqrt(3) / 2.0
+    def to_img(self, cell_size=10, wall_size=3, inset=0.0):
+        if inset != 0.0:
+            raise NotImplementedError
+        half_width = cell_size / 2.0
+        height = cell_size * math.sqrt(3) / 2.0
         half_height = height / 2.0
 
-        img_width = int(size * (self.columns + 1) / 2.0)
+        img_width = int(cell_size * (self.columns + 1) / 2.0)
         img_height = int(height * self.rows)
 
         background = ImageColor.getrgb("black")

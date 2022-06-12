@@ -10,12 +10,12 @@ class PolarCell(Cell):
         self.outward = []
 
     def neighbors(self):
-        list = []
+        result = []
         if self.cw is not None:
-            list.append(self.cw)
+            result.append(self.cw)
         if self.ccw is not None:
-            list.append(self.ccw)
+            result.append(self.ccw)
         if self.inward is not None:
-            list.append(self.inward)
-        list.extend(self.outward)
-        return list
+            result.append(self.inward)
+        result.extend(self.outward)
+        return result

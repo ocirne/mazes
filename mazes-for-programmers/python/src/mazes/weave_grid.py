@@ -8,6 +8,8 @@ from under_cell import UnderCell
 class WeaveGrid(Grid):
     def __init__(self, rows, columns):
         self.under_cells = []
+        self.distances = None
+        self.maximum = None
         super().__init__(rows, columns)
 
     def prepare_grid(self):
@@ -90,4 +92,3 @@ if __name__ == "__main__":
     grid.set_distances(distances)
 
     save(grid.to_img(), filename="weave.png")
-#

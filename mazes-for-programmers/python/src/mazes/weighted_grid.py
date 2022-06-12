@@ -5,6 +5,11 @@ from weighted_cell import WeightedCell
 
 
 class WeightedGrid(Grid):
+    def __init__(self, rows, columns):
+        self.distances = None
+        self.maximum = None
+        super().__init__(rows, columns)
+
     def set_distances(self, distances):
         self.distances = distances
         _, self.maximum = distances.max()

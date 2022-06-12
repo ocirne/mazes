@@ -13,21 +13,21 @@ class UpsilonCell(Cell):
         return (self.row + self.column) % 2 == 0
 
     def neighbors(self):
-        list = []
+        result = []
         if self.northwest is not None:
-            list.append(self.northwest)
+            result.append(self.northwest)
         if self.north is not None:
-            list.append(self.north)
+            result.append(self.north)
         if self.northeast is not None:
-            list.append(self.northeast)
+            result.append(self.northeast)
         if self.east is not None:
-            list.append(self.east)
+            result.append(self.east)
         if self.southwest is not None:
-            list.append(self.southwest)
+            result.append(self.southwest)
         if self.south is not None:
-            list.append(self.south)
+            result.append(self.south)
         if self.southeast is not None:
-            list.append(self.southeast)
+            result.append(self.southeast)
         if self.west is not None:
-            list.append(self.west)
-        return list
+            result.append(self.west)
+        return result

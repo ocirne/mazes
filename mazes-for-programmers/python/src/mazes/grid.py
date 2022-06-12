@@ -250,7 +250,8 @@ class Grid:
 
         return img
 
-    def to_img_without_inset(self, draw, cell, mode, cell_size, wall_color, floor_color, wall_size, x1, y1):
+    @staticmethod
+    def to_img_without_inset(draw, cell, mode, cell_size, wall_color, floor_color, wall_size, x1, y1):
         x2 = x1 + cell_size
         y2 = y1 + cell_size
 
@@ -267,7 +268,8 @@ class Grid:
             if not cell.is_linked(cell.south):
                 draw.line((x1, y2, x2, y2), wall_color, wall_size)
 
-    def cell_coordinates_with_inset(self, x, y, cell_size, inset):
+    @staticmethod
+    def cell_coordinates_with_inset(x, y, cell_size, inset):
         x1, x4 = x, x + cell_size
         x2 = x1 + inset
         x3 = x4 - inset
@@ -316,12 +318,12 @@ class Grid:
             else:
                 draw.line((x3, y2, x3, y3), wall_color, wall_size)
 
-    def deadends(self):
+    def dead_ends(self):
         return [cell for cell in self.each_cell() if len(cell.links) == 1]
 
     def braid(self, p=1.0):
-        deadends = self.deadends()
-        for cell in sample(deadends, len(deadends)):
+        dead_ends = self.dead_ends()
+        for cell in sample(dead_ends, len(dead_ends)):
             if len(cell.links) != 1 or random() > p:
                 continue
             neighbors = [n for n in cell.neighbors() if not cell.is_linked(n)]

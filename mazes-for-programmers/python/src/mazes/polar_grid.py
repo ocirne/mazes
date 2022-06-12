@@ -105,7 +105,8 @@ class PolarGrid(Grid):
             if not cell.is_linked(cell.cw):
                 draw.line((cx, cy, dx, dy), wall, wall_size)
 
-    def to_polar(self, center, r, t):
+    @staticmethod
+    def to_polar(center, r, t):
         return center + (r * cos(t)), center + (r * sin(t))
 
     def cell_coordinates_with_polar_inset(self, r, t, theta, cell_size, center, inset):

@@ -7,16 +7,16 @@ class OverCell(Cell):
         self.grid = grid
 
     def neighbors(self):
-        list = super().neighbors()
+        result = super().neighbors()
         if self.can_tunnel_north():
-            list.append(self.north.north)
+            result.append(self.north.north)
         if self.can_tunnel_south():
-            list.append(self.south.south)
+            result.append(self.south.south)
         if self.can_tunnel_east():
-            list.append(self.east.east)
+            result.append(self.east.east)
         if self.can_tunnel_west():
-            list.append(self.west.west)
-        return list
+            result.append(self.west.west)
+        return result
 
     def can_tunnel_north(self):
         return self.north and self.north.north and self.north.horizontal_passage()

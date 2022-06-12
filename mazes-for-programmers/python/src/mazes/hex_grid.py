@@ -29,9 +29,11 @@ class HexGrid(Grid):
             cell.south = self[row + 1, col]
             cell.southeast = self[south_diagonal, col + 1]
 
-    def to_img(self, size=10, wall_size=3):
-        a_size = size / 2.0
-        b_size = size * math.sqrt(3) / 2.0
+    def to_img(self, cell_size=10, wall_size=3, inset=0.0):
+        if inset != 0.0:
+            raise NotImplementedError
+        a_size = cell_size / 2.0
+        b_size = cell_size * math.sqrt(3) / 2.0
         # width = size * 2
         height = b_size * 2
 
@@ -46,15 +48,15 @@ class HexGrid(Grid):
 
         for mode in ["backgrounds", "walls"]:
             for cell in self.each_cell():
-                cx = size + 3 * cell.column * a_size
+                cx = cell_size + 3 * cell.column * a_size
                 cy = b_size + cell.row * height
                 if cell.column % 2 != 0:
                     cy += b_size
 
-                x_fw = int(cx - size)
+                x_fw = int(cx - cell_size)
                 x_nw = int(cx - a_size)
                 x_ne = int(cx + a_size)
-                x_fe = int(cx + size)
+                x_fe = int(cx + cell_size)
 
                 y_n = int(cy - b_size)
                 y_m = int(cy)
