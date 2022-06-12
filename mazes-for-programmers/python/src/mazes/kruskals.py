@@ -37,6 +37,7 @@ class State:
                 self.cells_in_set[winner].append(cell)
                 self.set_for_cell[cell] = winner
             del self.cells_in_set[loser]
+            # TODO Bug: Da treten Schleifen auf.
 
     def add_crossing(self, cell):
         if cell.links or not self.can_merge(cell.east, cell.west) or not self.can_merge(cell.north, cell.south):
