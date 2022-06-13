@@ -15,7 +15,7 @@ class RecursiveDivision:
         self.divide(0, 0, self.grid.rows, self.grid.columns)
 
     def divide(self, row, column, height, width):
-        if height <= 1 or width <= 1:
+        if height <= 1 or width <= 1 or (height <= 5 and width <= 5 and randint(0, 4) == 0):
             return
         if height > width:
             self.divide_horizontally(row, column, height, width)
