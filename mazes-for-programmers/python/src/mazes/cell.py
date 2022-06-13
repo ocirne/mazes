@@ -21,7 +21,8 @@ class Cell:
         return self
 
     def unlink(self, cell, bidi=True):
-        del self.links[cell]
+        if cell in self.links:
+            del self.links[cell]
         if bidi:
             cell.unlink(cell, False)
         return self
