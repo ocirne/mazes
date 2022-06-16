@@ -1,5 +1,6 @@
-package io.github.ocirne.mazes
+package io.github.ocirne.mazes.grids
 
+import io.github.ocirne.mazes.colorization.Colorization
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
@@ -8,16 +9,23 @@ import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
 
-class PolarGrid(override val rows: Int) : Grid(rows, 1) {
+class PolarGrid(private val rows: Int) : Grid<PolarCell> {
 
-    override fun prepareGrid(): Array<Array<Cell>> {
-        val rings = mutableListOf<Array<Cell>>()
+    val grid: Array<Array<PolarCell>>
 
-        val rowHeight = 1.0 / super.rows.toFloat()
+    init {
+        grid = prepareGrid()
+        configureCells()
+    }
+
+    fun prepareGrid(): Array<Array<PolarCell>> {
+        val rings = mutableListOf<Array<PolarCell>>()
+
+        val rowHeight = 1.0 / rows.toFloat()
         rings.add(arrayOf(PolarCell(0, 0)))
 
-        for (row in 1..super.rows) {
-            val radius = row.toFloat() / super.rows
+        for (row in 1..rows) {
+            val radius = row.toFloat() / rows
             val circumference = 2 * PI * radius
 
             val previousCount = rings[row - 1].size
@@ -27,18 +35,13 @@ class PolarGrid(override val rows: Int) : Grid(rows, 1) {
             val cells = previousCount * ratio
             rings.add(Array(cells) { col -> PolarCell(row, col) })
         }
-        println(rings.size)
-        println(Array(super.rows) { row -> rings[row] }.size)
-        return Array(super.rows) { row -> rings[row] }
+        return Array(rows) { row -> rings[row] }
     }
 
-    override fun configureCells() {
+    fun configureCells() {
         for (cell in eachCell()) {
             val row = cell.row
             val col = cell.column
-
-            cell as PolarCell
-
             if (row > 0) {
                 cell.cw = this[row, col + 1]
                 cell.ccw = this[row, col - 1]
@@ -51,23 +54,27 @@ class PolarGrid(override val rows: Int) : Grid(rows, 1) {
         }
     }
 
-    override operator fun get(row: Int, column: Int): Cell? {
-        if (row < 0 || super.rows <= row) {
+    override operator fun get(row: Int, column: Int): PolarCell? {
+        if (row < 0 || rows <= row) {
             return null
         }
         return grid[row][Math.floorMod(column, grid[row].size)]
     }
 
-    override fun toImage(cellSize: Int): RenderedImage {
-        val imgSize = 2 * super.rows * cellSize
+    override fun size(): Int {
+        TODO("Not yet implemented")
+    }
 
-        val background = Color.BLACK
-        val wall = Color.WHITE
+    override fun eachCell(): List<PolarCell> {
+        return grid.flatten()
+    }
+
+    override fun toImage(cellSize: Int, colorization: Colorization): RenderedImage {
+        val imgSize = 2 * rows * cellSize
 
         val image = BufferedImage(imgSize + 1, imgSize + 1, BufferedImage.TYPE_INT_RGB)
         val g = image.createGraphics()
-        g.background = background
-        g.color = wall
+        g.background = Color.BLACK
 
         val center = imgSize / 2
 
@@ -85,8 +92,7 @@ class PolarGrid(override val rows: Int) : Grid(rows, 1) {
             val dx = center + (outer_radius * cos(theta_cw)).toInt()
             val dy = center + (outer_radius * sin(theta_cw)).toInt()
 
-            cell as PolarCell
-
+            g.color = colorization.colorForWall(cell)
             if (!cell.isLinked(cell.inward))
                 g.drawLine(ax, ay, cx, cy)
             if (!cell.isLinked(cell.cw))

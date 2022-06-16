@@ -1,9 +1,11 @@
-package io.github.ocirne.mazes
+package io.github.ocirne.mazes.algorithms
+
+import io.github.ocirne.mazes.grids.CartesianGrid
 
 class BinaryTree {
 
     companion object {
-        fun on(grid: Grid): Grid {
+        fun on(grid: CartesianGrid): CartesianGrid {
             for (cell in grid.eachCell()) {
                 val neighbors = listOfNotNull(cell.north, cell.east)
                 if (neighbors.isEmpty()) {

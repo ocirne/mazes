@@ -1,10 +1,13 @@
-package io.github.ocirne.mazes
+package io.github.ocirne.mazes.algorithms
+
+import io.github.ocirne.mazes.grids.Cell
+import io.github.ocirne.mazes.grids.Grid
 
 class RecursiveBacktracker {
 
     companion object {
-        fun on(grid: Grid, startAt: Cell = grid.randomCell()): Grid {
-            val stack = ArrayDeque<Cell>()
+        fun <C: Cell> on(grid: Grid<C>, startAt: C = grid.randomCell()): Grid<C> {
+            val stack = ArrayDeque<C>()
             stack.addLast(startAt)
             while (stack.isNotEmpty()) {
                 val current = stack.last()
@@ -15,7 +18,7 @@ class RecursiveBacktracker {
                 } else {
                     val neighbor = neighbors.random()
                     current.link(neighbor!!)
-                    stack.addLast(neighbor)
+                    stack.addLast(neighbor as C)
                 }
 
             }
@@ -23,7 +26,7 @@ class RecursiveBacktracker {
         }
     }
 
-    fun recursivelyOn(grid: Grid, start_at: Cell = grid.randomCell()): Grid {
+    fun recursivelyOn(grid: Grid<Cell>, start_at: Cell = grid.randomCell()): Grid<Cell> {
         walkFrom(start_at)
         return grid
     }

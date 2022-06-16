@@ -1,43 +1,25 @@
-package io.github.ocirne.mazes
+package io.github.ocirne.mazes.grids
 
+import io.github.ocirne.mazes.colorization.Colorization
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
-import kotlin.math.roundToInt
-import kotlin.random.Random
 
-open class Grid(open val rows: Int, val columns: Int) {
 
-    val grid: Array<Array<Cell>>
+class CartesianGrid(private val rows: Int, private val columns: Int) : Grid<CartesianCell> {
 
-    // TODO move to ColoredGrid
-    var distances: Distances? = null
-
-    fun backgroundColorFor(cell: Cell): Color? {
-        if (distances == null) {
-            return null
-        }
-        if (distances!![cell] == null) {
-            return null
-        }
-        val distance = distances!![cell] ?: return null
-        val maximum = distances!!.max()!!.value
-        val intensity = (maximum - distance).toFloat() / maximum
-        val dark = (255 * intensity).roundToInt()
-        val bright = 128 + (127 * intensity).roundToInt()
-        return Color(dark, bright, dark)
-    }
+    val grid: Array<Array<CartesianCell>>
 
     init {
         grid = prepareGrid()
         configureCells()
     }
 
-    open fun prepareGrid(): Array<Array<Cell>> {
-        return Array(rows) { row -> Array(columns) { column -> Cell(row, column) } }
+    fun prepareGrid(): Array<Array<CartesianCell>> {
+        return Array(rows) { row -> Array(columns) { column -> CartesianCell(row, column) } }
     }
 
-    open fun configureCells() {
+    fun configureCells() {
         for (cell in eachCell()) {
             val row = cell.row
             val col = cell.column
@@ -49,7 +31,7 @@ open class Grid(open val rows: Int, val columns: Int) {
         }
     }
 
-    open operator fun get(row: Int, column: Int): Cell? {
+    override operator fun get(row: Int, column: Int): CartesianCell? {
         if (row < 0 || rows <= row) {
             return null
         }
@@ -59,33 +41,19 @@ open class Grid(open val rows: Int, val columns: Int) {
         return grid[row][column]
     }
 
-    open fun randomCell(): Cell {
-        while (true) {
-            val row = Random.nextInt(rows)
-            val column = Random.nextInt(grid[row].size)
-            val cell = this[row, column]
-            if (cell != null)
-                return cell
-        }
-    }
-
-    fun size(): Int {
+    override fun size(): Int {
         return rows * columns
     }
 
-    fun eachRow(): Iterator<Array<Cell>> {
+    fun eachRow(): Iterator<Array<CartesianCell>> {
         return grid.iterator()
     }
 
-    fun eachCell(): List<Cell> {
+    override fun eachCell(): List<CartesianCell> {
         return grid.flatten()
     }
 
-    enum class modes {
-        BACKGROUNDS,
-        WALLS
-    }
-    open fun toImage(cellSize: Int = 10): RenderedImage {
+    override fun toImage(cellSize: Int, colorization: Colorization): RenderedImage {
         val imgWidth = cellSize * columns
         val imgHeight = cellSize * rows
 
@@ -96,21 +64,21 @@ open class Grid(open val rows: Int, val columns: Int) {
         val g = image.createGraphics()
         g.background = background
 
-        for (mode in modes.values()) {
+        for (mode in Grid.MODES.values()) {
             for (cell in eachCell()) {
                 val x1 = cell.column * cellSize
                 val y1 = cell.row * cellSize
                 val x2 = (cell.column + 1) * cellSize
                 val y2 = (cell.row + 1) * cellSize
 
-                if (mode == modes.BACKGROUNDS) {
-                    val color = backgroundColorFor(cell)
+                if (mode == Grid.MODES.BACKGROUNDS) {
+                    val color = colorization.colorForBackground(cell)
                     if (color != null) {
                         g.color = color
                         g.fillRect(x1, y1, x2-x1, y2-y1)
                     }
                 } else {
-                    g.color = wall
+                    g.color = colorization.colorForWall(cell)
                     if (cell.north == null)
                         g.drawLine(x1, y1, x2, y1)
                     if (cell.west == null)
