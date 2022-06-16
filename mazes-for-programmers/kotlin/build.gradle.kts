@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    // TODO 1.7.0
     kotlin("jvm") version "1.4.31"
 }
 
