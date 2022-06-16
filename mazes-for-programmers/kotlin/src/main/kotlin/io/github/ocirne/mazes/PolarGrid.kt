@@ -53,7 +53,6 @@ class PolarGrid(override val rows: Int) : Grid(rows, 1) {
         if (row < 0 || super.rows <= row) {
             return null
         }
-        // TODO switch back to % with kotlin 1.5
         return grid[row][Math.floorMod(column, grid[row].size)]
     }
 
