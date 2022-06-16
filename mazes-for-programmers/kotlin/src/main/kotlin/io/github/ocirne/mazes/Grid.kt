@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
 import kotlin.random.Random
 
-class Grid(val rows: Int, val columns: Int) {
+open class Grid(open val rows: Int, val columns: Int) {
 
     val grid: Array<Array<Cell>>
 
@@ -14,11 +14,11 @@ class Grid(val rows: Int, val columns: Int) {
         configureCells()
     }
 
-    fun prepareGrid(): Array<Array<Cell>> {
+    open fun prepareGrid(): Array<Array<Cell>> {
         return Array(rows) { row -> Array(columns) { column -> Cell(row, column) } }
     }
 
-    fun configureCells() {
+    open fun configureCells() {
         for (cell in eachCell()) {
             val row = cell.row
             val col = cell.column
@@ -30,7 +30,7 @@ class Grid(val rows: Int, val columns: Int) {
         }
     }
 
-    operator fun get(row: Int, column: Int): Cell? {
+    open operator fun get(row: Int, column: Int): Cell? {
         if (row < 0 || rows <= row) {
             return null
         }
@@ -40,11 +40,14 @@ class Grid(val rows: Int, val columns: Int) {
         return grid[row][column]
     }
 
-    fun randomCell(): Cell? {
-        val row = Random.nextInt(rows)
-        val column = Random.nextInt(grid[row].size)
-
-        return this[row, column]
+    open fun randomCell(): Cell {
+        while (true) {
+            val row = Random.nextInt(rows)
+            val column = Random.nextInt(grid[row].size)
+            val cell = this[row, column]
+            if (cell != null)
+                return cell
+        }
     }
 
     fun size(): Int {
@@ -59,9 +62,9 @@ class Grid(val rows: Int, val columns: Int) {
         return grid.flatten()
     }
 
-    fun toImage(cell_size: Int = 10): RenderedImage {
-        val imgWidth = cell_size * columns
-        val imgHeight = cell_size * rows
+    open fun toImage(cellSize: Int = 10): RenderedImage {
+        val imgWidth = cellSize * columns
+        val imgHeight = cellSize * rows
 
         val background = Color.BLACK
         val wall = Color.WHITE
@@ -72,10 +75,10 @@ class Grid(val rows: Int, val columns: Int) {
         g.color = wall
 
         for (cell in eachCell()) {
-            val x1 = cell.column * cell_size
-            val y1 = cell.row * cell_size
-            val x2 = (cell.column + 1) * cell_size
-            val y2 = (cell.row + 1) * cell_size
+            val x1 = cell.column * cellSize
+            val y1 = cell.row * cellSize
+            val x2 = (cell.column + 1) * cellSize
+            val y2 = (cell.row + 1) * cellSize
 
             if (cell.north == null)
                 g.drawLine(x1, y1, x2, y1)

@@ -5,6 +5,8 @@ import java.io.File
 import javax.imageio.ImageIO
 
 fun saveImage(image: RenderedImage, filename: String) {
-    val outputfile = File("images/$filename.png")
+    val path = "images/$filename.png"
+    val outputfile = File(path)
     ImageIO.write(image, "png", outputfile)
+    println("saved to $path")
 }

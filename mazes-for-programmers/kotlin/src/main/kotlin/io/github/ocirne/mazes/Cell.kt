@@ -1,6 +1,6 @@
 package io.github.ocirne.mazes
 
-class Cell(val row: Int, val column: Int) {
+open class Cell(open val row: Int, open val column: Int) {
 
     val links: MutableMap<Cell, Boolean> = mutableMapOf()
 
@@ -29,7 +29,7 @@ class Cell(val row: Int, val column: Int) {
         return links.containsKey(cell)
     }
 
-    fun neighbors(): List<Cell?> {
+    open fun neighbors(): List<Cell?> {
         return arrayListOf(north, south, east, west).filterNotNull()
     }
 
