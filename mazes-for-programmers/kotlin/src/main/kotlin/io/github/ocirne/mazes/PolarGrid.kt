@@ -4,7 +4,9 @@ import java.awt.Color
 import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
 import kotlin.math.PI
+import kotlin.math.cos
 import kotlin.math.roundToInt
+import kotlin.math.sin
 
 class PolarGrid(override val rows: Int) : Grid(rows, 1) {
 
@@ -76,12 +78,12 @@ class PolarGrid(override val rows: Int) : Grid(rows, 1) {
             val theta_ccw = cell.column * theta
             val theta_cw = (cell.column + 1) * theta
 
-            val ax = center + (inner_radius * Math.cos(theta_ccw)).toInt()
-            val ay = center + (inner_radius * Math.sin(theta_ccw)).toInt()
-            val cx = center + (inner_radius * Math.cos(theta_cw)).toInt()
-            val cy = center + (inner_radius * Math.sin(theta_cw)).toInt()
-            val dx = center + (outer_radius * Math.cos(theta_cw)).toInt()
-            val dy = center + (outer_radius * Math.sin(theta_cw)).toInt()
+            val ax = center + (inner_radius * cos(theta_ccw)).toInt()
+            val ay = center + (inner_radius * sin(theta_ccw)).toInt()
+            val cx = center + (inner_radius * cos(theta_cw)).toInt()
+            val cy = center + (inner_radius * sin(theta_cw)).toInt()
+            val dx = center + (outer_radius * cos(theta_cw)).toInt()
+            val dy = center + (outer_radius * sin(theta_cw)).toInt()
 
             cell as PolarCell
 
