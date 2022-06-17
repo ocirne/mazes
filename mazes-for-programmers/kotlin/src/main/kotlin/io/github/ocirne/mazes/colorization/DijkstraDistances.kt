@@ -5,12 +5,12 @@ import io.github.ocirne.mazes.grids.Grid
 import java.awt.Color
 import kotlin.math.roundToInt
 
-class DijkstraDistances(private val grid: Grid<out Cell>, root:Cell=grid.randomCell()) : Colorization {
+class DijkstraDistances(private val grid: Grid<out Cell>, startAt:Cell=grid.randomCell()) : Colorization {
 
-    private val weights: MutableMap<Cell, Int> = mutableMapOf(root to 0)
+    private val weights: MutableMap<Cell, Int> = mutableMapOf(startAt to 0)
 
     init {
-        distances(root)
+        distances(startAt)
     }
 
     private fun max(): Map.Entry<Cell, Int> {

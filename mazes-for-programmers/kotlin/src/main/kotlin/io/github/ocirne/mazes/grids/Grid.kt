@@ -20,5 +20,5 @@ interface Grid<Cell> {
         BACKGROUNDS, WALLS
     }
 
-    fun toImage(cellSize: Int = 10, colorization: Colorization = NoBackground()): RenderedImage
+    fun toImage(cellSize: Int = 40, colorization: Colorization = NoBackground()): RenderedImage
 }

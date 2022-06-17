@@ -5,7 +5,7 @@ import io.github.ocirne.mazes.grids.CartesianGrid
 class BinaryTree {
 
     companion object {
-        fun on(grid: CartesianGrid): CartesianGrid {
+        fun on(grid: CartesianGrid) {
             for (cell in grid.eachCell()) {
                 val neighbors = listOfNotNull(cell.north, cell.east)
                 if (neighbors.isEmpty()) {
@@ -14,7 +14,6 @@ class BinaryTree {
                 val neighbor = neighbors.random()
                 cell.link(neighbor)
             }
-            return grid
         }
     }
 }
