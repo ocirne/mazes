@@ -2,7 +2,7 @@ package io.github.ocirne.mazes.grids
 
 abstract class Cell {
 
-    val links: MutableMap<Cell, Boolean> = mutableMapOf()
+    private val links: MutableMap<Cell, Boolean> = mutableMapOf()
 
     fun link(cell: Cell, bidi: Boolean = true) {
         links[cell] = true

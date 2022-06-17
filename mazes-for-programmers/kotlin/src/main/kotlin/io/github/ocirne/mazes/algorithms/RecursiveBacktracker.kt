@@ -11,7 +11,7 @@ class RecursiveBacktracker {
             stack.addLast(startAt)
             while (stack.isNotEmpty()) {
                 val current = stack.last()
-                val neighbors = current.neighbors().filter { it.links.isEmpty() }
+                val neighbors = current.neighbors().filter { it.links().isEmpty() }
 
                 if (neighbors.isEmpty()) {
                     stack.removeLast()
@@ -32,7 +32,7 @@ class RecursiveBacktracker {
 
     private fun walkFrom(cell: Cell) {
         for (neighbor in cell.neighbors().shuffled()) {
-            if (neighbor.links.isEmpty()) {
+            if (neighbor.links().isEmpty()) {
                 cell.link(neighbor)
                 walkFrom(neighbor)
             }
