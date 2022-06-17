@@ -1,4 +1,4 @@
-package io.github.ocirne.mazes
+package io.github.ocirne.mazes.output
 
 import java.awt.image.RenderedImage
 import java.io.File

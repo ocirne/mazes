@@ -8,18 +8,18 @@ import java.awt.image.RenderedImage
 
 class CartesianGrid(private val rows: Int, private val columns: Int) : Grid<CartesianCell> {
 
-    val grid: Array<Array<CartesianCell>>
+    private val grid: Array<Array<CartesianCell>>
 
     init {
         grid = prepareGrid()
         configureCells()
     }
 
-    fun prepareGrid(): Array<Array<CartesianCell>> {
+    private fun prepareGrid(): Array<Array<CartesianCell>> {
         return Array(rows) { row -> Array(columns) { column -> CartesianCell(row, column) } }
     }
 
-    fun configureCells() {
+    private fun configureCells() {
         for (cell in eachCell()) {
             val row = cell.row
             val col = cell.column

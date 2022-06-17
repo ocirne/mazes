@@ -30,9 +30,9 @@ class RecursiveBacktracker {
         return grid
     }
 
-    fun walkFrom(cell: Cell) {
+    private fun walkFrom(cell: Cell) {
         for (neighbor in cell.neighbors().shuffled()) {
-            if (neighbor!!.links.isEmpty()) {
+            if (neighbor.links.isEmpty()) {
                 cell.link(neighbor)
                 walkFrom(neighbor)
             }

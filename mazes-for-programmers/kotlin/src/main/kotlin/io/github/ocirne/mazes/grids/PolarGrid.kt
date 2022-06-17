@@ -11,14 +11,14 @@ import kotlin.math.sin
 
 class PolarGrid(private val rows: Int) : Grid<PolarCell> {
 
-    val grid: Array<Array<PolarCell>>
+    private val grid: Array<Array<PolarCell>>
 
     init {
         grid = prepareGrid()
         configureCells()
     }
 
-    fun prepareGrid(): Array<Array<PolarCell>> {
+    private fun prepareGrid(): Array<Array<PolarCell>> {
         val rings = mutableListOf<Array<PolarCell>>()
 
         val rowHeight = 1.0 / rows.toFloat()
@@ -38,7 +38,7 @@ class PolarGrid(private val rows: Int) : Grid<PolarCell> {
         return Array(rows) { row -> rings[row] }
     }
 
-    fun configureCells() {
+    private fun configureCells() {
         for (cell in eachCell()) {
             val row = cell.row
             val col = cell.column
@@ -47,7 +47,7 @@ class PolarGrid(private val rows: Int) : Grid<PolarCell> {
                 cell.ccw = this[row, col - 1]
 
                 val ratio = grid[row].size / grid[row - 1].size
-                val parent = grid[row - 1][col / ratio] as PolarCell
+                val parent = grid[row - 1][col / ratio]
                 parent.outward.add(cell)
                 cell.inward = parent
             }
@@ -80,17 +80,17 @@ class PolarGrid(private val rows: Int) : Grid<PolarCell> {
 
         for (cell in eachCell()) {
             val theta = 2 * PI / grid[cell.row].size
-            val inner_radius = cell.row * cellSize
-            val outer_radius = (cell.row + 1) * cellSize
-            val theta_ccw = cell.column * theta
-            val theta_cw = (cell.column + 1) * theta
+            val innerRadius = cell.row * cellSize
+            val outerRadius = (cell.row + 1) * cellSize
+            val thetaCcw = cell.column * theta
+            val thetaCw = (cell.column + 1) * theta
 
-            val ax = center + (inner_radius * cos(theta_ccw)).toInt()
-            val ay = center + (inner_radius * sin(theta_ccw)).toInt()
-            val cx = center + (inner_radius * cos(theta_cw)).toInt()
-            val cy = center + (inner_radius * sin(theta_cw)).toInt()
-            val dx = center + (outer_radius * cos(theta_cw)).toInt()
-            val dy = center + (outer_radius * sin(theta_cw)).toInt()
+            val ax = center + (innerRadius * cos(thetaCcw)).toInt()
+            val ay = center + (innerRadius * sin(thetaCcw)).toInt()
+            val cx = center + (innerRadius * cos(thetaCw)).toInt()
+            val cy = center + (innerRadius * sin(thetaCw)).toInt()
+            val dx = center + (outerRadius * cos(thetaCw)).toInt()
+            val dy = center + (outerRadius * sin(thetaCw)).toInt()
 
             g.color = colorization.colorForWall(cell)
             if (!cell.isLinked(cell.inward))

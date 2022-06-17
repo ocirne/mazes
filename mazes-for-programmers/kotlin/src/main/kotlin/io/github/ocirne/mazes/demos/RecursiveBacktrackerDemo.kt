@@ -3,7 +3,7 @@ package io.github.ocirne.mazes.demos
 import io.github.ocirne.mazes.colorization.DijkstraDistances
 import io.github.ocirne.mazes.grids.CartesianGrid
 import io.github.ocirne.mazes.algorithms.RecursiveBacktracker
-import io.github.ocirne.mazes.saveImage
+import io.github.ocirne.mazes.output.saveImage
 
 fun main() {
     val grid = CartesianGrid(20, 20)
