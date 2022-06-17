@@ -11,16 +11,15 @@ class RecursiveBacktracker {
             stack.addLast(startAt)
             while (stack.isNotEmpty()) {
                 val current = stack.last()
-                val neighbors = current.neighbors().filter { it!!.links.isEmpty() }
+                val neighbors = current.neighbors().filter { it.links.isEmpty() }
 
                 if (neighbors.isEmpty()) {
                     stack.removeLast()
                 } else {
                     val neighbor = neighbors.random()
-                    current.link(neighbor!!)
+                    current.link(neighbor)
                     stack.addLast(neighbor as C)
                 }
-
             }
             return grid
         }
