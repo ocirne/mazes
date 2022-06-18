@@ -58,7 +58,6 @@ class CartesianGrid(private val rows: Int, private val columns: Int) : Grid<Cart
         val imgHeight = cellSize * rows
 
         val background = Color.BLACK
-        val wall = Color.WHITE
 
         val image = BufferedImage(imgWidth + 1, imgHeight + 1, BufferedImage.TYPE_INT_RGB)
         val g = image.createGraphics()
