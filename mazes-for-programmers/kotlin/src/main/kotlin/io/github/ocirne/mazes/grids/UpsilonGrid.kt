@@ -121,27 +121,24 @@ class UpsilonGrid(private val rows: Int, private val columns: Int) : Grid<Upsilo
                 }
 
                 if (mode == Grid.MODES.BACKGROUNDS) {
-                    val color = colorization.colorForBackground(cell)
-                    if (color != null) {
-                        g.color = color
-                        val p = Polygon()
-                        if (cell.isOctogon()) {
-                            p.addPoint(p0.x, p0.y)
-                            p.addPoint(p1.x, p1.y)
-                            p.addPoint(p2.x, p2.y)
-                            p.addPoint(p3.x, p3.y)
-                            p.addPoint(p4.x, p4.y)
-                            p.addPoint(p5.x, p5.y)
-                            p.addPoint(p6.x, p6.y)
-                            p.addPoint(p7.x, p7.y)
-                        } else {
-                            p.addPoint(p0.x, p0.y)
-                            p.addPoint(p2.x, p2.y)
-                            p.addPoint(p4.x, p4.y)
-                            p.addPoint(p6.x, p6.y)
-                        }
-                        g.fillPolygon(p)
+                    g.color = colorization.colorForBackground(cell)
+                    val p = Polygon()
+                    if (cell.isOctogon()) {
+                        p.addPoint(p0.x, p0.y)
+                        p.addPoint(p1.x, p1.y)
+                        p.addPoint(p2.x, p2.y)
+                        p.addPoint(p3.x, p3.y)
+                        p.addPoint(p4.x, p4.y)
+                        p.addPoint(p5.x, p5.y)
+                        p.addPoint(p6.x, p6.y)
+                        p.addPoint(p7.x, p7.y)
+                    } else {
+                        p.addPoint(p0.x, p0.y)
+                        p.addPoint(p2.x, p2.y)
+                        p.addPoint(p4.x, p4.y)
+                        p.addPoint(p6.x, p6.y)
                     }
+                    g.fillPolygon(p)
                 } else {
                     g.color = colorization.colorForWall(cell)
                     if (cell.west == null)

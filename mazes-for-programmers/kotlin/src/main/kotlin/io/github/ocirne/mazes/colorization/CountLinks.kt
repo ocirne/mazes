@@ -13,8 +13,8 @@ class CountLinks(grid: Grid<out Cell>) : Colorization {
         return weights.entries.maxBy { it.value }
     }
 
-    override fun colorForBackground(cell: Cell): Color? {
-        val distance = weights[cell] ?: return null
+    override fun colorForBackground(cell: Cell): Color {
+        val distance = weights[cell] ?: return Color.BLACK
         val maximum = max().value
         val intensity = distance.toFloat() / maximum
         val dark = 0

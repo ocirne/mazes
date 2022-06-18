@@ -5,8 +5,8 @@ import java.awt.Color
 
 class NoBackground : Colorization {
 
-    override fun colorForBackground(cell: Cell): Color? {
-        return null
+    override fun colorForBackground(cell: Cell): Color {
+        return Color.BLACK
     }
 
     override fun colorForWall(cell: Cell): Color {

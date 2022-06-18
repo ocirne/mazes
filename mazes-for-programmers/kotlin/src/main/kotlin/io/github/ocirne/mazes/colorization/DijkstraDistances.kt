@@ -25,7 +25,7 @@ class DijkstraDistances(private val grid: Grid<out Cell>, startAt:Cell=grid.rand
             val newFrontier: MutableList<Cell> = mutableListOf()
             for (cell in frontier) {
                 for (linked in cell.links()) {
-                    if (weights[linked] != null) {
+                    if (weights.contains(linked)) {
                         continue
                     }
                     weights[linked] = weights[cell]!! + 1
@@ -36,8 +36,8 @@ class DijkstraDistances(private val grid: Grid<out Cell>, startAt:Cell=grid.rand
         }
     }
 
-    override fun colorForBackground(cell: Cell): Color? {
-        val distance = weights[cell] ?: return null
+    override fun colorForBackground(cell: Cell): Color {
+        val distance = weights[cell] ?: return Color.BLACK
         val maximum = max().value
         val intensity = (maximum - distance).toFloat() / maximum
         val dark = (255 * intensity).roundToInt()

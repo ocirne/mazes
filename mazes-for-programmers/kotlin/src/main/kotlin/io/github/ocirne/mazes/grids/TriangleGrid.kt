@@ -92,15 +92,12 @@ class TriangleGrid(private val rows: Int, private val columns: Int) : Grid<Trian
                 }
 
                 if (mode == Grid.MODES.BACKGROUNDS) {
-                    val color = colorization.colorForBackground(cell)
-                    if (color != null) {
-                        g.color = color
-                        val p = Polygon()
-                        p.addPoint(west_x, base_y)
-                        p.addPoint(mid_x, apex_y)
-                        p.addPoint(east_x, base_y)
-                        g.fillPolygon(p)
-                    }
+                    g.color = colorization.colorForBackground(cell)
+                    val p = Polygon()
+                    p.addPoint(west_x, base_y)
+                    p.addPoint(mid_x, apex_y)
+                    p.addPoint(east_x, base_y)
+                    g.fillPolygon(p)
                 } else {
                     g.color = colorization.colorForWall(cell)
                     if (cell.west == null)

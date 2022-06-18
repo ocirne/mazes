@@ -5,7 +5,7 @@ import java.awt.Color
 
 interface Colorization {
 
-    fun colorForBackground(cell: Cell): Color?
+    fun colorForBackground(cell: Cell): Color
 
     fun colorForWall(cell: Cell): Color
 }

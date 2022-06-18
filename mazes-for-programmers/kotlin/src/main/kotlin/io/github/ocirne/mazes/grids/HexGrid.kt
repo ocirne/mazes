@@ -89,18 +89,15 @@ class HexGrid(private val rows: Int, private val columns: Int) : Grid<HexCell> {
                 val y_s = (cy + b_size).toInt()
 
                 if (mode == Grid.MODES.BACKGROUNDS) {
-                    val color = colorization.colorForBackground(cell)
-                    if (color != null) {
-                        g.color = color
-                        val p = Polygon()
-                        p.addPoint(x_fw, y_m)
-                        p.addPoint(x_nw, y_n)
-                        p.addPoint(x_ne, y_n)
-                        p.addPoint(x_fe, y_m)
-                        p.addPoint(x_ne, y_s)
-                        p.addPoint(x_nw, y_s)
-                        g.fillPolygon(p)
-                    }
+                    g.color = colorization.colorForBackground(cell)
+                    val p = Polygon()
+                    p.addPoint(x_fw, y_m)
+                    p.addPoint(x_nw, y_n)
+                    p.addPoint(x_ne, y_n)
+                    p.addPoint(x_fe, y_m)
+                    p.addPoint(x_ne, y_s)
+                    p.addPoint(x_nw, y_s)
+                    g.fillPolygon(p)
                 } else {
                     g.color = colorization.colorForWall(cell)
                     if (cell.southwest == null)

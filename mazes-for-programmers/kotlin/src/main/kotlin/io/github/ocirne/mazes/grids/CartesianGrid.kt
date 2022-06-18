@@ -71,11 +71,8 @@ class CartesianGrid(private val rows: Int, private val columns: Int) : Grid<Cart
                 val y2 = (cell.row + 1) * cellSize
 
                 if (mode == Grid.MODES.BACKGROUNDS) {
-                    val color = colorization.colorForBackground(cell)
-                    if (color != null) {
-                        g.color = color
-                        g.fillRect(x1, y1, x2-x1, y2-y1)
-                    }
+                    g.color = colorization.colorForBackground(cell)
+                    g.fillRect(x1, y1, x2-x1, y2-y1)
                 } else {
                     g.color = colorization.colorForWall(cell)
                     if (cell.north == null)
