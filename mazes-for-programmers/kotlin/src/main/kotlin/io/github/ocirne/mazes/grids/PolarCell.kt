@@ -1,11 +1,7 @@
 package io.github.ocirne.mazes.grids
 
-import java.awt.Color
 import java.awt.Graphics
-import kotlin.math.PI
-import kotlin.math.ceil
-import kotlin.math.cos
-import kotlin.math.sin
+import kotlin.math.*
 
 class PolarCell(val row: Int, val column: Int) : Cell() {
 
@@ -60,7 +56,7 @@ class PolarCell(val row: Int, val column: Int) : Cell() {
         for (x in 0..c.cellSize) {
             val xy = c.center-(c.innerRadius+x)
             val wh = 2*(c.innerRadius+x)
-            g.drawArc(xy, xy, wh, wh, cw.toInt(), ceil(c.thetaDeg).toInt())
+            g.drawArc(xy, xy, wh, wh, cw.toInt(), c.thetaDeg.roundToInt())
         }
     }
 
@@ -69,7 +65,7 @@ class PolarCell(val row: Int, val column: Int) : Cell() {
             val cw = column * c.thetaDeg
             val xy = c.center - (c.innerRadius)
             val wh = 2 * (c.innerRadius)
-            g.drawArc(xy, xy, wh, wh, cw.toInt(), ceil(c.thetaDeg).toInt())
+            g.drawArc(xy, xy, wh, wh, cw.toInt(), c.thetaDeg.roundToInt())
         }
         if (!isLinked(cw))
             g.drawLine(c.cx, c.cy, c.dx, c.dy)

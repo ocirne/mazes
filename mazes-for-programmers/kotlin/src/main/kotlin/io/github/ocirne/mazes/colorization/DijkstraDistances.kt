@@ -5,7 +5,12 @@ import io.github.ocirne.mazes.grids.Grid
 import java.awt.Color
 import kotlin.math.roundToInt
 
-class DijkstraDistances(private val grid: Grid<out Cell>, startAt:Cell=grid.randomCell()) : Colorization {
+class DijkstraDistances(
+    private val grid: Grid<out Cell>,
+    startAt: Cell = grid.randomCell(),
+    private val fromColor: Color = Color.DARK_GRAY,
+    private val toColor: Color = Color.GREEN
+) : Colorization {
 
     private val weights: MutableMap<Cell, Int> = mutableMapOf(startAt to 0)
 
@@ -40,9 +45,13 @@ class DijkstraDistances(private val grid: Grid<out Cell>, startAt:Cell=grid.rand
         val distance = weights[cell] ?: return Color.BLACK
         val maximum = max().value
         val intensity = (maximum - distance).toFloat() / maximum
-        val dark = (255 * intensity).roundToInt()
-        val bright = (128 + 127 * intensity).roundToInt()
-        return Color(dark, bright, dark)
+        val rangeRed = toColor.red - fromColor.red
+        val rangeGreen = toColor.green - fromColor.green
+        val rangeBlue = toColor.blue - fromColor.blue
+        val r = (fromColor.red + rangeRed * intensity).roundToInt()
+        val g = (fromColor.green + rangeGreen * intensity).roundToInt()
+        val b = (fromColor.blue + rangeBlue * intensity).roundToInt()
+        return Color(r, g, b)
     }
 
     override fun colorForWall(cell: Cell): Color {
