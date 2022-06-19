@@ -5,6 +5,9 @@ abstract class Cell {
     private val links: MutableMap<Cell, Boolean> = mutableMapOf()
 
     fun link(cell: Cell, bidi: Boolean = true) {
+        if (!neighbors().contains(cell)) {
+            throw IllegalArgumentException("linked cell must be a neighbor of this cell")
+        }
         links[cell] = true
         if (bidi)
             cell.link(this, false)

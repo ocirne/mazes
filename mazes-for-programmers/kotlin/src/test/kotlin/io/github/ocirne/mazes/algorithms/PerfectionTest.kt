@@ -1,9 +1,8 @@
 package io.github.ocirne.mazes.algorithms
 
 import io.github.ocirne.mazes.grids.CartesianGrid
-import io.github.ocirne.mazes.grids.Cell
-import io.github.ocirne.mazes.grids.Grid
 import io.github.ocirne.mazes.grids.HexGrid
+import io.github.ocirne.mazes.output.saveImage
 import org.junit.jupiter.api.Test
 
 /** from every cell all other cells are reachable in exactly one path */
@@ -18,7 +17,7 @@ class PerfectionTest {
         val grid = CartesianGrid(size, size)
         BinaryTree.on(grid)
 
-        CycleDetection(grid as Grid<Cell>).detect()
+        CycleDetection(grid).detect()
     }
 
     @Test
@@ -26,7 +25,16 @@ class PerfectionTest {
         val grid = CartesianGrid(size, size)
         Sidewinder.on(grid)
 
-        CycleDetection(grid as Grid<Cell>).detect()
+        CycleDetection(grid).detect()
+    }
+
+    @Test
+    fun `Cartesian grid with Wilsons maze is perfect`() {
+        val grid = CartesianGrid(size, size)
+        Wilsons.on(grid)
+
+        saveImage(grid.toImage(), filename = "test")
+        CycleDetection(grid).detect()
     }
 
     @Test
@@ -34,6 +42,6 @@ class PerfectionTest {
         val grid = HexGrid(size, size)
         RecursiveBacktracker.on(grid)
 
-        CycleDetection(grid as Grid<Cell>).detect()
+        CycleDetection(grid).detect()
     }
 }
