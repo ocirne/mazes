@@ -12,6 +12,6 @@ fun main() {
     RecursiveBacktracker.on(grid)
     saveImage(grid.toImage(), "polar_recursive_backtracker")
 
-    val colorization = DijkstraDistances(grid)
+    val colorization = DijkstraDistances(grid, startAt=grid[7, 36]!!)
     saveImage(grid.toImage(colorization = colorization), "polar_recursive_backtracker_colorized")
 }

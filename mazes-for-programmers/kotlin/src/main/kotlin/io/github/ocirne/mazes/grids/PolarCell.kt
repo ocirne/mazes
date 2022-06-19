@@ -1,7 +1,9 @@
 package io.github.ocirne.mazes.grids
 
+import java.awt.Color
 import java.awt.Graphics
 import kotlin.math.PI
+import kotlin.math.ceil
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -12,24 +14,41 @@ class PolarCell(val row: Int, val column: Int) : Cell() {
     var inward: PolarCell? = null
     val outward: MutableList<PolarCell> = mutableListOf()
 
-    data class Coordinates(val ax: Int, val ay: Int, val cx: Int, val cy: Int, val dx: Int, val dy: Int)
+    data class Coordinates(
+        val center: Int,
+        val cellSize: Int,
+        val innerRadius: Int,
+        val outerRadius: Int,
+        val thetaDeg: Double,
+        val ax: Int,
+        val ay: Int,
+        val bx: Int,
+        val by: Int,
+        val cx: Int,
+        val cy: Int,
+        val dx: Int,
+        val dy: Int
+    )
 
     lateinit var c: Coordinates
 
-    fun prepareCoordinates(cellSize: Int, center: Int, grid: PolarGrid) {
-        val theta = 2 * PI / grid[row]!!.size
+    fun prepareCoordinates(grid: PolarGrid, center: Int, cellSize: Int) {
+        val thetaRad = 2 * PI / grid[row]!!.size
+        val thetaDeg = 360.0 / grid[row]!!.size
         val innerRadius = row * cellSize
         val outerRadius = (row + 1) * cellSize
-        val thetaCcw = column * theta
-        val thetaCw = (column + 1) * theta
+        val thetaCcw = column * thetaRad
+        val thetaCw = (column + 1) * thetaRad
 
-        val ax = center + (innerRadius * cos(thetaCcw)).toInt()
-        val ay = center + (innerRadius * sin(thetaCcw)).toInt()
-        val cx = center + (innerRadius * cos(thetaCw)).toInt()
-        val cy = center + (innerRadius * sin(thetaCw)).toInt()
-        val dx = center + (outerRadius * cos(thetaCw)).toInt()
-        val dy = center + (outerRadius * sin(thetaCw)).toInt()
-        c = Coordinates(ax, ay, cx, cy, dx, dy)
+        val ax = (center + innerRadius * cos(thetaCcw)).toInt()
+        val ay = (center - innerRadius * sin(thetaCcw)).toInt()
+        val bx = (center + outerRadius * cos(thetaCcw)).toInt()
+        val by = (center - outerRadius * sin(thetaCcw)).toInt()
+        val cx = (center + innerRadius * cos(thetaCw)).toInt()
+        val cy = (center - innerRadius * sin(thetaCw)).toInt()
+        val dx = (center + outerRadius * cos(thetaCw)).toInt()
+        val dy = (center - outerRadius * sin(thetaCw)).toInt()
+        c = Coordinates(center, cellSize, innerRadius, outerRadius, thetaDeg, ax, ay, bx, by, cx, cy, dx, dy)
     }
 
     override fun neighbors(): List<PolarCell> {
@@ -37,12 +56,21 @@ class PolarCell(val row: Int, val column: Int) : Cell() {
     }
 
     override fun drawBackground(g: Graphics) {
-        TODO("Not yet implemented")
+        val cw = column * c.thetaDeg
+        for (x in 0..c.cellSize) {
+            val xy = c.center-(c.innerRadius+x)
+            val wh = 2*(c.innerRadius+x)
+            g.drawArc(xy, xy, wh, wh, cw.toInt(), ceil(c.thetaDeg).toInt())
+        }
     }
 
     override fun drawWalls(g: Graphics) {
-        if (!isLinked(inward))
-            g.drawLine(c.ax, c.ay, c.cx, c.cy)
+        if (!isLinked(inward)) {
+            val cw = column * c.thetaDeg
+            val xy = c.center - (c.innerRadius)
+            val wh = 2 * (c.innerRadius)
+            g.drawArc(xy, xy, wh, wh, cw.toInt(), ceil(c.thetaDeg).toInt())
+        }
         if (!isLinked(cw))
             g.drawLine(c.cx, c.cy, c.dx, c.dy)
     }

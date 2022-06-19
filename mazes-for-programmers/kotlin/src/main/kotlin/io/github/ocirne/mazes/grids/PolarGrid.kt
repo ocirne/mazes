@@ -1,6 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
@@ -67,7 +68,7 @@ class PolarGrid(private val rows: Int) : Grid<PolarCell> {
     }
 
     override fun size(): Int {
-        TODO("Not yet implemented")
+        return grid.flatten().size
     }
 
     override fun eachCell(): List<PolarCell> {
@@ -75,22 +76,31 @@ class PolarGrid(private val rows: Int) : Grid<PolarCell> {
     }
 
     override fun toImage(cellSize: Int, colorization: Colorization): RenderedImage {
-        val imgSize = 2 * rows * cellSize
+        val imgSize = 2 * rows * cellSize + 4
 
         val image = BufferedImage(imgSize + 1, imgSize + 1, BufferedImage.TYPE_INT_RGB)
         val g = image.createGraphics()
+        // Smooth errors - einfach alles breitschmieren statt floodfill implementieren ;)
+        g.stroke = BasicStroke(2.0f)
         g.background = Color.BLACK
 
         val center = imgSize / 2
 
-        for (cell in eachCell()) {
-            cell.prepareCoordinates(cellSize, center, this)
-            g.color = colorization.colorForWall(cell)
-            cell.drawWalls(g)
+        for (mode in Grid.MODES.values()) {
+            for (cell in eachCell()) {
+                cell.prepareCoordinates(this, center, cellSize)
+                if (mode == Grid.MODES.BACKGROUNDS) {
+                    g.color = colorization.colorForBackground(cell)
+                    cell.drawBackground(g)
+                } else {
+                    g.color = colorization.colorForWall(cell)
+                    cell.drawWalls(g)
+                }
+            }
         }
 
         val radius = rows * cellSize
-        g.drawOval(center - radius, center - radius, center + radius, center + radius)
+        g.drawOval(center - radius, center - radius, 2*radius, 2*radius)
         return image
     }
 }
