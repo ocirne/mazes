@@ -11,13 +11,10 @@ class CycleDetection(private val grid: Grid<out Cell>) {
     private val finished: MutableSet<Cell> = mutableSetOf()
 
     fun detect() {
-        for (cell in grid.eachCell()) {
-            visited.clear()
-            finished.clear()
-            dfs(cell, cell)
-            // all cells are visited
-            visited.size shouldBe grid.size()
-        }
+        val cell = grid.randomCell()
+        dfs(cell, cell)
+        // all cells are visited - that also means not every cell must be the start
+        visited.size shouldBe grid.size()
     }
 
     private fun dfs(v: Cell, before: Cell) {

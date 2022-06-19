@@ -1,5 +1,7 @@
 package io.github.ocirne.mazes.grids
 
+import java.awt.Graphics
+
 abstract class Cell {
 
     private val links: MutableMap<Cell, Boolean> = mutableMapOf()
@@ -28,4 +30,8 @@ abstract class Cell {
     }
 
     abstract fun neighbors(): List<Cell>
+
+    abstract fun drawBackground(g: Graphics)
+
+    abstract fun drawWalls(g: Graphics)
 }

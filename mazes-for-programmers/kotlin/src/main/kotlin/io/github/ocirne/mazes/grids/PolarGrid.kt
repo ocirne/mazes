@@ -5,9 +5,7 @@ import java.awt.Color
 import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
 import kotlin.math.PI
-import kotlin.math.cos
 import kotlin.math.roundToInt
-import kotlin.math.sin
 
 class PolarGrid(private val rows: Int) : Grid<PolarCell> {
 
@@ -54,6 +52,13 @@ class PolarGrid(private val rows: Int) : Grid<PolarCell> {
         }
     }
 
+    operator fun get(row: Int): Array<PolarCell>? {
+        if (row < 0 || rows <= row) {
+            return null
+        }
+        return grid[row]
+    }
+
     override operator fun get(row: Int, column: Int): PolarCell? {
         if (row < 0 || rows <= row) {
             return null
@@ -79,24 +84,9 @@ class PolarGrid(private val rows: Int) : Grid<PolarCell> {
         val center = imgSize / 2
 
         for (cell in eachCell()) {
-            val theta = 2 * PI / grid[cell.row].size
-            val innerRadius = cell.row * cellSize
-            val outerRadius = (cell.row + 1) * cellSize
-            val thetaCcw = cell.column * theta
-            val thetaCw = (cell.column + 1) * theta
-
-            val ax = center + (innerRadius * cos(thetaCcw)).toInt()
-            val ay = center + (innerRadius * sin(thetaCcw)).toInt()
-            val cx = center + (innerRadius * cos(thetaCw)).toInt()
-            val cy = center + (innerRadius * sin(thetaCw)).toInt()
-            val dx = center + (outerRadius * cos(thetaCw)).toInt()
-            val dy = center + (outerRadius * sin(thetaCw)).toInt()
-
+            cell.prepareCoordinates(cellSize, center, this)
             g.color = colorization.colorForWall(cell)
-            if (!cell.isLinked(cell.inward))
-                g.drawLine(ax, ay, cx, cy)
-            if (!cell.isLinked(cell.cw))
-                g.drawLine(cx, cy, dx, dy)
+            cell.drawWalls(g)
         }
 
         val radius = rows * cellSize

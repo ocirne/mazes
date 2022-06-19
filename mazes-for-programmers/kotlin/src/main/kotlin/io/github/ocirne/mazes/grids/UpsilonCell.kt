@@ -1,5 +1,7 @@
 package io.github.ocirne.mazes.grids
 
+import java.awt.Graphics
+
 class UpsilonCell(val row: Int, val column: Int) : Cell() {
 
     var north: UpsilonCell? = null
@@ -13,6 +15,14 @@ class UpsilonCell(val row: Int, val column: Int) : Cell() {
 
     override fun neighbors(): List<UpsilonCell> {
         return arrayListOf(north, northeast, east, southeast, south, southwest, west, northwest).filterNotNull()
+    }
+
+    override fun drawBackground(g: Graphics) {
+        TODO("Not yet implemented")
+    }
+
+    override fun drawWalls(g: Graphics) {
+        TODO("Not yet implemented")
     }
 
     fun isOctogon(): Boolean {

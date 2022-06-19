@@ -65,24 +65,13 @@ class CartesianGrid(private val rows: Int, private val columns: Int) : Grid<Cart
 
         for (mode in Grid.MODES.values()) {
             for (cell in eachCell()) {
-                val x1 = cell.column * cellSize
-                val y1 = cell.row * cellSize
-                val x2 = (cell.column + 1) * cellSize
-                val y2 = (cell.row + 1) * cellSize
-
+                cell.prepareCoordinates(cellSize)
                 if (mode == Grid.MODES.BACKGROUNDS) {
                     g.color = colorization.colorForBackground(cell)
-                    g.fillRect(x1, y1, x2-x1, y2-y1)
+                    cell.drawBackground(g)
                 } else {
                     g.color = colorization.colorForWall(cell)
-                    if (cell.north == null)
-                        g.drawLine(x1, y1, x2, y1)
-                    if (cell.west == null)
-                        g.drawLine(x1, y1, x1, y2)
-                    if (!cell.isLinked(cell.east))
-                        g.drawLine(x2, y1, x2, y2)
-                    if (!cell.isLinked(cell.south))
-                        g.drawLine(x1, y2, x2, y2)
+                    cell.drawWalls(g)
                 }
             }
         }
