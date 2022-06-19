@@ -1,0 +1,39 @@
+package io.github.ocirne.mazes.algorithms
+
+import io.github.ocirne.mazes.grids.CartesianGrid
+import io.github.ocirne.mazes.grids.Cell
+import io.github.ocirne.mazes.grids.Grid
+import io.github.ocirne.mazes.grids.HexGrid
+import org.junit.jupiter.api.Test
+
+/** from every cell all other cells are reachable in exactly one path */
+class PerfectionTest {
+
+    // TODO add seed feedback to reproduce errors
+
+    private val size = 10
+
+    @Test
+    fun `Cartesian grid with BinaryTree maze is perfect`() {
+        val grid = CartesianGrid(size, size)
+        BinaryTree.on(grid)
+
+        CycleDetection(grid as Grid<Cell>).detect()
+    }
+
+    @Test
+    fun `Cartesian grid with Sidewinder maze is perfect`() {
+        val grid = CartesianGrid(size, size)
+        Sidewinder.on(grid)
+
+        CycleDetection(grid as Grid<Cell>).detect()
+    }
+
+    @Test
+    fun `Hex grid with RecursiveBacktracker maze is perfect`() {
+        val grid = HexGrid(size, size)
+        RecursiveBacktracker.on(grid)
+
+        CycleDetection(grid as Grid<Cell>).detect()
+    }
+}
