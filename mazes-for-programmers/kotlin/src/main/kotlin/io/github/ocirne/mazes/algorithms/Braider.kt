@@ -1,18 +1,24 @@
 package io.github.ocirne.mazes.algorithms
 
+import io.github.ocirne.mazes.grids.Grid
+import kotlin.random.Random.Default.nextDouble
+
 class Braider {
 
-//    def braid(self, p=1.0):
-//        dead_ends = self.dead_ends()
-//        for cell in sample(dead_ends, len(dead_ends)):
-//            if len(cell.links) != 1 or random() > p:
-//                continue
-//            neighbors = [n for n in cell.neighbors() if not cell.is_linked(n)]
-//            best = [n for n in neighbors if len(n.links) == 1]
-//            if not best:
-//                best = neighbors
-//
-//            neighbor = choice(best)
-//            cell.link(neighbor)
-
+    fun braid(grid: Grid, p:Double=1.0) {
+        val deadEnds = grid.deadEnds()
+        for (cell in deadEnds.shuffled()) {
+            // TODO Es werden mehr als p % DeadEnds entfernt - fixen
+            if (cell.links().size != 1 || nextDouble() > p) {
+                continue
+            }
+            val linked = cell.neighbors().filterNot { it.isLinked(cell) }
+            var best = linked.filter { it.links().size == 1 }
+            if (best.isEmpty()) {
+                best = linked
+            }
+            val neighbor = best.random()
+            cell.link(neighbor)
+        }
+    }
 }
