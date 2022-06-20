@@ -53,9 +53,10 @@ class CartesianGrid(private val rows: Int, private val columns: Int) : Grid {
         return grid.flatten()
     }
 
-    override fun toImage(cellSize: Int, colorization: Colorization): RenderedImage {
+    override fun toImage(cellSize: Int, inset:Double, colorization: Colorization): RenderedImage {
         val imgWidth = cellSize * columns
         val imgHeight = cellSize * rows
+        val insetAbsolute = (cellSize * inset).toInt()
 
         val background = Color.BLACK
 
@@ -67,7 +68,7 @@ class CartesianGrid(private val rows: Int, private val columns: Int) : Grid {
             for (cell in eachCell()) {
                 if (cell.links().isEmpty())
                     continue
-                cell.prepareCoordinates(cellSize)
+                cell.prepareCoordinates(cellSize, insetAbsolute)
                 if (mode == Grid.MODES.BACKGROUNDS) {
                     g.color = colorization.colorForBackground(cell)
                     cell.drawBackground(g)

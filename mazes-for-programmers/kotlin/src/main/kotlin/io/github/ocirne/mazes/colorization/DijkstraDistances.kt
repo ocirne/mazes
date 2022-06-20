@@ -7,7 +7,7 @@ import kotlin.math.roundToInt
 
 class DijkstraDistances(
     private val grid: Grid,
-    startAt: Cell = grid.randomCell(),
+    startAt: Cell = grid.randomCell(noNeighborsAllowed=false),
     private val fromColor: Color = Color.DARK_GRAY,
     private val toColor: Color = Color.GREEN
 ) : Colorization {

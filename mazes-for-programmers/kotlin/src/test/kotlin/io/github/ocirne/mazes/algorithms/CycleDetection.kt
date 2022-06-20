@@ -11,9 +11,11 @@ class CycleDetection(private val grid: Grid) {
     private val finished: MutableSet<Cell> = mutableSetOf()
 
     fun assertNoCycle() {
-        val cell = grid.randomCell()
+        // TODO für sparse grids schon mal "noNeighborsAllowed = false" eingefügt, aber ...
+        val cell = grid.randomCell(noNeighborsAllowed = false)
         dfs(cell, cell)
         // all cells are visited - that also means not every cell must be the start
+        // TODO das ist dann falsch
         visited.size shouldBe grid.size()
     }
 

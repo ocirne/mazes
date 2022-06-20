@@ -12,8 +12,13 @@ interface Grid {
 
     fun eachCell(): List<Cell>
 
-    fun randomCell(): Cell {
-        return eachCell().random()
+    fun randomCell(noNeighborsAllowed:Boolean=true): Cell {
+        while (true) {
+            val result = eachCell().random()
+            if (noNeighborsAllowed || result.links().isNotEmpty()) {
+                return result
+            }
+        }
     }
 
     fun deadEnds(): List<Cell> {
@@ -24,5 +29,5 @@ interface Grid {
         BACKGROUNDS, WALLS
     }
 
-    fun toImage(cellSize: Int = 40, colorization: Colorization = NoBackground()): RenderedImage
+    fun toImage(cellSize: Int = 40, inset:Double=0.0, colorization: Colorization = NoBackground()): RenderedImage
 }
