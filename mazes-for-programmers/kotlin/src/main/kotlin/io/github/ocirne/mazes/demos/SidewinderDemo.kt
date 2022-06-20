@@ -9,7 +9,7 @@ import io.github.ocirne.mazes.output.saveImage
 fun main() {
     val grid = CartesianGrid(21, 21)
 
-    Sidewinder.on(grid)
+    Sidewinder().on(grid)
     saveImage(grid.toImage(), "cartesian_sidewinder")
 
     val colorization = DijkstraDistances(grid, startAt=grid[20, 10]!!)

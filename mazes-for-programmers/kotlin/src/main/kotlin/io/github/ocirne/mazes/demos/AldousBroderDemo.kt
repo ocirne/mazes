@@ -9,7 +9,7 @@ import io.github.ocirne.mazes.output.saveImage
 fun main() {
     val grid = CartesianGrid(21, 21)
 
-    AldousBroder.on(grid)
+    AldousBroder().on(grid)
     saveImage(grid.toImage(), "cartesian_aldous_broder")
 
     val colorization = DijkstraDistances(grid, startAt=grid[20, 10]!!)

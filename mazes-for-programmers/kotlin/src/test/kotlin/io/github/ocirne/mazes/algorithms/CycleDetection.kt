@@ -10,7 +10,7 @@ class CycleDetection(private val grid: Grid<out Cell>) {
     private val visited: MutableSet<Cell> = mutableSetOf()
     private val finished: MutableSet<Cell> = mutableSetOf()
 
-    fun detect() {
+    fun assertNoCycle() {
         val cell = grid.randomCell()
         dfs(cell, cell)
         // all cells are visited - that also means not every cell must be the start

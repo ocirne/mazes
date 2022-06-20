@@ -5,28 +5,39 @@ import io.github.ocirne.mazes.grids.HexGrid
 import io.github.ocirne.mazes.grids.PolarGrid
 import io.github.ocirne.mazes.output.saveImage
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
+import java.util.stream.Stream
+import kotlin.reflect.KClass
 
 /** from every cell all other cells are reachable in exactly one path */
-class PerfectionTest {
+internal class PerfectionTest {
 
     // TODO add seed feedback to reproduce errors
 
     private val size = 10
 
-    @Test
-    fun `Cartesian grid with BinaryTree maze is perfect`() {
-        val grid = CartesianGrid(size, size)
-        BinaryTree.on(grid)
-
-        CycleDetection(grid).detect()
+    companion object {
+        @JvmStatic
+        fun labyrinthAlgorithms(): Stream<Arguments> =
+            Stream.of(
+                Arguments.of(AldousBroder::class),
+                Arguments.of(BinaryTree::class),
+                Arguments.of(Sidewinder::class)
+            )
     }
 
-    @Test
-    fun `Cartesian grid with Sidewinder maze is perfect`() {
+    // TODO improve
+    @ParameterizedTest(name = "Cartesian grid with {0} is perfect")
+    @MethodSource("labyrinthAlgorithms")
+    fun `Cartesian grid with $algorithm is perfect`(labyrinthAlgorithmClass: KClass<out PassageCarver>) {
         val grid = CartesianGrid(size, size)
-        Sidewinder.on(grid)
 
-        CycleDetection(grid).detect()
+        val algorithm = labyrinthAlgorithmClass.constructors.first().call()
+        algorithm.on(grid)
+
+        CycleDetection(grid).assertNoCycle()
     }
 
     @Test
@@ -35,7 +46,7 @@ class PerfectionTest {
         Wilsons.on(grid)
 
         saveImage(grid.toImage(), filename = "test")
-        CycleDetection(grid).detect()
+        CycleDetection(grid).assertNoCycle()
     }
 
     @Test
@@ -43,7 +54,7 @@ class PerfectionTest {
         val grid = HexGrid(size, size)
         RecursiveBacktracker.on(grid)
 
-        CycleDetection(grid).detect()
+        CycleDetection(grid).assertNoCycle()
     }
 
     @Test
@@ -51,6 +62,6 @@ class PerfectionTest {
         val grid = PolarGrid(size)
         RecursiveBacktracker.on(grid)
 
-        CycleDetection(grid).detect()
+        CycleDetection(grid).assertNoCycle()
     }
 }
