@@ -6,7 +6,7 @@ import io.kotest.matchers.collections.shouldNotContain
 import io.kotest.matchers.shouldBe
 
 /** see https://en.wikipedia.org/wiki/Cycle_(graph_theory) */
-class CycleDetection(private val grid: Grid<out Cell>) {
+class CycleDetection(private val grid: Grid) {
     private val visited: MutableSet<Cell> = mutableSetOf()
     private val finished: MutableSet<Cell> = mutableSetOf()
 

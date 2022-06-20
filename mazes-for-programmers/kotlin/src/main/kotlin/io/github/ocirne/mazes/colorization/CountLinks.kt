@@ -5,7 +5,7 @@ import io.github.ocirne.mazes.grids.Grid
 import java.awt.Color
 import kotlin.math.roundToInt
 
-class CountLinks(grid: Grid<out Cell>) : Colorization {
+class CountLinks(grid: Grid) : Colorization {
 
     private val weights = grid.eachCell().associateWith { it.links().size }
 

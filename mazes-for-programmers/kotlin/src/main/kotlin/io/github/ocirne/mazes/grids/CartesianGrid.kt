@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
 
 
-class CartesianGrid(private val rows: Int, private val columns: Int) : Grid<CartesianCell> {
+class CartesianGrid(private val rows: Int, private val columns: Int) : Grid {
 
     private val grid: Array<Array<CartesianCell>>
 

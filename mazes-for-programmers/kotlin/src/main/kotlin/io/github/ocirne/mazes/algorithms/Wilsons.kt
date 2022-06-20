@@ -6,7 +6,7 @@ import io.github.ocirne.mazes.grids.Grid
 class Wilsons {
 
     companion object {
-        fun on(grid: Grid<out Cell>) {
+        fun on(grid: Grid) {
             val unvisited = grid.eachCell().toMutableList()
             val first = unvisited.random()
             unvisited.remove(first)

@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
 import kotlin.math.sqrt
 
-class HexGrid(private val rows: Int, private val columns: Int) : Grid<HexCell> {
+class HexGrid(private val rows: Int, private val columns: Int) : Grid {
 
     private val grid: Array<Array<HexCell>>
 

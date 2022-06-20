@@ -8,7 +8,7 @@ import java.awt.image.RenderedImage
 import kotlin.math.PI
 import kotlin.math.roundToInt
 
-class PolarGrid(private val rows: Int) : Grid<PolarCell> {
+class PolarGrid(private val rows: Int) : Grid {
 
     private val grid: Array<Array<PolarCell>>
 

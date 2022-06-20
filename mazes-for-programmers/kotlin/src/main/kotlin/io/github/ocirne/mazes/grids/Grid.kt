@@ -4,7 +4,7 @@ import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.colorization.NoBackground
 import java.awt.image.RenderedImage
 
-interface Grid<Cell> {
+interface Grid {
 
     operator fun get(row: Int, column: Int): Cell?
 
@@ -14,6 +14,10 @@ interface Grid<Cell> {
 
     fun randomCell(): Cell {
         return eachCell().random()
+    }
+
+    fun deadEnds(): List<Cell> {
+        return eachCell().filter { it.links().size == 1 }
     }
 
     enum class MODES {

@@ -6,7 +6,7 @@ import io.github.ocirne.mazes.grids.Grid
 class HuntAndKill {
 
     companion object {
-        fun on(grid: Grid<out Cell>) {
+        fun on(grid: Grid) {
             var current: Cell? = grid.randomCell()
             while (current != null) {
                 val unvisitedNeighbors = current.neighbors().filter { it.links().isEmpty() }
