@@ -2,9 +2,6 @@ package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
 import java.awt.Color
-import java.awt.Graphics
-import java.awt.Point
-import java.awt.Polygon
 import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
 import kotlin.math.sqrt
@@ -55,18 +52,13 @@ class HexGrid(private val rows: Int, private val columns: Int) : Grid<HexCell> {
         return grid.flatten()
     }
 
-    private fun drawline(g: Graphics, p1: Point, p2: Point) {
-        g.drawLine(p1.x, p1.y, p2.x, p2.y)
-    }
-
     override fun toImage(cellSize: Int, colorization: Colorization): RenderedImage {
-        val a_size = cellSize / 2.0
-        val b_size = cellSize * sqrt(3.0) / 2.0
-        val width = cellSize * 2.0
-        val height = b_size * 2.0
+        val aSize = cellSize / 2.0
+        val bSize = cellSize * sqrt(3.0) / 2.0
+        val height = bSize * 2.0
 
-        val imgWidth = (3 * a_size * columns + a_size + 0.5).toInt()
-        val imgHeight = (height * rows + b_size + 0.5).toInt()
+        val imgWidth = (3 * aSize * columns + aSize + 0.5).toInt()
+        val imgHeight = (height * rows + bSize + 0.5).toInt()
 
         val background = Color.BLACK
 
@@ -76,42 +68,13 @@ class HexGrid(private val rows: Int, private val columns: Int) : Grid<HexCell> {
 
         for (mode in Grid.MODES.values()) {
             for (cell in eachCell()) {
-                val cx = cellSize + 3 * cell.column * a_size
-                val cy = b_size + cell.row * height + (cell.column % 2) * b_size
-
-                val x_fw = (cx - cellSize).toInt()
-                val x_nw = (cx - a_size).toInt()
-                val x_ne = (cx + a_size).toInt()
-                val x_fe = (cx + cellSize).toInt()
-
-                val y_n = (cy - b_size).toInt()
-                val y_m = cy.toInt()
-                val y_s = (cy + b_size).toInt()
-
+                cell.prepareCoordinates(cellSize, height, aSize, bSize)
                 if (mode == Grid.MODES.BACKGROUNDS) {
                     g.color = colorization.colorForBackground(cell)
-                    val p = Polygon()
-                    p.addPoint(x_fw, y_m)
-                    p.addPoint(x_nw, y_n)
-                    p.addPoint(x_ne, y_n)
-                    p.addPoint(x_fe, y_m)
-                    p.addPoint(x_ne, y_s)
-                    p.addPoint(x_nw, y_s)
-                    g.fillPolygon(p)
+                    cell.drawBackground(g)
                 } else {
                     g.color = colorization.colorForWall(cell)
-                    if (cell.southwest == null)
-                        g.drawLine(x_fw, y_m, x_nw, y_s)
-                    if (cell.northwest == null)
-                        g.drawLine(x_fw, y_m, x_nw, y_n)
-                    if (cell.north == null)
-                        g.drawLine(x_nw, y_n, x_ne, y_n)
-                    if (!cell.isLinked(cell.northeast))
-                        g.drawLine(x_ne, y_n, x_fe, y_m)
-                    if (!cell.isLinked(cell.southeast))
-                        g.drawLine(x_fe, y_m, x_ne, y_s)
-                    if (!cell.isLinked(cell.south))
-                        g.drawLine(x_ne, y_s, x_nw, y_s)
+                    cell.drawWalls(g)
                 }
             }
         }

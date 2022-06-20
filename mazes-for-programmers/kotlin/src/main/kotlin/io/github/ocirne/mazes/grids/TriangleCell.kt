@@ -13,15 +13,15 @@ class TriangleCell(val row: Int, val column: Int) : Cell() {
         return arrayListOf(west, east, if (isUpright()) south else north).filterNotNull()
     }
 
+    fun isUpright(): Boolean {
+        return (row + column) % 2 == 0
+    }
+
     override fun drawBackground(g: Graphics) {
         TODO("Not yet implemented")
     }
 
     override fun drawWalls(g: Graphics) {
         TODO("Not yet implemented")
-    }
-
-    fun isUpright(): Boolean {
-        return (row + column) % 2 == 0
     }
 }

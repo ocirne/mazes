@@ -17,15 +17,15 @@ class UpsilonCell(val row: Int, val column: Int) : Cell() {
         return arrayListOf(north, northeast, east, southeast, south, southwest, west, northwest).filterNotNull()
     }
 
+    fun isOctogon(): Boolean {
+        return (row + column) % 2 == 0
+    }
+
     override fun drawBackground(g: Graphics) {
         TODO("Not yet implemented")
     }
 
     override fun drawWalls(g: Graphics) {
         TODO("Not yet implemented")
-    }
-
-    fun isOctogon(): Boolean {
-        return (row + column) % 2 == 0
     }
 }
