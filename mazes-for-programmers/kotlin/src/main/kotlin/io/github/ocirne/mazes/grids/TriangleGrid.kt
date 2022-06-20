@@ -4,7 +4,6 @@ import io.github.ocirne.mazes.colorization.Colorization
 import java.awt.Color
 import java.awt.Graphics
 import java.awt.Point
-import java.awt.Polygon
 import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
 import kotlin.math.sqrt
@@ -73,41 +72,13 @@ class TriangleGrid(private val rows: Int, private val columns: Int) : Grid<Trian
 
         for (mode in Grid.MODES.values()) {
             for (cell in eachCell()) {
-                val cx = halfWidth + cell.column * halfWidth
-                val cy = halfHeight + cell.row * height
-
-                val west_x = (cx - halfWidth).toInt()
-                val mid_x = cx.toInt()
-                val east_x = (cx + halfWidth).toInt()
-
-                val apex_y: Int
-                val base_y: Int
-
-                if (cell.isUpright()) {
-                    apex_y = (cy - halfHeight).toInt()
-                    base_y = (cy + halfHeight).toInt()
-                } else {
-                    apex_y = (cy + halfHeight).toInt()
-                    base_y = (cy - halfHeight).toInt()
-                }
-
+                cell.prepareCoordinates(halfWidth, height, halfHeight)
                 if (mode == Grid.MODES.BACKGROUNDS) {
                     g.color = colorization.colorForBackground(cell)
-                    val p = Polygon()
-                    p.addPoint(west_x, base_y)
-                    p.addPoint(mid_x, apex_y)
-                    p.addPoint(east_x, base_y)
-                    g.fillPolygon(p)
+                    cell.drawBackground(g)
                 } else {
                     g.color = colorization.colorForWall(cell)
-                    if (cell.west == null)
-                        g.drawLine(west_x, base_y, mid_x, apex_y)
-                    if (!cell.isLinked(cell.east))
-                        g.drawLine(east_x, base_y, mid_x, apex_y)
-                    val no_south = cell.isUpright() && cell.south == null
-                    val not_linked = !cell.isUpright() && !cell.isLinked(cell.north)
-                    if (no_south || not_linked)
-                        g.drawLine(east_x, base_y, west_x, base_y)
+                    cell.drawWalls(g)
                 }
             }
         }

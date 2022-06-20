@@ -8,7 +8,7 @@ import io.github.ocirne.mazes.output.saveImage
 
 // also DeltaMaze
 fun main() {
-    val grid = TriangleGrid(10, 17)
+    val grid = TriangleGrid(20, 33)
     saveImage(grid.toImage(), "triangle")
 
     RecursiveBacktracker.on(grid)

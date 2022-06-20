@@ -1,6 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import java.awt.Graphics
+import java.awt.Polygon
 
 class TriangleCell(val row: Int, val column: Int) : Cell() {
 
@@ -17,11 +18,54 @@ class TriangleCell(val row: Int, val column: Int) : Cell() {
         return (row + column) % 2 == 0
     }
 
+    data class Coordinates(
+        val westX: Int,
+        val midX: Int,
+        val eastX: Int,
+        val apexY: Int,
+        val baseY: Int
+    )
+
+    lateinit var c: Coordinates
+
+    fun prepareCoordinates(halfWidth: Double, height: Double, halfHeight: Double) {
+        val cx = halfWidth + column * halfWidth
+        val cy = halfHeight + row * height
+
+        val westX = (cx - halfWidth).toInt()
+        val midX = cx.toInt()
+        val eastX = (cx + halfWidth).toInt()
+
+        val apexY: Int
+        val baseY: Int
+
+        if (isUpright()) {
+            apexY = (cy - halfHeight).toInt()
+            baseY = (cy + halfHeight).toInt()
+        } else {
+            apexY = (cy + halfHeight).toInt()
+            baseY = (cy - halfHeight).toInt()
+        }
+        c = Coordinates(westX, midX, eastX, apexY, baseY)
+    }
+
     override fun drawBackground(g: Graphics) {
-        TODO("Not yet implemented")
+        val p = Polygon()
+        p.addPoint(c.westX, c.baseY)
+        p.addPoint(c.midX, c.apexY)
+        p.addPoint(c.eastX, c.baseY)
+        g.fillPolygon(p)
     }
 
     override fun drawWalls(g: Graphics) {
-        TODO("Not yet implemented")
+        if (west == null)
+            g.drawLine(c.westX, c.baseY, c.midX, c.apexY)
+        if (!isLinked(east))
+            g.drawLine(c.eastX, c.baseY, c.midX, c.apexY)
+        val noSouth = isUpright() && south == null
+        val notLinked = !isUpright() && !isLinked(north)
+        if (noSouth || notLinked)
+            g.drawLine(c.eastX, c.baseY, c.westX, c.baseY)
+
     }
 }
