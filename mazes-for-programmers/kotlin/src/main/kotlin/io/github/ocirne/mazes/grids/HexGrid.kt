@@ -52,7 +52,7 @@ class HexGrid(private val rows: Int, private val columns: Int) : Grid {
         return grid.flatten()
     }
 
-    override fun toImage(cellSize: Int, inset:Double, colorization: Colorization): RenderedImage {
+    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double, colorization: Colorization): RenderedImage {
         val aSize = cellSize / 2.0
         val bSize = cellSize * sqrt(3.0) / 2.0
         val height = bSize * 2.0

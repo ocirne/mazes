@@ -10,31 +10,40 @@ class CartesianCell(val row: Int, val column: Int) : Cell() {
     var west: CartesianCell? = null
 
     data class Coordinates(
-        val withInset: Boolean,
+        val withWallInset: Boolean,
+        val withBackInset: Boolean,
         val x1: Int,
-        val x2: Int,
-        val x3: Int,
+        val xw2: Int,
+        val xb2: Int,
+        val xw3: Int,
+        val xb3: Int,
         val x4: Int,
         val y1: Int,
-        val y2: Int,
-        val y3: Int,
+        val yw2: Int,
+        val yb2: Int,
+        val yw3: Int,
+        val yb3: Int,
         val y4: Int
     )
 
     private lateinit var c: Coordinates
 
-    fun prepareCoordinates(cellSize: Int, inset: Int) {
+    fun prepareCoordinates(cellSize: Int, wallInset: Int, backInset: Int) {
         val x1 = column * cellSize
-        val x2 = x1 + inset
         val x4 = x1 + cellSize
-        val x3 = x4 - inset
+        val xw2 = x1 + wallInset
+        val xb2 = x1 + backInset
+        val xw3 = x4 - wallInset
+        val xb3 = x4 - backInset
 
         val y1 = row * cellSize
-        val y2 = y1 + inset
         val y4 = y1 + cellSize
-        val y3 = y4 - inset
+        val yw2 = y1 + wallInset
+        val yb2 = y1 + backInset
+        val yw3 = y4 - wallInset
+        val yb3 = y4 - backInset
 
-        c = Coordinates(inset > 0, x1, x2, x3, x4, y1, y2, y3, y4)
+        c = Coordinates(wallInset > 0, backInset > 0, x1, xw2, xb2, xw3, xb3, x4, y1, yw2, yb2, yw3, yb3, y4)
     }
 
     override fun neighbors(): List<CartesianCell> {
@@ -42,46 +51,46 @@ class CartesianCell(val row: Int, val column: Int) : Cell() {
     }
 
     override fun drawBackground(g: Graphics) {
-        if (c.withInset) {
-            g.fillRect(c.x2, c.y2, c.x3-c.x2, c.y3-c.y2)
+        if (c.withBackInset) {
+            g.fillRect(c.xb2, c.yb2, c.xb3-c.xb2, c.yb3-c.yb2)
             if (isLinked(north))
-                g.fillRect(c.x2, c.y1, c.x3-c.x2, c.y2-c.y1)
+                g.fillRect(c.xb2, c.y1, c.xb3-c.xb2, c.yb2-c.y1)
             if (isLinked(south))
-                g.fillRect(c.x2, c.y3, c.x3-c.x2, c.y4-c.y3)
+                g.fillRect(c.xb2, c.yb3, c.xb3-c.xb2, c.y4-c.yb3)
             if (isLinked(west))
-                g.fillRect(c.x1, c.y2, c.x2-c.x1, c.y3-c.y2)
+                g.fillRect(c.x1, c.yb2, c.xb2-c.x1, c.yb3-c.yb2)
             if (isLinked(east))
-                g.fillRect(c.x3, c.y2, c.x4-c.x3, c.y3-c.y2)
+                g.fillRect(c.xb3, c.yb2, c.x4-c.xb3, c.yb3-c.yb2)
         } else {
             g.fillRect(c.x1, c.y1, c.x4 - c.x1, c.y4 - c.y1)
         }
     }
 
     override fun drawWalls(g: Graphics) {
-        if (c.withInset) {
+        if (c.withWallInset) {
             if (isLinked(north)) {
-                g.drawLine(c.x2, c.y1, c.x2, c.y2)
-                g.drawLine(c.x3, c.y1, c.x3, c.y2)
+                g.drawLine(c.xw2, c.y1, c.xw2, c.yw2)
+                g.drawLine(c.xw3, c.y1, c.xw3, c.yw2)
             } else {
-                g.drawLine(c.x2, c.y2, c.x3, c.y2)
+                g.drawLine(c.xw2, c.yw2, c.xw3, c.yw2)
             }
             if (isLinked(south)) {
-                g.drawLine(c.x2, c.y3, c.x2, c.y4)
-                g.drawLine(c.x3, c.y3, c.x3, c.y4)
+                g.drawLine(c.xw2, c.yw3, c.xw2, c.y4)
+                g.drawLine(c.xw3, c.yw3, c.xw3, c.y4)
             } else {
-                g.drawLine(c.x2, c.y3, c.x3, c.y3)
+                g.drawLine(c.xw2, c.yw3, c.xw3, c.yw3)
             }
             if (isLinked(west)) {
-                g.drawLine(c.x1, c.y2, c.x2, c.y2)
-                g.drawLine(c.x1, c.y3, c.x2, c.y3)
+                g.drawLine(c.x1, c.yw2, c.xw2, c.yw2)
+                g.drawLine(c.x1, c.yw3, c.xw2, c.yw3)
             } else {
-                g.drawLine(c.x2, c.y2, c.x2, c.y3)
+                g.drawLine(c.xw2, c.yw2, c.xw2, c.yw3)
             }
             if (isLinked(east)) {
-                g.drawLine(c.x3, c.y2, c.x4, c.y2)
-                g.drawLine(c.x3, c.y3, c.x4, c.y3)
+                g.drawLine(c.xw3, c.yw2, c.x4, c.yw2)
+                g.drawLine(c.xw3, c.yw3, c.x4, c.yw3)
             } else {
-                g.drawLine(c.x3, c.y2, c.x3, c.y3)
+                g.drawLine(c.xw3, c.yw2, c.xw3, c.yw3)
             }
         } else {
             if (north == null)

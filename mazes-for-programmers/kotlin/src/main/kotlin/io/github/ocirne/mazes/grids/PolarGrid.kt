@@ -75,7 +75,7 @@ class PolarGrid(private val rows: Int) : Grid {
         return grid.flatten()
     }
 
-    override fun toImage(cellSize: Int, inset:Double, colorization: Colorization): RenderedImage {
+    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double, colorization: Colorization): RenderedImage {
         val imgSize = 2 * rows * cellSize + 4
 
         val image = BufferedImage(imgSize + 1, imgSize + 1, BufferedImage.TYPE_INT_RGB)

@@ -54,7 +54,7 @@ class UpsilonGrid(private val rows: Int, private val columns: Int) : Grid {
         return grid.flatten()
     }
 
-    override fun toImage(cellSize: Int, inset:Double, colorization: Colorization): RenderedImage {
+    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double, colorization: Colorization): RenderedImage {
         val halfCSize = cellSize / 2.0
         val aSize = cellSize / sqrt(2.0)
         val correctedSize = cellSize + aSize
