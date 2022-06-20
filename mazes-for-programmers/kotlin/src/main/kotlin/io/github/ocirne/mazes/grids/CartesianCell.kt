@@ -11,7 +11,7 @@ class CartesianCell(val row: Int, val column: Int) : Cell() {
 
     data class Coordinates(val x1: Int, val y1: Int, val x2: Int, val y2: Int)
 
-    lateinit var c: Coordinates
+    private lateinit var c: Coordinates
 
     fun prepareCoordinates(cellSize: Int) {
         val x1 = column * cellSize

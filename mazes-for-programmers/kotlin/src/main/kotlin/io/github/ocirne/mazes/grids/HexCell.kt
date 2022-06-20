@@ -27,7 +27,7 @@ class HexCell(val row: Int, val column: Int) : Cell() {
         val yS: Int
     )
 
-    lateinit var c: Coordinates
+    private lateinit var c: Coordinates
 
     fun prepareCoordinates(cellSize: Int, height: Double, aSize:Double, bSize:Double) {
         val cx = cellSize + 3 * column * aSize

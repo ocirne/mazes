@@ -26,7 +26,7 @@ class PolarCell(val row: Int, val column: Int) : Cell() {
         val dy: Int
     )
 
-    lateinit var c: Coordinates
+    private lateinit var c: Coordinates
 
     fun prepareCoordinates(grid: PolarGrid, center: Int, cellSize: Int) {
         val thetaRad = 2 * PI / grid[row]!!.size

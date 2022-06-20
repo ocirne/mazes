@@ -10,12 +10,12 @@ class HuntAndKill {
             var current: Cell? = grid.randomCell()
             while (current != null) {
                 val unvisitedNeighbors = current.neighbors().filter { it.links().isEmpty() }
-                if (unvisitedNeighbors.isNotEmpty()) {
+                current = if (unvisitedNeighbors.isNotEmpty()) {
                     val neighbor = unvisitedNeighbors.random()
                     current.link(neighbor)
-                    current = neighbor
+                    neighbor
                 } else {
-                    current = null
+                    null
                 }
                 for (cell in grid.eachCell()) {
                     val visitedNeighbors = cell.neighbors().filter { it.links().isNotEmpty() }

@@ -55,10 +55,9 @@ class UpsilonGrid(private val rows: Int, private val columns: Int) : Grid {
     }
 
     override fun toImage(cellSize: Int, colorization: Colorization): RenderedImage {
-        val cSize = cellSize
-        val halfCSize = cSize / 2.0
+        val halfCSize = cellSize / 2.0
         val aSize = cellSize / sqrt(2.0)
-        val correctedSize = cSize + aSize
+        val correctedSize = cellSize + aSize
 
         val imgWidth = (correctedSize * (columns + 1)).toInt()
         val imgHeight = (correctedSize * (rows + 1)).toInt()

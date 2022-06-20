@@ -35,7 +35,7 @@ class UpsilonCell(val row: Int, val column: Int) : Cell() {
         val p7: Point
     )
 
-    lateinit var c: Coordinates
+    private lateinit var c: Coordinates
 
     fun prepareCoordinates(correctedSize: Double, halfCSize: Double, aSize: Double) {
         val cx = (column + 1) * correctedSize

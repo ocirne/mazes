@@ -26,7 +26,7 @@ class TriangleCell(val row: Int, val column: Int) : Cell() {
         val baseY: Int
     )
 
-    lateinit var c: Coordinates
+    private lateinit var c: Coordinates
 
     fun prepareCoordinates(halfWidth: Double, height: Double, halfHeight: Double) {
         val cx = halfWidth + column * halfWidth
