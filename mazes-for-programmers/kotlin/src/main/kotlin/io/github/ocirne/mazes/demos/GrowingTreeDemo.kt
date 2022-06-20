@@ -1,7 +1,7 @@
 package io.github.ocirne.mazes.demos
 
 import io.github.ocirne.mazes.algorithms.GrowingTree
-import io.github.ocirne.mazes.colorization.DijkstraDistances
+import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.grids.CartesianGrid
 import io.github.ocirne.mazes.grids.Cell
 import io.github.ocirne.mazes.output.saveImage
@@ -12,7 +12,7 @@ private fun wrap(name: String, f : (List<Cell>) -> Cell) {
     GrowingTree.on(grid, f, startAt=grid[20, 10]!!)
     saveImage(grid.toImage(), "cartesian_growingTree_$name")
 
-    val colorization = DijkstraDistances(grid, startAt=grid[20, 10]!!)
+    val colorization = Colorization(grid, startAt=grid[20, 10]!!).dijkstra()
     saveImage(grid.toImage(colorization = colorization), "cartesian_growingTree_${name}_colorized")
 }
 

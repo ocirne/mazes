@@ -1,7 +1,7 @@
 package io.github.ocirne.mazes.demos
 
 import io.github.ocirne.mazes.algorithms.AldousBroder
-import io.github.ocirne.mazes.colorization.DijkstraDistances
+import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.grids.CartesianGrid
 import io.github.ocirne.mazes.output.saveImage
 
@@ -12,6 +12,6 @@ fun main() {
     AldousBroder().on(grid)
     saveImage(grid.toImage(), "cartesian_aldous_broder")
 
-    val colorization = DijkstraDistances(grid, startAt=grid[20, 10]!!)
+    val colorization = Colorization(grid, startAt=grid[20, 10]!!).dijkstra()
     saveImage(grid.toImage(colorization = colorization), "cartesian_aldous_broder_colorized")
 }

@@ -5,13 +5,10 @@ import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.grids.CartesianGrid
 import io.github.ocirne.mazes.output.saveImage
 
-
 fun main() {
     val grid = CartesianGrid(21, 21)
-
     Sidewinder().on(grid)
-    saveImage(grid.toImage(), "cartesian_sidewinder")
 
-    val colorization = Colorization(grid, startAt=grid[20, 10]!!).dijkstra()
-    saveImage(grid.toImage(colorization = colorization), "cartesian_sidewinder_colorized")
+    val longestPath = Colorization(grid).longestPath()
+    saveImage(grid.toImage(colorization = longestPath), "cartesian_recursive_backtracker_longest_path")
 }

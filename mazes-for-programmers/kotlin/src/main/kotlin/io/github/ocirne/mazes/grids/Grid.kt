@@ -1,7 +1,6 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
-import io.github.ocirne.mazes.colorization.NoBackground
 import java.awt.image.RenderedImage
 
 interface Grid {
@@ -29,5 +28,5 @@ interface Grid {
         BACKGROUNDS, WALLS
     }
 
-    fun toImage(cellSize: Int = 40, inset:Double=0.0, colorization: Colorization = NoBackground()): RenderedImage
+    fun toImage(cellSize: Int = 40, inset:Double=0.0, colorization: Colorization = Colorization(this)): RenderedImage
 }
