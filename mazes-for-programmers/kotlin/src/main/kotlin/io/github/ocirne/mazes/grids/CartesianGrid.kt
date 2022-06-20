@@ -65,6 +65,8 @@ class CartesianGrid(private val rows: Int, private val columns: Int) : Grid {
 
         for (mode in Grid.MODES.values()) {
             for (cell in eachCell()) {
+                if (cell.links().isEmpty())
+                    continue
                 cell.prepareCoordinates(cellSize)
                 if (mode == Grid.MODES.BACKGROUNDS) {
                     g.color = colorization.colorForBackground(cell)
