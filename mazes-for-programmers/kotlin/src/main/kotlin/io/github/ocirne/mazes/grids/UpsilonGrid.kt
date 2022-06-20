@@ -2,9 +2,6 @@ package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
 import java.awt.Color
-import java.awt.Graphics
-import java.awt.Point
-import java.awt.Polygon
 import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
 import kotlin.math.sqrt
@@ -57,10 +54,6 @@ class UpsilonGrid(private val rows: Int, private val columns: Int) : Grid<Upsilo
         return grid.flatten()
     }
 
-    private fun drawline(g: Graphics, p1: Point, p2: Point) {
-        g.drawLine(p1.x, p1.y, p2.x, p2.y)
-    }
-
     override fun toImage(cellSize: Int, colorization: Colorization): RenderedImage {
         val cSize = cellSize
         val halfCSize = cSize / 2.0
@@ -78,88 +71,13 @@ class UpsilonGrid(private val rows: Int, private val columns: Int) : Grid<Upsilo
 
         for (mode in Grid.MODES.values()) {
             for (cell in eachCell()) {
-                val cx = (cell.column + 1) * correctedSize
-                val cy = (cell.row + 1) * correctedSize
-
-                val x0 = (cx - halfCSize - aSize).toInt()
-                val x1 = (cx - halfCSize).toInt()
-                val x2 = (cx + halfCSize).toInt()
-                val x3 = (cx + halfCSize + aSize).toInt()
-
-                val y0 = (cy - halfCSize - aSize).toInt()
-                val y1 = (cy - halfCSize).toInt()
-                val y2 = (cy + halfCSize).toInt()
-                val y3 = (cy + halfCSize + aSize).toInt()
-
-                var p0: Point
-                var p1: Point
-                var p2: Point
-                var p3: Point
-                var p4: Point
-                var p5: Point
-                var p6: Point
-                var p7: Point
-
-                if (cell.isOctogon()) {
-                    p0 = Point(x0, y2)
-                    p1 = Point(x0, y1)
-                    p2 = Point(x1, y0)
-                    p3 = Point(x2, y0)
-                    p4 = Point(x3, y1)
-                    p5 = Point(x3, y2)
-                    p6 = Point(x2, y3)
-                    p7 = Point(x1, y3)
-                } else {
-                    p0 = Point(x1, y2)
-                    p7 = p0
-                    p2 = Point(x1, y1)
-                    p1 = p2
-                    p4 = Point(x2, y1)
-                    p3 = p4
-                    p6 = Point(x2, y2)
-                    p5 = p6
-                }
-
+                cell.prepareCoordinates(correctedSize, halfCSize, aSize)
                 if (mode == Grid.MODES.BACKGROUNDS) {
                     g.color = colorization.colorForBackground(cell)
-                    val p = Polygon()
-                    if (cell.isOctogon()) {
-                        p.addPoint(p0.x, p0.y)
-                        p.addPoint(p1.x, p1.y)
-                        p.addPoint(p2.x, p2.y)
-                        p.addPoint(p3.x, p3.y)
-                        p.addPoint(p4.x, p4.y)
-                        p.addPoint(p5.x, p5.y)
-                        p.addPoint(p6.x, p6.y)
-                        p.addPoint(p7.x, p7.y)
-                    } else {
-                        p.addPoint(p0.x, p0.y)
-                        p.addPoint(p2.x, p2.y)
-                        p.addPoint(p4.x, p4.y)
-                        p.addPoint(p6.x, p6.y)
-                    }
-                    g.fillPolygon(p)
+                    cell.drawBackground(g)
                 } else {
                     g.color = colorization.colorForWall(cell)
-                    if (cell.west == null)
-                        drawline(g, p0, p1)
-                    if (cell.north == null)
-                        drawline(g, p2, p3)
-                    if (!cell.isLinked(cell.east))
-                        drawline(g, p4, p5)
-                    if (!cell.isLinked(cell.south))
-                        drawline(g, p6, p7)
-
-                    if (cell.isOctogon()) {
-                        if (cell.northwest == null)
-                            drawline(g, p1, p2)
-                        if (!cell.isLinked(cell.northeast))
-                            drawline(g, p3, p4)
-                        if (!cell.isLinked(cell.southeast))
-                            drawline(g, p5, p6)
-                        if (cell.southwest == null)
-                            drawline(g, p7, p0)
-                    }
+                    cell.drawWalls(g)
                 }
             }
         }
