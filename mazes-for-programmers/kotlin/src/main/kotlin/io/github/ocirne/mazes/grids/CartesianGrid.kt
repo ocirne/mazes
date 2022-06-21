@@ -1,6 +1,8 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import io.github.ocirne.mazes.grids.Grid.MODES.BACKGROUNDS
+import io.github.ocirne.mazes.grids.Grid.MODES.WALLS
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
@@ -53,7 +55,12 @@ class CartesianGrid(private val rows: Int, private val columns: Int) : Grid {
         return grid.flatten()
     }
 
-    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double, colorization: Colorization): RenderedImage {
+    override fun toImage(
+        cellSize: Int,
+        wallInset: Double,
+        backInset: Double,
+        colorization: Colorization
+    ): RenderedImage {
         val imgWidth = cellSize * columns
         val imgHeight = cellSize * rows
         val wallInsetAbsolute = (cellSize * wallInset).toInt()
@@ -70,12 +77,13 @@ class CartesianGrid(private val rows: Int, private val columns: Int) : Grid {
                 if (cell.links().isEmpty())
                     continue
                 cell.prepareCoordinates(cellSize, wallInsetAbsolute, backInsetAbsolute)
-                if (mode == Grid.MODES.BACKGROUNDS) {
-                    g.color = colorization.colorForBackground(cell)
-                    cell.drawBackground(g)
-                } else {
-                    g.color = colorization.colorForWall(cell)
-                    cell.drawWalls(g)
+                when (mode) {
+                    BACKGROUNDS -> {
+                        cell.drawBackground(g, colorization)
+                    }
+                    WALLS -> {
+                        cell.drawWalls(g, colorization)
+                    }
                 }
             }
         }

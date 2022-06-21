@@ -74,11 +74,9 @@ class TriangleGrid(private val rows: Int, private val columns: Int) : Grid {
             for (cell in eachCell()) {
                 cell.prepareCoordinates(halfWidth, height, halfHeight)
                 if (mode == Grid.MODES.BACKGROUNDS) {
-                    g.color = colorization.colorForBackground(cell)
-                    cell.drawBackground(g)
+                    cell.drawBackground(g, colorization)
                 } else {
-                    g.color = colorization.colorForWall(cell)
-                    cell.drawWalls(g)
+                    cell.drawWalls(g, colorization)
                 }
             }
         }

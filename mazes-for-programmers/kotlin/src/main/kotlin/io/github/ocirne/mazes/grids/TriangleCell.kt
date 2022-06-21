@@ -1,5 +1,6 @@
 package io.github.ocirne.mazes.grids
 
+import io.github.ocirne.mazes.colorization.Colorization
 import java.awt.Graphics
 import java.awt.Polygon
 
@@ -49,7 +50,8 @@ class TriangleCell(val row: Int, val column: Int) : Cell() {
         c = Coordinates(westX, midX, eastX, apexY, baseY)
     }
 
-    override fun drawBackground(g: Graphics) {
+    override fun drawBackground(g: Graphics, colorization: Colorization) {
+        g.color = colorization.colorForBackground(this)
         val p = Polygon()
         p.addPoint(c.westX, c.baseY)
         p.addPoint(c.midX, c.apexY)
@@ -57,7 +59,8 @@ class TriangleCell(val row: Int, val column: Int) : Cell() {
         g.fillPolygon(p)
     }
 
-    override fun drawWalls(g: Graphics) {
+    override fun drawWalls(g: Graphics, colorization: Colorization) {
+        g.color = colorization.colorForWall(this)
         if (west == null)
             g.drawLine(c.westX, c.baseY, c.midX, c.apexY)
         if (!isLinked(east))

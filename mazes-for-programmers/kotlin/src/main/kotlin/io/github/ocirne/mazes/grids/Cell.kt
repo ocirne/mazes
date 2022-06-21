@@ -1,5 +1,6 @@
 package io.github.ocirne.mazes.grids
 
+import io.github.ocirne.mazes.colorization.Colorization
 import java.awt.Graphics
 
 abstract class Cell {
@@ -31,7 +32,7 @@ abstract class Cell {
 
     abstract fun neighbors(): List<Cell>
 
-    abstract fun drawBackground(g: Graphics)
+    abstract fun drawBackground(g: Graphics, colorization: Colorization)
 
-    abstract fun drawWalls(g: Graphics)
+    abstract fun drawWalls(g: Graphics, colorization: Colorization)
 }

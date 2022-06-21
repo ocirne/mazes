@@ -90,11 +90,9 @@ class PolarGrid(private val rows: Int) : Grid {
             for (cell in eachCell()) {
                 cell.prepareCoordinates(this, center, cellSize)
                 if (mode == Grid.MODES.BACKGROUNDS) {
-                    g.color = colorization.colorForBackground(cell)
-                    cell.drawBackground(g)
+                    cell.drawBackground(g, colorization)
                 } else {
-                    g.color = colorization.colorForWall(cell)
-                    cell.drawWalls(g)
+                    cell.drawWalls(g, colorization)
                 }
             }
         }

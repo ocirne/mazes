@@ -1,5 +1,6 @@
 package io.github.ocirne.mazes.grids
 
+import io.github.ocirne.mazes.colorization.Colorization
 import java.awt.Graphics
 import kotlin.math.*
 
@@ -51,7 +52,8 @@ class PolarCell(val row: Int, val column: Int) : Cell() {
         return arrayListOf(cw, ccw, inward).filterNotNull() + outward
     }
 
-    override fun drawBackground(g: Graphics) {
+    override fun drawBackground(g: Graphics, colorization: Colorization) {
+        g.color = colorization.colorForBackground(this)
         val cw = column * c.thetaDeg
         for (x in 0..c.cellSize) {
             val xy = c.center-(c.innerRadius+x)
@@ -60,7 +62,8 @@ class PolarCell(val row: Int, val column: Int) : Cell() {
         }
     }
 
-    override fun drawWalls(g: Graphics) {
+    override fun drawWalls(g: Graphics, colorization: Colorization) {
+        g.color = colorization.colorForWall(this)
         if (!isLinked(inward)) {
             val cw = column * c.thetaDeg
             val xy = c.center - (c.innerRadius)
