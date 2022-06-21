@@ -5,6 +5,7 @@ import io.github.ocirne.mazes.grids.Grid
 import java.awt.Color
 import kotlin.math.roundToInt
 
+// TODO: Kombinationen, also Background und Longest Path gleichzeitig
 class Colorization(
     private val grid: Grid,
     private val startAt: Cell = grid.randomCell(),
@@ -59,6 +60,10 @@ class Colorization(
     fun countLinks(): Colorization {
         grid.eachCell().forEach { weights[it] = it.links().size }
         return this
+    }
+
+    fun isColoredCell(cell: Cell?): Boolean {
+        return weights.contains(cell)
     }
 
     fun colorForBackground(cell: Cell): Color {

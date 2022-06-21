@@ -11,5 +11,4 @@ fun main() {
 
     val longestPath = Colorization(grid).longestPath()
     saveImage(grid.toImage(wallInset=0.1, backInset = 0.4, colorization = longestPath), "cartesian_recursive_backtracker_longest_path")
-    // TODO da gibt es noch komische Spitzen, und vielleicht nochmal Pixel zählen
 }

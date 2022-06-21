@@ -63,6 +63,7 @@ class CartesianGrid(private val rows: Int, private val columns: Int) : Grid {
     ): RenderedImage {
         val imgWidth = cellSize * columns
         val imgHeight = cellSize * rows
+        // TODO Ist um ein Pixel daneben, bei Gelegenheit anschauen
         val wallInsetAbsolute = (cellSize * wallInset).toInt()
         val backInsetAbsolute = (cellSize * backInset).toInt()
 

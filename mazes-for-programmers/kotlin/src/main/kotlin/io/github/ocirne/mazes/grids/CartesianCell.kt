@@ -1,6 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import java.awt.Color
 import java.awt.Graphics
 
 class CartesianCell(val row: Int, val column: Int) : Cell() {
@@ -52,16 +53,16 @@ class CartesianCell(val row: Int, val column: Int) : Cell() {
     }
 
     override fun drawBackground(g: Graphics, colorization: Colorization) {
+        g.color = colorization.colorForBackground(this)
         if (c.withBackInset) {
-            g.color = colorization.colorForBackground(this)
             g.fillRect(c.xb2, c.yb2, c.xb3-c.xb2, c.yb3-c.yb2)
-            if (isLinked(north))
+            if (isLinked(north) && colorization.isColoredCell(north))
                 g.fillRect(c.xb2, c.y1, c.xb3-c.xb2, c.yb2-c.y1)
-            if (isLinked(south))
+            if (isLinked(south) && colorization.isColoredCell(south))
                 g.fillRect(c.xb2, c.yb3, c.xb3-c.xb2, c.y4-c.yb3)
-            if (isLinked(west))
+            if (isLinked(west) && colorization.isColoredCell(west))
                 g.fillRect(c.x1, c.yb2, c.xb2-c.x1, c.yb3-c.yb2)
-            if (isLinked(east))
+            if (isLinked(east) && colorization.isColoredCell(east))
                 g.fillRect(c.xb3, c.yb2, c.x4-c.xb3, c.yb3-c.yb2)
         } else {
             g.fillRect(c.x1, c.y1, c.x4 - c.x1, c.y4 - c.y1)
