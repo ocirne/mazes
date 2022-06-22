@@ -1,7 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
-import java.awt.Graphics
+import java.awt.Graphics2D
 import java.awt.Polygon
 
 class HexCell(val row: Int, val column: Int) : Cell() {
@@ -45,8 +45,9 @@ class HexCell(val row: Int, val column: Int) : Cell() {
         c = Coordinates(xFW, xNW, xNE, xFE, yN, yM, yS)
     }
 
-    override fun drawBackground(g: Graphics, colorization: Colorization) {
+    override fun drawBackground(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorForBackground(this)
+        // TODO switch to Path2d (all polygons)
         val p = Polygon()
         p.addPoint(c.xFW, c.yM)
         p.addPoint(c.xNW, c.yN)
@@ -57,7 +58,7 @@ class HexCell(val row: Int, val column: Int) : Cell() {
         g.fillPolygon(p)
     }
 
-    override fun drawWalls(g: Graphics, colorization: Colorization) {
+    override fun drawWalls(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorForWall(this)
         if (southwest == null)
             g.drawLine(c.xFW, c.yM, c.xNW, c.yS)

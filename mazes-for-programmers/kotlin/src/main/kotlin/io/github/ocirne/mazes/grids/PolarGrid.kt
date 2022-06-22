@@ -3,6 +3,7 @@ package io.github.ocirne.mazes.grids
 import io.github.ocirne.mazes.colorization.Colorization
 import java.awt.BasicStroke
 import java.awt.Color
+import java.awt.RenderingHints
 import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
 import kotlin.math.PI
@@ -82,6 +83,8 @@ class PolarGrid(private val rows: Int) : Grid {
         val g = image.createGraphics()
         // Smooth errors - einfach alles breitschmieren statt floodfill implementieren ;)
         g.stroke = BasicStroke(2.0f)
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
+
         g.background = Color.BLACK
 
         val center = imgSize / 2

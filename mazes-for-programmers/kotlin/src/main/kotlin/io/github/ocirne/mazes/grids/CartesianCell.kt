@@ -1,8 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
-import java.awt.Color
-import java.awt.Graphics
+import java.awt.Graphics2D
 
 class CartesianCell(val row: Int, val column: Int) : Cell() {
 
@@ -52,7 +51,7 @@ class CartesianCell(val row: Int, val column: Int) : Cell() {
         return arrayListOf(north, south, east, west).filterNotNull()
     }
 
-    override fun drawBackground(g: Graphics, colorization: Colorization) {
+    override fun drawBackground(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorForBackground(this)
         if (c.withBackInset) {
             g.fillRect(c.xb2, c.yb2, c.xb3-c.xb2, c.yb3-c.yb2)
@@ -69,7 +68,7 @@ class CartesianCell(val row: Int, val column: Int) : Cell() {
         }
     }
 
-    override fun drawWalls(g: Graphics, colorization: Colorization) {
+    override fun drawWalls(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorForWall(this)
         if (c.withWallInset) {
             if (isLinked(north)) {

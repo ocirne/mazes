@@ -1,7 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
-import java.awt.Graphics
+import java.awt.Graphics2D
 import java.awt.Polygon
 
 class TriangleCell(val row: Int, val column: Int) : Cell() {
@@ -50,7 +50,7 @@ class TriangleCell(val row: Int, val column: Int) : Cell() {
         c = Coordinates(westX, midX, eastX, apexY, baseY)
     }
 
-    override fun drawBackground(g: Graphics, colorization: Colorization) {
+    override fun drawBackground(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorForBackground(this)
         val p = Polygon()
         p.addPoint(c.westX, c.baseY)
@@ -59,7 +59,7 @@ class TriangleCell(val row: Int, val column: Int) : Cell() {
         g.fillPolygon(p)
     }
 
-    override fun drawWalls(g: Graphics, colorization: Colorization) {
+    override fun drawWalls(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorForWall(this)
         if (west == null)
             g.drawLine(c.westX, c.baseY, c.midX, c.apexY)

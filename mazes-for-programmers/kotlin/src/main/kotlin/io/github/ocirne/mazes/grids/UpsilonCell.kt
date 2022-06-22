@@ -2,6 +2,7 @@ package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
 import java.awt.Graphics
+import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.Polygon
 
@@ -83,7 +84,7 @@ class UpsilonCell(val row: Int, val column: Int) : Cell() {
         c = Coordinates(p0, p1, p2, p3, p4, p5, p6, p7)
     }
 
-    override fun drawBackground(g: Graphics, colorization: Colorization) {
+    override fun drawBackground(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorForBackground(this)
         val p = Polygon()
         if (isOctogon()) {
@@ -109,7 +110,7 @@ class UpsilonCell(val row: Int, val column: Int) : Cell() {
         g.drawLine(p1.x, p1.y, p2.x, p2.y)
     }
 
-    override fun drawWalls(g: Graphics, colorization: Colorization) {
+    override fun drawWalls(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorForWall(this)
         if (west == null)
             drawline(g, c.p0, c.p1)
