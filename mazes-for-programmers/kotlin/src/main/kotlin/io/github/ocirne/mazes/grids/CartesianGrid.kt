@@ -8,20 +8,20 @@ import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
 
 
-class CartesianGrid(private val rows: Int, private val columns: Int) : Grid {
+open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid {
 
-    private val grid: Array<Array<CartesianCell>>
+    var grid: Array<Array<CartesianCell>>
 
     init {
         grid = prepareGrid()
         configureCells()
     }
 
-    private fun prepareGrid(): Array<Array<CartesianCell>> {
+    fun prepareGrid(): Array<Array<CartesianCell>> {
         return Array(rows) { row -> Array(columns) { column -> CartesianCell(row, column) } }
     }
 
-    private fun configureCells() {
+    fun configureCells() {
         for (cell in eachCell()) {
             val row = cell.row
             val col = cell.column
@@ -88,7 +88,7 @@ class CartesianGrid(private val rows: Int, private val columns: Int) : Grid {
                     WALLS -> {
                         cell.drawWalls(g, wallColors)
                     }
-                    else -> throw NotImplementedError()
+                    else -> {} // throw NotImplementedError()
                 }
             }
         }

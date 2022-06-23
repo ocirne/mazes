@@ -1,0 +1,109 @@
+package io.github.ocirne.mazes.grids
+
+import io.github.ocirne.mazes.colorization.Colorization
+import java.awt.Graphics2D
+
+class OverCell(row: Int, column: Int, val grid: WeaveGrid) : CartesianCell(row, column) {
+
+    override fun neighbors(): List<CartesianCell> {
+        val result = super.neighbors().toMutableList()
+        if (canTunnelNorth())
+            result.add(north!!.north!!)
+        if (canTunnelSouth())
+            result.add(south!!.south!!)
+        if (canTunnelEast())
+            result.add(east!!.east!!)
+        if (canTunnelWest())
+            result.add(west!!.west!!)
+        return result.toList()
+    }
+
+    fun canTunnelNorth(): Boolean {
+        return north != null && north!!.north != null && isHorizontalPassage(north!!)
+    }
+
+    fun canTunnelSouth(): Boolean {
+        return south != null && south!!.south != null && isHorizontalPassage(south!!)
+    }
+
+    fun canTunnelEast(): Boolean {
+        return east != null && east!!.east != null && isVerticalPassage(east!!)
+    }
+
+    fun canTunnelWest(): Boolean {
+        return west != null && west!!.west != null && isVerticalPassage(west!!)
+    }
+
+    fun isHorizontalPassage(cell: CartesianCell): Boolean {
+        return cell.isLinked(cell.east) && cell.isLinked(cell.west) && !cell.isLinked(cell.north) && !cell.isLinked(cell.south)
+    }
+
+    fun isVerticalPassage(cell: CartesianCell): Boolean {
+        return cell.isLinked(cell.north) && cell.isLinked(cell.south) && !cell.isLinked(cell.east) && !cell.isLinked(cell.west)
+    }
+
+    override fun link(cell: Cell, bidi: Boolean) {
+        cell as CartesianCell
+        val neighbor = if (north != null && north == cell.south) {
+            north
+        } else if (south != null && south == cell.north) {
+            south
+        } else if (east != null && east == cell.west) {
+            east
+        } else if (west != null && west == cell.east) {
+            west
+        } else {
+            null
+        }
+        if (neighbor != null) {
+            grid.tunnelUnder(neighbor as OverCell)
+        } else {
+            super.link(cell, bidi)
+        }
+    }
+}
+
+class UnderCell(overCell: OverCell) : CartesianCell(overCell.row, overCell.column) {
+    init {
+        if (overCell.isHorizontalPassage(overCell)) {
+            north = overCell.north
+            overCell.north!!.south = this
+            south = overCell.south
+            overCell.south!!.north = this
+
+            link(north!!)
+            link(south!!)
+        } else {
+            east = overCell.east
+            overCell.east!!.west = this
+            west = overCell.west
+            overCell.west!!.east = this
+
+            link(east!!)
+            link(west!!)
+        }
+    }
+
+    fun horizontalPassage(): Boolean {
+        return east != null || west != null
+    }
+
+    fun verticalPassage(): Boolean {
+        return north != null || south != null
+    }
+
+    override fun drawWalls(g: Graphics2D, colorization: Colorization) {
+        g.color = colorization.colorFor(this)
+        if (verticalPassage()) {
+            g.drawLine(c.xw2, c.y1, c.xw2, c.yw2)
+            g.drawLine(c.xw3, c.y1, c.xw3, c.yw2)
+            g.drawLine(c.xw2, c.yw3, c.xw2, c.y4)
+            g.drawLine(c.xw3, c.yw3, c.xw3, c.y4)
+        } else {
+            g.drawLine(c.x1, c.yw2, c.xw2, c.yw2)
+            g.drawLine(c.x1, c.yw3, c.xw2, c.yw3)
+            g.drawLine(c.xw3, c.yw2, c.x4, c.yw2)
+            g.drawLine(c.xw3, c.yw3, c.x4, c.yw3)
+        }
+    }
+}

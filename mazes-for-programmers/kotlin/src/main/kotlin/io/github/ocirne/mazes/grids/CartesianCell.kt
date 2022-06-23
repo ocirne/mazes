@@ -3,7 +3,7 @@ package io.github.ocirne.mazes.grids
 import io.github.ocirne.mazes.colorization.Colorization
 import java.awt.Graphics2D
 
-class CartesianCell(val row: Int, val column: Int) : Cell() {
+open class CartesianCell(val row: Int, val column: Int) : Cell() {
 
     var north: CartesianCell? = null
     var south: CartesianCell? = null
@@ -11,6 +11,7 @@ class CartesianCell(val row: Int, val column: Int) : Cell() {
     var west: CartesianCell? = null
 
     data class Coordinates(
+        // TODO das kann man auch trennen ähnlich PolarGrid
         val withWallInset: Boolean,
         val withBackInset: Boolean,
         val x1: Int,
@@ -27,7 +28,7 @@ class CartesianCell(val row: Int, val column: Int) : Cell() {
         val y4: Int
     )
 
-    private lateinit var c: Coordinates
+    lateinit var c: Coordinates
 
     fun prepareCoordinates(cellSize: Int, wallInset: Int, backInset: Int) {
         val x1 = column * cellSize
