@@ -95,15 +95,15 @@ class UnderCell(overCell: OverCell) : CartesianCell(overCell.row, overCell.colum
     override fun drawWalls(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorFor(this)
         if (verticalPassage()) {
-            g.drawLine(c.xw2, c.y1, c.xw2, c.yw2)
-            g.drawLine(c.xw3, c.y1, c.xw3, c.yw2)
-            g.drawLine(c.xw2, c.yw3, c.xw2, c.y4)
-            g.drawLine(c.xw3, c.yw3, c.xw3, c.y4)
+            g.drawLine(c.x2, c.y1, c.x2, c.y2)
+            g.drawLine(c.x3, c.y1, c.x3, c.y2)
+            g.drawLine(c.x2, c.y3, c.x2, c.y4)
+            g.drawLine(c.x3, c.y3, c.x3, c.y4)
         } else {
-            g.drawLine(c.x1, c.yw2, c.xw2, c.yw2)
-            g.drawLine(c.x1, c.yw3, c.xw2, c.yw3)
-            g.drawLine(c.xw3, c.yw2, c.x4, c.yw2)
-            g.drawLine(c.xw3, c.yw3, c.x4, c.yw3)
+            g.drawLine(c.x1, c.y2, c.x2, c.y2)
+            g.drawLine(c.x1, c.y3, c.x2, c.y3)
+            g.drawLine(c.x3, c.y2, c.x4, c.y2)
+            g.drawLine(c.x3, c.y3, c.x4, c.y3)
         }
     }
 }

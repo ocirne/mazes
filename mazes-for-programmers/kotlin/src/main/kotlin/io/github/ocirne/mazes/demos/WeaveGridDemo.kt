@@ -10,11 +10,13 @@ fun main() {
     val grid = WeaveGrid(21, 21)
     RecursiveBacktracker.on(grid)
 
+    val colorization = Colorization(grid).dijkstra()
+
     saveImage(
         grid.toImage(
             wallInset = 0.2,
-            backInset = 0.0,
-            backgroundColors = Colorization(grid, defaultColor = Color.LIGHT_GRAY),
+            backInset = 0.1,
+            backgroundColors = colorization,
             wallColors = Colorization(grid, defaultColor = Color.BLACK)
         ), "cartesian_weave_recursive_backtracker"
     )

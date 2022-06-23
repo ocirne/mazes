@@ -80,15 +80,16 @@ open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid
             for (cell in eachCell()) {
                 if (cell.links().isEmpty())
                     continue
-                cell.prepareCoordinates(cellSize, wallInsetAbsolute, backInsetAbsolute)
                 when (mode) {
                     BACKGROUNDS -> {
+                        cell.prepareCoordinates(cellSize, backInsetAbsolute)
                         cell.drawBackground(g, backgroundColors)
                     }
                     WALLS -> {
+                        cell.prepareCoordinates(cellSize, wallInsetAbsolute)
                         cell.drawWalls(g, wallColors)
                     }
-                    else -> {} // throw NotImplementedError()
+                    else -> { /* not implemented */ }
                 }
             }
         }
