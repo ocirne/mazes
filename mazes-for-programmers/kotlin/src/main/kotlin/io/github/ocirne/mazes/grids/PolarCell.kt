@@ -13,7 +13,7 @@ import java.lang.Math.toDegrees
 import kotlin.math.*
 
 
-class PolarCell(val row: Int, val column: Int) : Cell() {
+open class PolarCell(val row: Int, val column: Int) : Cell() {
 
     var cw: PolarCell? = null
     var ccw: PolarCell? = null

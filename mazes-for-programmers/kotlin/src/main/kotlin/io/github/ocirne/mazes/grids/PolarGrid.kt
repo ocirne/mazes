@@ -14,9 +14,9 @@ import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
 
-class PolarGrid(private val rows: Int) : Grid {
+open class PolarGrid(private val rows: Int) : Grid {
 
-    private val grid: Array<Array<PolarCell>>
+    var grid: Array<Array<PolarCell>>
 
     init {
         grid = prepareGrid()
@@ -43,7 +43,7 @@ class PolarGrid(private val rows: Int) : Grid {
         return Array(rows) { row -> rings[row] }
     }
 
-    private fun configureCells() {
+    fun configureCells() {
         for (cell in eachCell()) {
             val row = cell.row
             val col = cell.column
@@ -138,8 +138,8 @@ class PolarGrid(private val rows: Int) : Grid {
             for (cell in eachCell()) {
                 when (mode) {
                     Grid.MODES.BACKGROUNDS -> {
-//                        cell.prepareCoordinates(this, center, cellSize, backInset)
-//                        cell.drawBackground(g, backgroundColors)
+                        cell.prepareCoordinates(this, center, cellSize, backInset)
+                        cell.drawBackground(g, backgroundColors)
                     }
                     Grid.MODES.WALLS -> {
                         if (cell.row == 0) { // TODO prüfen
