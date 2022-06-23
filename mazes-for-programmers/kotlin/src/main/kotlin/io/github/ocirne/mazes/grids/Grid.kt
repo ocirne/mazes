@@ -28,5 +28,5 @@ interface Grid {
         BACKGROUNDS, WALLS
     }
 
-    fun toImage(cellSize: Int = 40, wallInset:Double=0.0, backInset: Double=0.0, colorization: Colorization = Colorization(this)): RenderedImage
+    fun toImage(cellSize: Int = 100, wallInset:Double=0.0, backInset: Double=0.0, colorization: Colorization = Colorization(this)): RenderedImage
 }

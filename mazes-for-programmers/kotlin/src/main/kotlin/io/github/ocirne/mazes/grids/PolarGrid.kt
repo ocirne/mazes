@@ -3,11 +3,16 @@ package io.github.ocirne.mazes.grids
 import io.github.ocirne.mazes.colorization.Colorization
 import java.awt.BasicStroke
 import java.awt.Color
+import java.awt.Graphics2D
 import java.awt.RenderingHints
+import java.awt.geom.Ellipse2D
+import java.awt.geom.Line2D
 import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
 import kotlin.math.PI
+import kotlin.math.cos
 import kotlin.math.roundToInt
+import kotlin.math.sin
 
 class PolarGrid(private val rows: Int) : Grid {
 
@@ -76,31 +81,73 @@ class PolarGrid(private val rows: Int) : Grid {
         return grid.flatten()
     }
 
+    fun helperGrid(g: Graphics2D, cellSize: Int, center: Double, wallInset: Double) {
+        val dashed = BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.0f, floatArrayOf(9.0f), 0.0f)
+        g.setStroke(dashed);
+        g.color = Color.WHITE
+        val theta = 2 * PI / grid[rows-1]!!.size
+        val innen = cellSize
+        val radius = rows * cellSize
+        val radiusInset = wallInset * cellSize
+        val thetaInset = radiusInset * 2*PI / 6
+        val thetaInsetInnen = thetaInset / innen
+        val thetaInsetAussen = thetaInset / radius
+
+        for (row in 0 .. rows) {
+            val radius1 = row * cellSize - radiusInset
+            g.draw(Ellipse2D.Double(center - radius1, center - radius1, 2.0 * radius1, 2.0 * radius1))
+            val radius2 = row * cellSize + radiusInset
+            g.draw(Ellipse2D.Double(center - radius2, center - radius2, 2.0 * radius2, 2.0 * radius2))
+        }
+        for (t in 0 .. grid[rows-1]!!.size) {
+            val x1 = center + innen * cos(t * theta + thetaInsetInnen)
+            val y1 = center - innen * sin(t * theta + thetaInsetInnen)
+            val x2 = center + innen * cos(t * theta - thetaInsetInnen)
+            val y2 = center - innen * sin(t * theta - thetaInsetInnen)
+
+            val x3 = center + radius * cos(t * theta + thetaInsetAussen)
+            val y3 = center - radius * sin(t * theta + thetaInsetAussen)
+            val x4 = center + radius * cos(t * theta - thetaInsetAussen)
+            val y4 = center - radius * sin(t * theta - thetaInsetAussen)
+
+            g.draw(Line2D.Double(x1, y1, x3, y3))
+            g.draw(Line2D.Double(x2, y2, x4, y4))
+        }
+    }
+
     override fun toImage(cellSize: Int, wallInset:Double, backInset: Double, colorization: Colorization): RenderedImage {
         val imgSize = 2 * rows * cellSize + 4
 
         val image = BufferedImage(imgSize + 1, imgSize + 1, BufferedImage.TYPE_INT_RGB)
         val g = image.createGraphics()
         // Smooth errors - einfach alles breitschmieren statt floodfill implementieren ;)
-        g.stroke = BasicStroke(2.0f)
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
+        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)
 
         g.background = Color.BLACK
 
         val center = imgSize / 2
 
+//        helperGrid(g, cellSize, center.toDouble(), wallInset)
+        g.stroke = BasicStroke(2.0f)
+
         for (mode in Grid.MODES.values()) {
             for (cell in eachCell()) {
-                cell.prepareCoordinates(this, center, cellSize)
+                cell.prepareCoordinates(this, center, cellSize, wallInset, backInset)
                 if (mode == Grid.MODES.BACKGROUNDS) {
                     cell.drawBackground(g, colorization)
                 } else {
+                    if (cell.row == 0) { // TODO prüfen
+                        continue
+                    }
                     cell.drawWalls(g, colorization)
                 }
+                cell.drawPath(g, colorization, this, center, cellSize)
             }
         }
 
         val radius = rows * cellSize
+        g.color = Color.WHITE
         g.drawOval(center - radius, center - radius, 2*radius, 2*radius)
         return image
     }

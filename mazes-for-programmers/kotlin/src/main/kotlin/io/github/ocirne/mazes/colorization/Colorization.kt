@@ -4,6 +4,7 @@ import io.github.ocirne.mazes.grids.Cell
 import io.github.ocirne.mazes.grids.Grid
 import java.awt.Color
 import kotlin.math.roundToInt
+import kotlin.random.Random.Default.nextBoolean
 
 // TODO: Kombinationen, also Background und Longest Path gleichzeitig
 class Colorization(
