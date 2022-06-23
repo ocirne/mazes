@@ -3,6 +3,7 @@ package io.github.ocirne.mazes.algorithms
 import io.github.ocirne.mazes.grids.CartesianGrid
 import io.github.ocirne.mazes.grids.HexGrid
 import io.github.ocirne.mazes.grids.PolarGrid
+import io.github.ocirne.mazes.grids.WeaveGrid
 import io.github.ocirne.mazes.output.saveImage
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -60,6 +61,14 @@ internal class PerfectionTest {
     @Test
     fun `Polar grid with RecursiveBacktracker maze is perfect`() {
         val grid = PolarGrid(size)
+        RecursiveBacktracker.on(grid)
+
+        CycleDetection(grid).assertNoCycle()
+    }
+
+    @Test
+    fun `Weave grid with RecursiveBacktracker maze is perfect`() {
+        val grid = WeaveGrid(size, size)
         RecursiveBacktracker.on(grid)
 
         CycleDetection(grid).assertNoCycle()

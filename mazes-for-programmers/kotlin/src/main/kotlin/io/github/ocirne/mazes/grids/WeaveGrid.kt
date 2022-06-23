@@ -24,4 +24,8 @@ class WeaveGrid(val rows: Int, val columns: Int): CartesianGrid(rows, columns) {
         }
         return super.eachCell() + underCells
     }
+
+    override fun size(): Int {
+        return super.size() + underCells.size
+    }
 }
