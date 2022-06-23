@@ -83,15 +83,15 @@ class PolarGrid(private val rows: Int) : Grid {
 
     fun helperGrid(g: Graphics2D, cellSize: Int, center: Double, wallInset: Double) {
         val dashed = BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.0f, floatArrayOf(9.0f), 0.0f)
-        g.setStroke(dashed);
+        g.stroke = dashed;
         g.color = Color.WHITE
         val theta = 2 * PI / grid[rows-1]!!.size
-        val innen = cellSize
-        val radius = rows * cellSize
+        val outerRadius = rows * cellSize
         val radiusInset = wallInset * cellSize
+        val innerRadius = cellSize - radiusInset
         val thetaInset = radiusInset * 2*PI / 6
-        val thetaInsetInnen = thetaInset / innen
-        val thetaInsetAussen = thetaInset / radius
+        val thetaInsetInnen = thetaInset / innerRadius
+        val thetaInsetAussen = thetaInset / outerRadius
 
         for (row in 0 .. rows) {
             val radius1 = row * cellSize - radiusInset
@@ -100,15 +100,15 @@ class PolarGrid(private val rows: Int) : Grid {
             g.draw(Ellipse2D.Double(center - radius2, center - radius2, 2.0 * radius2, 2.0 * radius2))
         }
         for (t in 0 .. grid[rows-1]!!.size) {
-            val x1 = center + innen * cos(t * theta + thetaInsetInnen)
-            val y1 = center - innen * sin(t * theta + thetaInsetInnen)
-            val x2 = center + innen * cos(t * theta - thetaInsetInnen)
-            val y2 = center - innen * sin(t * theta - thetaInsetInnen)
+            val x1 = center + innerRadius * cos(t * theta + thetaInsetInnen)
+            val y1 = center - innerRadius * sin(t * theta + thetaInsetInnen)
+            val x2 = center + innerRadius * cos(t * theta - thetaInsetInnen)
+            val y2 = center - innerRadius * sin(t * theta - thetaInsetInnen)
 
-            val x3 = center + radius * cos(t * theta + thetaInsetAussen)
-            val y3 = center - radius * sin(t * theta + thetaInsetAussen)
-            val x4 = center + radius * cos(t * theta - thetaInsetAussen)
-            val y4 = center - radius * sin(t * theta - thetaInsetAussen)
+            val x3 = center + outerRadius * cos(t * theta + thetaInsetAussen)
+            val y3 = center - outerRadius * sin(t * theta + thetaInsetAussen)
+            val x4 = center + outerRadius * cos(t * theta - thetaInsetAussen)
+            val y4 = center - outerRadius * sin(t * theta - thetaInsetAussen)
 
             g.draw(Line2D.Double(x1, y1, x3, y3))
             g.draw(Line2D.Double(x2, y2, x4, y4))
@@ -132,30 +132,30 @@ class PolarGrid(private val rows: Int) : Grid {
 
         val center = imgSize / 2
 
-//        helperGrid(g, cellSize, center.toDouble(), wallInset)
-        g.stroke = BasicStroke(2.0f)
+        helperGrid(g, cellSize, center.toDouble(), wallInset)
 
         for (mode in Grid.MODES.values()) {
             for (cell in eachCell()) {
                 when (mode) {
                     Grid.MODES.BACKGROUNDS -> {
-                        cell.prepareCoordinates(this, center, cellSize, backInset)
-                        cell.drawBackground(g, backgroundColors)
+//                        cell.prepareCoordinates(this, center, cellSize, backInset)
+//                        cell.drawBackground(g, backgroundColors)
                     }
                     Grid.MODES.WALLS -> {
                         if (cell.row == 0) { // TODO prüfen
                             continue
                         }
+                        // TODO vielleicht trennen in coordinaten und insets?
                         cell.prepareCoordinates(this, center, cellSize, wallInset)
                         cell.drawWalls(g, wallColors)
                     }
                     Grid.MODES.PATH -> {
-                        cell.prepareCoordinates(this, center, cellSize)
-                        cell.drawPath(g, path, this, center, cellSize)
+//                        cell.prepareCoordinates(this, center, cellSize)
+//                        cell.drawPath(g, path, this, center, cellSize)
                     }
                     Grid.MODES.MARKER -> {
-                        cell.prepareCoordinates(this, center, cellSize)
-                        cell.drawMarker(g, marker, this, center, cellSize)
+//                        cell.prepareCoordinates(this, center, cellSize)
+//                        cell.drawMarker(g, marker, this, center, cellSize)
                     }
                 }
             }

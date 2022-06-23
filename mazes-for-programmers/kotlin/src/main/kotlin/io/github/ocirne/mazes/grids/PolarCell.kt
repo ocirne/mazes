@@ -174,6 +174,7 @@ class PolarCell(val row: Int, val column: Int) : Cell() {
      */
     override fun drawWalls(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorFor(this)
+        g.stroke = BasicStroke(5.0f)
         if (c.withInset) {
             if (isLinked(cw)) {
                 drawArc(g, c.r2, toDegrees(c.thetaCcw - c.thetaInset2), toDegrees(c.thetaInset2))
