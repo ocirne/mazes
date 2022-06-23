@@ -13,8 +13,8 @@ fun main() {
     saveImage(grid.toImage(), "hex_recursive_backtracker")
 
     val colorization1 = Colorization(grid, startAt=grid[20, 10]!!).dijkstra()
-    saveImage(grid.toImage(colorization = colorization1), "hex_recursive_backtracker_colorized1")
+    saveImage(grid.toImage(backgroundColors = colorization1), "hex_recursive_backtracker_colorized1")
 
     val colorization2 = Colorization(grid).countLinks()
-    saveImage(grid.toImage(colorization = colorization2), "hex_recursive_backtracker_colorized2")
+    saveImage(grid.toImage(backgroundColors = colorization2), "hex_recursive_backtracker_colorized2")
 }

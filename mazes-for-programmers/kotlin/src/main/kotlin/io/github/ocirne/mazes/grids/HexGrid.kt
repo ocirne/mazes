@@ -52,7 +52,11 @@ class HexGrid(private val rows: Int, private val columns: Int) : Grid {
         return grid.flatten()
     }
 
-    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double, colorization: Colorization): RenderedImage {
+    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double,
+                         backgroundColors: Colorization,
+                         wallColors: Colorization,
+                         path: Colorization,
+                         marker: Colorization): RenderedImage {
         val aSize = cellSize / 2.0
         val bSize = cellSize * sqrt(3.0) / 2.0
         val height = bSize * 2.0
@@ -70,9 +74,9 @@ class HexGrid(private val rows: Int, private val columns: Int) : Grid {
             for (cell in eachCell()) {
                 cell.prepareCoordinates(cellSize, height, aSize, bSize)
                 if (mode == Grid.MODES.BACKGROUNDS) {
-                    cell.drawBackground(g, colorization)
+                    cell.drawBackground(g, backgroundColors)
                 } else {
-                    cell.drawWalls(g, colorization)
+                    cell.drawWalls(g, wallColors)
                 }
             }
         }

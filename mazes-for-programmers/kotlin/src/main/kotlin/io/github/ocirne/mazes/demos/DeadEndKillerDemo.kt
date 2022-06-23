@@ -15,7 +15,7 @@ fun main() {
     saveImage(grid.toImage(), "cartesian_dead_ends_removed")
 
     val colorization2 = Colorization(grid, startAt=grid.randomCell(noNeighborsAllowed = false), fromColor = Color.LIGHT_GRAY, toColor = Color.DARK_GRAY).dijkstra()
-    saveImage(grid.toImage(colorization = colorization2), "cartesian_dead_ends_removed_colored")
+    saveImage(grid.toImage(backgroundColors = colorization2), "cartesian_dead_ends_removed_colored")
 
-    saveImage(grid.toImage(wallInset=0.2, backInset = 0.1, colorization = colorization2), "cartesian_dead_ends_removed_colored_insets")
+    saveImage(grid.toImage(wallInset=0.2, backInset = 0.1, backgroundColors = colorization2), "cartesian_dead_ends_removed_colored_insets")
 }

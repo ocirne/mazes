@@ -12,8 +12,8 @@ fun main() {
     saveImage(grid.toImage(), "cartesian_wilsons")
 
     val colorization1 = Colorization(grid, startAt=grid[20, 10]!!).dijkstra()
-    saveImage(grid.toImage(colorization = colorization1), "cartesian_wilsons_colorized1")
+    saveImage(grid.toImage(backgroundColors = colorization1), "cartesian_wilsons_colorized1")
 
     val colorization2 = Colorization(grid).countLinks()
-    saveImage(grid.toImage(colorization = colorization2), "cartesian_wilsons_colorized2")
+    saveImage(grid.toImage(backgroundColors = colorization2), "cartesian_wilsons_colorized2")
 }

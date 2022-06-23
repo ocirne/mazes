@@ -13,5 +13,5 @@ fun main() {
     saveImage(grid.toImage(), "cartesian_aldous_broder")
 
     val colorization = Colorization(grid, startAt=grid[20, 10]!!).dijkstra()
-    saveImage(grid.toImage(colorization = colorization), "cartesian_aldous_broder_colorized")
+    saveImage(grid.toImage(backgroundColors = colorization), "cartesian_aldous_broder_colorized")
 }

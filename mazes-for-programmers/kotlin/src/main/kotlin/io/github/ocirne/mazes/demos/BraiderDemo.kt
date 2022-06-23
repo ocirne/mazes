@@ -12,11 +12,11 @@ fun main() {
     saveImage(grid.toImage(), "cartesian_recursive_backtracker_dead_ends")
 
     val colorization1 = Colorization(grid).countLinks()
-    saveImage(grid.toImage(colorization = colorization1), "cartesian_recursive_backtracker_dead_ends_colored")
+    saveImage(grid.toImage(backgroundColors = colorization1), "cartesian_recursive_backtracker_dead_ends_colored")
 
     Braider().braid(grid, p=0.5)
     saveImage(grid.toImage(), "cartesian_recursive_backtracker_dead_ends_braided")
 
     val colorization2 = Colorization(grid).countLinks()
-    saveImage(grid.toImage(colorization = colorization2), "cartesian_recursive_backtracker_dead_ends_braided_colored")
+    saveImage(grid.toImage(backgroundColors = colorization2), "cartesian_recursive_backtracker_dead_ends_braided_colored")
 }

@@ -4,17 +4,26 @@ import io.github.ocirne.mazes.grids.Cell
 import io.github.ocirne.mazes.grids.Grid
 import java.awt.Color
 import kotlin.math.roundToInt
-import kotlin.random.Random.Default.nextBoolean
 
-// TODO: Kombinationen, also Background und Longest Path gleichzeitig
 class Colorization(
     private val grid: Grid,
-    private val startAt: Cell = grid.randomCell(),
+    val startAt: Cell = grid.randomCell(),
+    private val defaultColor: Color = Color.WHITE,
     private val fromColor: Color = Color.DARK_GRAY,
     private val toColor: Color = Color.GREEN
 ){
 
     private val weights: MutableMap<Cell, Int> = mutableMapOf()
+
+    private val texts: MutableMap<Cell, String> = mutableMapOf()
+
+    var start: Cell? = null
+
+    var goal: Cell? = null
+
+    operator fun set(cell: Cell, value: String) {
+        texts[cell] = value
+    }
 
     fun max(): Map.Entry<Cell, Int> {
         return weights.entries.maxBy { it.value }
@@ -41,10 +50,11 @@ class Colorization(
     }
 
     fun longestPath(): Colorization {
-        val start = Colorization(grid).dijkstra().max().key
-        val distances = Colorization(grid, startAt=start).dijkstra()
-        // goal
+        val bestStart = Colorization(grid).dijkstra().max().key
+        start = bestStart
+        val distances = Colorization(grid, startAt=bestStart).dijkstra()
         var current = distances.max().key
+        goal = current
         weights[current] = distances.weights[current]!!
         while (current != start) {
             for (parent in current.links()) {
@@ -67,8 +77,8 @@ class Colorization(
         return weights.contains(cell)
     }
 
-    fun colorForBackground(cell: Cell): Color {
-        val distance = weights[cell] ?: return Color.BLACK
+    fun colorFor(cell: Cell): Color {
+        val distance = weights[cell] ?: return defaultColor
         val maximum = max().value
         val intensity = (maximum - distance).toFloat() / maximum
         val rangeRed = toColor.red - fromColor.red
@@ -80,7 +90,7 @@ class Colorization(
         return Color(r, g, b)
     }
 
-    fun colorForWall(cell: Cell): Color {
-        return Color.WHITE
+    fun marker(cell: Cell): String? {
+        return texts[cell]
     }
 }

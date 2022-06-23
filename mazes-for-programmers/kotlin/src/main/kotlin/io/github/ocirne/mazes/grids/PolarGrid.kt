@@ -115,7 +115,11 @@ class PolarGrid(private val rows: Int) : Grid {
         }
     }
 
-    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double, colorization: Colorization): RenderedImage {
+    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double,
+                         backgroundColors: Colorization,
+                         wallColors: Colorization,
+                         path: Colorization,
+                         marker: Colorization): RenderedImage {
         val imgSize = 2 * rows * cellSize + 4
 
         val image = BufferedImage(imgSize + 1, imgSize + 1, BufferedImage.TYPE_INT_RGB)
@@ -133,16 +137,27 @@ class PolarGrid(private val rows: Int) : Grid {
 
         for (mode in Grid.MODES.values()) {
             for (cell in eachCell()) {
-                cell.prepareCoordinates(this, center, cellSize, wallInset, backInset)
-                if (mode == Grid.MODES.BACKGROUNDS) {
-                    cell.drawBackground(g, colorization)
-                } else {
-                    if (cell.row == 0) { // TODO prüfen
-                        continue
+                when (mode) {
+                    Grid.MODES.BACKGROUNDS -> {
+                        cell.prepareCoordinates(this, center, cellSize, backInset)
+                        cell.drawBackground(g, backgroundColors)
                     }
-                    cell.drawWalls(g, colorization)
+                    Grid.MODES.WALLS -> {
+                        if (cell.row == 0) { // TODO prüfen
+                            continue
+                        }
+                        cell.prepareCoordinates(this, center, cellSize, wallInset)
+                        cell.drawWalls(g, wallColors)
+                    }
+                    Grid.MODES.PATH -> {
+                        cell.prepareCoordinates(this, center, cellSize)
+                        cell.drawPath(g, path, this, center, cellSize)
+                    }
+                    Grid.MODES.MARKER -> {
+                        cell.prepareCoordinates(this, center, cellSize)
+                        cell.drawMarker(g, marker, this, center, cellSize)
+                    }
                 }
-                cell.drawPath(g, colorization, this, center, cellSize)
             }
         }
 

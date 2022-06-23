@@ -25,8 +25,12 @@ interface Grid {
     }
 
     enum class MODES {
-        BACKGROUNDS, WALLS
+        BACKGROUNDS, WALLS, PATH, MARKER
     }
 
-    fun toImage(cellSize: Int = 100, wallInset:Double=0.0, backInset: Double=0.0, colorization: Colorization = Colorization(this)): RenderedImage
+    fun toImage(cellSize: Int = 100, wallInset:Double=0.0, backInset: Double=0.0,
+                backgroundColors: Colorization = Colorization(this),
+                wallColors: Colorization = Colorization(this),
+                path: Colorization = Colorization(this),
+                marker: Colorization = Colorization(this)): RenderedImage
 }

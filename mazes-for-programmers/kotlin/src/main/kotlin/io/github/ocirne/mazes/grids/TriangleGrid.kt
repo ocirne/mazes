@@ -56,7 +56,11 @@ class TriangleGrid(private val rows: Int, private val columns: Int) : Grid {
         g.drawLine(p1.x, p1.y, p2.x, p2.y)
     }
 
-    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double, colorization: Colorization): RenderedImage {
+    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double,
+                         backgroundColors: Colorization,
+                         wallColors: Colorization,
+                         path: Colorization,
+                         marker: Colorization): RenderedImage {
         val halfWidth = cellSize / 2.0
         val height = cellSize * sqrt(3.0) / 2.0
         val halfHeight = height / 2.0
@@ -74,9 +78,9 @@ class TriangleGrid(private val rows: Int, private val columns: Int) : Grid {
             for (cell in eachCell()) {
                 cell.prepareCoordinates(halfWidth, height, halfHeight)
                 if (mode == Grid.MODES.BACKGROUNDS) {
-                    cell.drawBackground(g, colorization)
+                    cell.drawBackground(g, backgroundColors)
                 } else {
-                    cell.drawWalls(g, colorization)
+                    cell.drawWalls(g, wallColors)
                 }
             }
         }

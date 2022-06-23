@@ -52,7 +52,7 @@ class CartesianCell(val row: Int, val column: Int) : Cell() {
     }
 
     override fun drawBackground(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorForBackground(this)
+        g.color = colorization.colorFor(this)
         if (c.withBackInset) {
             g.fillRect(c.xb2, c.yb2, c.xb3-c.xb2, c.yb3-c.yb2)
             if (isLinked(north) && colorization.isColoredCell(north))
@@ -69,7 +69,7 @@ class CartesianCell(val row: Int, val column: Int) : Cell() {
     }
 
     override fun drawWalls(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorForWall(this)
+        g.color = colorization.colorFor(this)
         if (c.withWallInset) {
             if (isLinked(north)) {
                 g.drawLine(c.xw2, c.y1, c.xw2, c.yw2)

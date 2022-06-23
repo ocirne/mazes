@@ -13,7 +13,7 @@ private fun wrap(name: String, f : (List<Cell>) -> Cell) {
     saveImage(grid.toImage(), "cartesian_growingTree_$name")
 
     val colorization = Colorization(grid, startAt=grid[20, 10]!!).dijkstra()
-    saveImage(grid.toImage(colorization = colorization), "cartesian_growingTree_${name}_colorized")
+    saveImage(grid.toImage(backgroundColors = colorization), "cartesian_growingTree_${name}_colorized")
 }
 
 fun main() {

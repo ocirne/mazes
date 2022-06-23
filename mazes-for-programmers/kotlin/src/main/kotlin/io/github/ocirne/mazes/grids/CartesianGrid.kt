@@ -59,7 +59,10 @@ class CartesianGrid(private val rows: Int, private val columns: Int) : Grid {
         cellSize: Int,
         wallInset: Double,
         backInset: Double,
-        colorization: Colorization
+        backgroundColors: Colorization,
+        wallColors: Colorization,
+        path: Colorization,
+        marker: Colorization
     ): RenderedImage {
         val imgWidth = cellSize * columns
         val imgHeight = cellSize * rows
@@ -80,11 +83,12 @@ class CartesianGrid(private val rows: Int, private val columns: Int) : Grid {
                 cell.prepareCoordinates(cellSize, wallInsetAbsolute, backInsetAbsolute)
                 when (mode) {
                     BACKGROUNDS -> {
-                        cell.drawBackground(g, colorization)
+                        cell.drawBackground(g, backgroundColors)
                     }
                     WALLS -> {
-                        cell.drawWalls(g, colorization)
+                        cell.drawWalls(g, wallColors)
                     }
+                    else -> throw NotImplementedError()
                 }
             }
         }

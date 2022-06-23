@@ -3,6 +3,7 @@ package io.github.ocirne.mazes.grids
 import io.github.ocirne.mazes.colorization.Colorization
 import java.awt.BasicStroke
 import java.awt.Color
+import java.awt.Font
 import java.awt.Graphics2D
 import java.awt.geom.Arc2D
 import java.awt.geom.Area
@@ -20,8 +21,7 @@ class PolarCell(val row: Int, val column: Int) : Cell() {
     val outward: MutableList<PolarCell> = mutableListOf()
 
     data class Coordinates(
-        val withWallInset: Boolean,
-        val withBackInset: Boolean,
+        val withInset: Boolean,
         val center: Int,
         val cellSize: Int,
         val r1: Double,
@@ -59,13 +59,13 @@ class PolarCell(val row: Int, val column: Int) : Cell() {
         return Point2D.Double(center + radius * cos(angle), center - radius * sin(angle))
     }
 
-    fun prepareCoordinates(grid: PolarGrid, center: Int, cellSize: Int, wallInset: Double, backInset: Double) {
+    fun prepareCoordinates(grid: PolarGrid, center: Int, cellSize: Int, inset: Double=0.0) {
         val theta = 2 * PI / grid[row]!!.size
 
         val r1 = (row * cellSize).toDouble()
         val r4 = ((row + 1) * cellSize).toDouble()
         // TODO backInset muss ähnlich behandelt werden
-        val radiusInset = wallInset * cellSize
+        val radiusInset = inset * cellSize
         val thetaInset = radiusInset * 2*PI / 6
         val r2 = r1 + radiusInset
         val r3 = r4 - radiusInset
@@ -95,7 +95,7 @@ class PolarCell(val row: Int, val column: Int) : Cell() {
         val ff = toPolar(center, r3, thetaCw + 0.5 * theta - thetaInset3)
         val fO = toPolar(center, r4, thetaCw + 0.5 * theta - thetaInset4)
 
-        c = Coordinates(wallInset > 0, backInset > 0, center, cellSize, r1, r2, r3, r4, theta,
+        c = Coordinates(inset > 0, center, cellSize, r1, r2, r3, r4, theta,
             aa, aI, aL, bb, bL, bO, cc, cI, cR, dd, dO, dR, ee, eO, ff, fO,
              thetaCw,
          thetaCcw,
@@ -108,13 +108,6 @@ class PolarCell(val row: Int, val column: Int) : Cell() {
 
     override fun neighbors(): List<PolarCell> {
         return arrayListOf(cw, ccw, inward).filterNotNull() + outward
-    }
-
-    private fun middle(grid: PolarGrid, center: Int, cellSize: Int): Point2D {
-        val r = (row +0.5) * cellSize
-        val theta = 2 * PI / grid[row]!!.size
-        val t = (column+0.5) * theta
-        return toPolar(center, r, t)
     }
 
     private fun drawArc(g: Graphics2D, r: Double, start: Double, extent: Double) {
@@ -135,8 +128,8 @@ class PolarCell(val row: Int, val column: Int) : Cell() {
     }
 
     override fun drawBackground(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorForBackground(this)
-        if (c.withBackInset) {
+        g.color = colorization.colorFor(this)
+        if (c.withInset) {
             drawFoo(g, c.r2, c.r3, c.thetaCw + c.thetaInset3, c.theta - 2 * c.thetaInset3)
             if (isLinked(ccw) && colorization.isColoredCell(ccw))
                 drawFoo(g, c.r2, c.r3, c.thetaCw, c.thetaInset2)
@@ -180,8 +173,8 @@ class PolarCell(val row: Int, val column: Int) : Cell() {
                    ccw
      */
     override fun drawWalls(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorForWall(this)
-        if (c.withWallInset) {
+        g.color = colorization.colorFor(this)
+        if (c.withInset) {
             if (isLinked(cw)) {
                 drawArc(g, c.r2, toDegrees(c.thetaCcw - c.thetaInset2), toDegrees(c.thetaInset2))
                 drawArc(g, c.r3, toDegrees(c.thetaCcw - c.thetaInset3), toDegrees(c.thetaInset3))
@@ -241,13 +234,38 @@ class PolarCell(val row: Int, val column: Int) : Cell() {
     }
 
     fun drawPath(g: Graphics2D, colorization: Colorization, grid: PolarGrid, center: Int, cellSize: Int) {
+        g.color = colorization.colorFor(this)
+        if (g.color == Color.WHITE) {
+            return
+        }
         val m = middle(grid, center, cellSize)
         for (other in links()) {
+            if (!colorization.isColoredCell(other)) {
+                return
+            }
             other as PolarCell
             val o = other.middle(grid, center, cellSize)
             g.color = Color.MAGENTA
             g.stroke = BasicStroke(10.0f)
             g.draw(Line2D.Double(m, o))
         }
+    }
+
+    private fun middle(grid: PolarGrid, center: Int, cellSize: Int): Point2D {
+        val r = (row +0.5) * cellSize
+        val theta = 2 * PI / grid[row]!!.size
+        val t = (column+0.5) * theta
+        return toPolar(center, r, t)
+    }
+
+    fun drawMarker(g: Graphics2D, colorization: Colorization, grid: PolarGrid, center: Int, cellSize: Int) {
+        val marker = colorization.marker(this) ?: return
+        val m = middle(grid, center, cellSize)
+        val size = cellSize / 4
+        g.color = Color.RED
+        g.fillOval(m.x.toInt() - size, m.y.toInt()-size, 2*size, 2*size)
+        g.color = Color.WHITE
+        g.setFont(Font("Sans", Font.BOLD or Font.CENTER_BASELINE, size))
+        g.drawString(marker, m.x.toFloat() - size / 2, m.y.toFloat() + size / 3);
     }
 }

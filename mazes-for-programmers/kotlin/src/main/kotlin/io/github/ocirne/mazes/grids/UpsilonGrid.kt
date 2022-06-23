@@ -54,7 +54,11 @@ class UpsilonGrid(private val rows: Int, private val columns: Int) : Grid {
         return grid.flatten()
     }
 
-    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double, colorization: Colorization): RenderedImage {
+    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double,
+                         backgroundColors: Colorization,
+                         wallColors: Colorization,
+                         path: Colorization,
+                         marker: Colorization): RenderedImage {
         val halfCSize = cellSize / 2.0
         val aSize = cellSize / sqrt(2.0)
         val correctedSize = cellSize + aSize
@@ -72,9 +76,9 @@ class UpsilonGrid(private val rows: Int, private val columns: Int) : Grid {
             for (cell in eachCell()) {
                 cell.prepareCoordinates(correctedSize, halfCSize, aSize)
                 if (mode == Grid.MODES.BACKGROUNDS) {
-                    cell.drawBackground(g, colorization)
+                    cell.drawBackground(g, backgroundColors)
                 } else {
-                    cell.drawWalls(g, colorization)
+                    cell.drawWalls(g, wallColors)
                 }
             }
         }

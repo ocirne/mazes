@@ -14,8 +14,8 @@ fun main() {
     saveImage(grid.toImage(), "triangle_recursive_backtracker")
 
     val colorization1 = Colorization(grid, startAt=grid[9, 8]!!).dijkstra()
-    saveImage(grid.toImage(colorization = colorization1), "triangle_recursive_backtracker_colorized1")
+    saveImage(grid.toImage(backgroundColors = colorization1), "triangle_recursive_backtracker_colorized1")
 
     val colorization2 = Colorization(grid).countLinks()
-    saveImage(grid.toImage(colorization = colorization2), "triangle_recursive_backtracker_colorized2")
+    saveImage(grid.toImage(backgroundColors = colorization2), "triangle_recursive_backtracker_colorized2")
 }
