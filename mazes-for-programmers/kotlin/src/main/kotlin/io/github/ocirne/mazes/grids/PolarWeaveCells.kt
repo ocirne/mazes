@@ -2,7 +2,6 @@ package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
 import java.awt.BasicStroke
-import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.geom.Line2D
 
@@ -38,11 +37,11 @@ class PolarOverCell(row: Int, column: Int, val grid: PolarWeaveGrid) : PolarCell
     }
 
     fun isHorizontalPassage(cell: PolarCell): Boolean {
-        return cell.isLinked(cell.inward) && cell.isLinked(cell.outward[0]) && !cell.isLinked(cell.cw) && !cell.isLinked(cell.ccw)
+        return cell.outward.size == 1 && cell.isLinked(cell.inward) && cell.isLinked(cell.outward[0]) && !cell.isLinked(cell.cw) && !cell.isLinked(cell.ccw)
     }
 
     fun isVerticalPassage(cell: PolarCell): Boolean {
-        return cell.isLinked(cell.cw) && cell.isLinked(cell.ccw) && !cell.isLinked(cell.inward) && !cell.isLinked(cell.outward[0])
+        return cell.outward.size == 1 && cell.isLinked(cell.cw) && cell.isLinked(cell.ccw) && !cell.isLinked(cell.inward) && !cell.isLinked(cell.outward[0])
     }
 
     override fun link(cell: Cell, bidi: Boolean) {
@@ -51,9 +50,9 @@ class PolarOverCell(row: Int, column: Int, val grid: PolarWeaveGrid) : PolarCell
             cw
         } else if (ccw != null && ccw == cell.cw) {
             ccw
-        } else if (inward != null && inward == cell.outward) {
+        } else if (outward.size == 1 && inward != null && cell.outward.size == 1 && inward == cell.outward[0]) {
             inward
-        } else if (outward != null && outward.size == 1 && outward == cell.inward) {
+        } else if (outward.size == 1 && outward[0] == cell.inward) {
             outward[0]
         } else {
             null
@@ -66,7 +65,7 @@ class PolarOverCell(row: Int, column: Int, val grid: PolarWeaveGrid) : PolarCell
     }
 }
 
-class PolarUnderCell(val overCell: PolarOverCell) : PolarCell(overCell.row, overCell.column) {
+class PolarUnderCell(private val overCell: PolarOverCell) : PolarCell(overCell.row, overCell.column) {
     init {
         if (overCell.isHorizontalPassage(overCell)) {
             cw = overCell.cw
@@ -76,10 +75,10 @@ class PolarUnderCell(val overCell: PolarOverCell) : PolarCell(overCell.row, over
 
             link(cw!!)
             link(ccw!!)
-        } else {
+        } else if (overCell.isVerticalPassage(overCell)) {
             inward = overCell.inward
             overCell.inward!!.outward[0] = this
-            outward[0] = overCell.outward[0]
+            outward.add(overCell.outward[0])
             overCell.outward[0].inward = this
 
             link(inward!!)
@@ -87,18 +86,18 @@ class PolarUnderCell(val overCell: PolarOverCell) : PolarCell(overCell.row, over
         }
     }
 
-    fun horizontalPassage(): Boolean {
-        return inward != null || outward != null
+    fun isHorizontalPassage(): Boolean {
+        return inward != null || outward.size == 1
     }
 
-    fun verticalPassage(): Boolean {
+    fun isVerticalPassage(): Boolean {
         return cw != null || ccw != null
     }
 
     override fun drawWalls(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorFor(this)
         val c = overCell.c
-        if (verticalPassage()) {
+        if (isVerticalPassage()) {
             // TODO das müssten wieder arcs sein
             g.stroke = BasicStroke(5.0f)
             g.draw(Line2D.Double(c.a, c.aL))

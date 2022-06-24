@@ -9,6 +9,7 @@ abstract class Cell {
 
     open fun link(cell: Cell, bidi: Boolean = true) {
         if (!neighbors().contains(cell)) {
+            // TODO ausgesetzt, weil PolarWeave beim Verlinken die Nachbarn modifiziert
 //            throw IllegalArgumentException("linked cell must be a neighbor of this cell")
         }
         links[cell] = true
