@@ -51,7 +51,7 @@ class TriangleCell(val row: Int, val column: Int) : Cell() {
     }
 
     override fun drawBackground(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorFor(this)
+        g.color = colorization.valueFor(this)
         val p = Polygon()
         p.addPoint(c.westX, c.baseY)
         p.addPoint(c.midX, c.apexY)
@@ -60,7 +60,7 @@ class TriangleCell(val row: Int, val column: Int) : Cell() {
     }
 
     override fun drawWalls(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorFor(this)
+        g.color = colorization.valueFor(this)
         if (west == null)
             g.drawLine(c.westX, c.baseY, c.midX, c.apexY)
         if (!isLinked(east))

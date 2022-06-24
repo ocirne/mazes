@@ -94,7 +94,7 @@ class UnderCell(overCell: OverCell) : CartesianCell(overCell.row, overCell.colum
     }
 
     override fun drawWalls(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorFor(this)
+        g.color = colorization.valueFor(this)
         if (verticalPassage()) {
             g.stroke = BasicStroke(3.0f)
             g.drawLine(c.x2, c.y1, c.x2, c.y2)

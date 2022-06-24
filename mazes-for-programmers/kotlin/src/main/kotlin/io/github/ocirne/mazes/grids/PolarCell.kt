@@ -124,24 +124,24 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
     }
 
     override fun drawBackground(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorFor(this)
+        g.color = colorization.valueFor(this)
         if (c.withInset) {
             if (row == 0) {
                 g.fill(Ellipse2D.Double(c.center - c.r3, c.center - c.r3, 2.0 * c.r3, 2.0 * c.r3))
             } else {
                 drawFoo(g, c.r2, c.r3, c.thetaCw + c.thetaInset3, c.theta - 2 * c.thetaInset3)
             }
-            if (isLinked(ccw) && colorization.isColoredCell(ccw))
+            if (isLinked(ccw) && colorization.isValuedCell(ccw))
                 drawFoo(g, c.r2, c.r3, c.thetaCw, c.thetaInset2)
-            if (isLinked(cw) && colorization.isColoredCell(cw))
+            if (isLinked(cw) && colorization.isValuedCell(cw))
                 drawFoo(g, c.r2, c.r3, c.thetaCcw - c.thetaInset2, c.thetaInset2)
-            if (isLinked(inward) && colorization.isColoredCell(inward))
+            if (isLinked(inward) && colorization.isValuedCell(inward))
                 drawFoo(g, c.r1, c.r2, c.thetaCw + c.thetaInset2, c.theta - 2 * c.thetaInset2)
 
             if (outward.isNotEmpty()) {
                 val subTheta = c.theta / outward.size
                 outward.forEachIndexed { index, outwardCell ->
-                    if (isLinked(outwardCell) && colorization.isColoredCell(outwardCell)) {
+                    if (isLinked(outwardCell) && colorization.isValuedCell(outwardCell)) {
                         drawFoo(g, c.r3, c.r4, c.thetaCw + index * subTheta + c.thetaInset4, subTheta - 2 * c.thetaInset4)
                     }
                 }
@@ -165,7 +165,7 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
                    ccw
      */
     override fun drawWalls(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorFor(this)
+        g.color = colorization.valueFor(this)
         g.stroke = BasicStroke(5.0f)
         if (c.withInset) {
             if (row > 0) {
@@ -257,13 +257,13 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
     }
 
     fun drawPath(g: Graphics2D, colorization: Colorization, grid: PolarGrid, center: Int, cellSize: Int) {
-        g.color = colorization.colorFor(this)
+        g.color = colorization.valueFor(this)
         if (g.color == Color.WHITE) {
             return
         }
         val m = middle(grid, center, cellSize)
         for (other in links()) {
-            if (!colorization.isColoredCell(other)) {
+            if (!colorization.isValuedCell(other)) {
                 return
             }
             other as PolarCell

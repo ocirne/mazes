@@ -5,13 +5,13 @@ import io.github.ocirne.mazes.grids.Grid
 import java.awt.Color
 import kotlin.math.roundToInt
 
-class Colorization(
+open class Colorization(
     private val grid: Grid,
-    val startAt: Cell = grid.randomCell(),
-    private val defaultColor: Color = Color.WHITE,
     private val fromColor: Color = Color.DARK_GRAY,
     private val toColor: Color = Color.GREEN
 ){
+
+    private val defaultColor = Color.MAGENTA
 
     private val weights: MutableMap<Cell, Int> = mutableMapOf()
 
@@ -29,7 +29,7 @@ class Colorization(
         return weights.entries.maxBy { it.value }
     }
 
-    fun dijkstra(): Colorization {
+    fun dijkstra(startAt: Cell = grid.randomCell()): Colorization {
         weights[startAt] = 0
         var frontier = mutableListOf(startAt)
 
@@ -52,7 +52,7 @@ class Colorization(
     fun longestPath(): Colorization {
         val bestStart = Colorization(grid).dijkstra().max().key
         start = bestStart
-        val distances = Colorization(grid, startAt=bestStart).dijkstra()
+        val distances = Colorization(grid).dijkstra(bestStart)
         var current = distances.max().key
         goal = current
         weights[current] = distances.weights[current]!!
@@ -73,11 +73,11 @@ class Colorization(
         return this
     }
 
-    fun isColoredCell(cell: Cell?): Boolean {
+    fun isValuedCell(cell: Cell?): Boolean {
         return weights.contains(cell)
     }
 
-    fun colorFor(cell: Cell): Color {
+    open fun valueFor(cell: Cell): Color {
         val distance = weights[cell] ?: return defaultColor
         val maximum = max().value
         val intensity = (maximum - distance).toFloat() / maximum

@@ -16,7 +16,7 @@ fun main() {
     saveImage(grid.toImage(wallInset=0.1), "polar_recursive_backtracker_inset_1")
     saveImage(grid.toImage(wallInset=0.2), "polar_recursive_backtracker_inset_2")
 
-    val colorization = Colorization(grid, startAt=grid[2, 0]!!, fromColor = Color.LIGHT_GRAY, toColor = Color.LIGHT_GRAY).dijkstra()
+    val colorization = Colorization(grid, fromColor = Color.LIGHT_GRAY, toColor = Color.LIGHT_GRAY).dijkstra(grid[2, 0]!!)
     saveImage(grid.toImage(backgroundColors = colorization), "polar_recursive_backtracker_colorized")
     saveImage(grid.toImage(wallInset=0.2, backInset=0.1, backgroundColors = colorization), "polar_recursive_backtracker_colorized_inset")
 
@@ -26,7 +26,6 @@ fun main() {
     markers[longestPath.goal!!] = "B"
     saveImage(grid.toImage(cellSize = 400, wallInset=0.2, backInset = 0.1,
         backgroundColors = colorization,
-        wallColors = Colorization(grid, defaultColor = Color.WHITE),
         path = longestPath,
         marker = markers), "polar_recursive_backtracker_longest_path")
 }

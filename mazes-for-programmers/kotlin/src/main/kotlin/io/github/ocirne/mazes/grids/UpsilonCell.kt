@@ -85,7 +85,7 @@ class UpsilonCell(val row: Int, val column: Int) : Cell() {
     }
 
     override fun drawBackground(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorFor(this)
+        g.color = colorization.valueFor(this)
         val p = Polygon()
         if (isOctogon()) {
             p.addPoint(c.p0.x, c.p0.y)
@@ -111,7 +111,7 @@ class UpsilonCell(val row: Int, val column: Int) : Cell() {
     }
 
     override fun drawWalls(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorFor(this)
+        g.color = colorization.valueFor(this)
         if (west == null)
             drawline(g, c.p0, c.p1)
         if (north == null)

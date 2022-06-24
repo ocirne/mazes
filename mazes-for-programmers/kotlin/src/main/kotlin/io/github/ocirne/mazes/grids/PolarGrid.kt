@@ -85,7 +85,7 @@ open class PolarGrid(private val rows: Int) : Grid {
         val dashed = BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.0f, floatArrayOf(9.0f), 0.0f)
         g.stroke = dashed;
         g.color = Color.WHITE
-        val theta = 2 * PI / grid[rows-1]!!.size
+        val theta = 2 * PI / grid[rows-1].size
         val outerRadius = rows * cellSize
         val radiusInset = wallInset * cellSize
         val innerRadius = cellSize - radiusInset
@@ -99,7 +99,7 @@ open class PolarGrid(private val rows: Int) : Grid {
             val radius2 = row * cellSize + radiusInset
             g.draw(Ellipse2D.Double(center - radius2, center - radius2, 2.0 * radius2, 2.0 * radius2))
         }
-        for (t in 0 .. grid[rows-1]!!.size) {
+        for (t in 0 .. grid[rows-1].size) {
             val x1 = center + innerRadius * cos(t * theta + thetaInsetInnen)
             val y1 = center - innerRadius * sin(t * theta + thetaInsetInnen)
             val x2 = center + innerRadius * cos(t * theta - thetaInsetInnen)

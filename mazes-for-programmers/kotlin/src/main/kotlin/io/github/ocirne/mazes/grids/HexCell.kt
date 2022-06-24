@@ -46,7 +46,7 @@ class HexCell(val row: Int, val column: Int) : Cell() {
     }
 
     override fun drawBackground(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorFor(this)
+        g.color = colorization.valueFor(this)
         // TODO switch to Path2d (all polygons)
         val p = Polygon()
         p.addPoint(c.xFW, c.yM)
@@ -59,7 +59,7 @@ class HexCell(val row: Int, val column: Int) : Cell() {
     }
 
     override fun drawWalls(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorFor(this)
+        g.color = colorization.valueFor(this)
         if (southwest == null)
             g.drawLine(c.xFW, c.yM, c.xNW, c.yS)
         if (northwest == null)

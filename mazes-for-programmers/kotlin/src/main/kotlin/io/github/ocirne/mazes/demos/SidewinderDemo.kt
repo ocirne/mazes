@@ -12,6 +12,6 @@ fun main() {
     Sidewinder().on(grid)
     saveImage(grid.toImage(), "cartesian_sidewinder")
 
-    val colorization = Colorization(grid, startAt=grid[20, 10]!!).dijkstra()
+    val colorization = Colorization(grid).dijkstra(grid[20, 10]!!)
     saveImage(grid.toImage(backgroundColors = colorization), "cartesian_sidewinder_colorized")
 }

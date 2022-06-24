@@ -1,6 +1,8 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import io.github.ocirne.mazes.colorization.DefaultBackground
+import io.github.ocirne.mazes.colorization.DefaultWalls
 import java.awt.image.RenderedImage
 
 interface Grid {
@@ -29,8 +31,8 @@ interface Grid {
     }
 
     fun toImage(cellSize: Int = 100, wallInset:Double=0.0, backInset: Double=0.0,
-                backgroundColors: Colorization = Colorization(this),
-                wallColors: Colorization = Colorization(this),
+                backgroundColors: Colorization = DefaultBackground(this),
+                wallColors: Colorization = DefaultWalls(this),
                 path: Colorization = Colorization(this),
                 marker: Colorization = Colorization(this)): RenderedImage
 }

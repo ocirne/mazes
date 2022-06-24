@@ -16,8 +16,7 @@ fun main() {
         grid.toImage(
             wallInset = 0.2,
             backInset = 0.2,
-            backgroundColors = colorization,
-            wallColors = Colorization(grid, defaultColor = Color.WHITE)
+            backgroundColors = colorization
         ), "cartesian_weave_recursive_backtracker"
     )
 }

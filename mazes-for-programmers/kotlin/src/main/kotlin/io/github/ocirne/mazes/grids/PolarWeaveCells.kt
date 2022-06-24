@@ -95,7 +95,7 @@ class PolarUnderCell(private val overCell: PolarOverCell) : PolarCell(overCell.r
     }
 
     override fun drawWalls(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorFor(this)
+        g.color = colorization.valueFor(this)
         val c = overCell.c
         if (isVerticalPassage()) {
             // TODO das müssten wieder arcs sein

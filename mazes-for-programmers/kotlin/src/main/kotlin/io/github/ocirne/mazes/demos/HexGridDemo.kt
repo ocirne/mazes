@@ -12,7 +12,7 @@ fun main() {
     RecursiveBacktracker.on(grid)
     saveImage(grid.toImage(), "hex_recursive_backtracker")
 
-    val colorization1 = Colorization(grid, startAt=grid[20, 10]!!).dijkstra()
+    val colorization1 = Colorization(grid).dijkstra(grid[20, 10]!!)
     saveImage(grid.toImage(backgroundColors = colorization1), "hex_recursive_backtracker_colorized1")
 
     val colorization2 = Colorization(grid).countLinks()

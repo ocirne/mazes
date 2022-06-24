@@ -44,18 +44,18 @@ open class CartesianCell(val row: Int, val column: Int) : Cell() {
     }
 
     override fun drawBackground(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorFor(this)
+        g.color = colorization.valueFor(this)
         if (c.withInset) {
             if (this !is UnderCell) {
                 g.fillRect(c.x2, c.y2, c.x3 - c.x2, c.y3 - c.y2)
             }
-            if (isLinked(north) && colorization.isColoredCell(north))
+            if (isLinked(north) && colorization.isValuedCell(north))
                 g.fillRect(c.x2, c.y1, c.x3-c.x2, c.y2-c.y1)
-            if (isLinked(south) && colorization.isColoredCell(south))
+            if (isLinked(south) && colorization.isValuedCell(south))
                 g.fillRect(c.x2, c.y3, c.x3-c.x2, c.y4-c.y3)
-            if (isLinked(west) && colorization.isColoredCell(west))
+            if (isLinked(west) && colorization.isValuedCell(west))
                 g.fillRect(c.x1, c.y2, c.x2-c.x1, c.y3-c.y2)
-            if (isLinked(east) && colorization.isColoredCell(east))
+            if (isLinked(east) && colorization.isValuedCell(east))
                 g.fillRect(c.x3, c.y2, c.x4-c.x3, c.y3-c.y2)
         } else {
             if (this !is UnderCell) {
@@ -65,7 +65,7 @@ open class CartesianCell(val row: Int, val column: Int) : Cell() {
     }
 
     override fun drawWalls(g: Graphics2D, colorization: Colorization) {
-        g.color = colorization.colorFor(this)
+        g.color = colorization.valueFor(this)
         g.stroke = BasicStroke(3.0f)
         if (c.withInset) {
             if (isLinked(north)) {
