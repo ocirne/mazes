@@ -1,6 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import java.awt.BasicStroke
 import java.awt.Graphics2D
 
 open class CartesianCell(val row: Int, val column: Int) : Cell() {
@@ -45,7 +46,9 @@ open class CartesianCell(val row: Int, val column: Int) : Cell() {
     override fun drawBackground(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorFor(this)
         if (c.withInset) {
-            g.fillRect(c.x2, c.y2, c.x3-c.x2, c.y3-c.y2)
+            if (this !is UnderCell) {
+                g.fillRect(c.x2, c.y2, c.x3 - c.x2, c.y3 - c.y2)
+            }
             if (isLinked(north) && colorization.isColoredCell(north))
                 g.fillRect(c.x2, c.y1, c.x3-c.x2, c.y2-c.y1)
             if (isLinked(south) && colorization.isColoredCell(south))
@@ -55,12 +58,15 @@ open class CartesianCell(val row: Int, val column: Int) : Cell() {
             if (isLinked(east) && colorization.isColoredCell(east))
                 g.fillRect(c.x3, c.y2, c.x4-c.x3, c.y3-c.y2)
         } else {
-            g.fillRect(c.x1, c.y1, c.x4 - c.x1, c.y4 - c.y1)
+            if (this !is UnderCell) {
+                g.fillRect(c.x1, c.y1, c.x4 - c.x1, c.y4 - c.y1)
+            }
         }
     }
 
     override fun drawWalls(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorFor(this)
+        g.stroke = BasicStroke(3.0f)
         if (c.withInset) {
             if (isLinked(north)) {
                 g.drawLine(c.x2, c.y1, c.x2, c.y2)

@@ -1,7 +1,10 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import java.awt.BasicStroke
+import java.awt.Color
 import java.awt.Graphics2D
+import java.awt.geom.Line2D
 
 class PolarOverCell(row: Int, column: Int, val grid: PolarWeaveGrid) : PolarCell(row, column) {
 
@@ -63,7 +66,7 @@ class PolarOverCell(row: Int, column: Int, val grid: PolarWeaveGrid) : PolarCell
     }
 }
 
-class PolarUnderCell(overCell: PolarOverCell) : PolarCell(overCell.row, overCell.column) {
+class PolarUnderCell(val overCell: PolarOverCell) : PolarCell(overCell.row, overCell.column) {
     init {
         if (overCell.isHorizontalPassage(overCell)) {
             cw = overCell.cw
@@ -94,16 +97,28 @@ class PolarUnderCell(overCell: PolarOverCell) : PolarCell(overCell.row, overCell
 
     override fun drawWalls(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorFor(this)
+        val c = overCell.c
         if (verticalPassage()) {
-//            g.drawLine(c.x2, c.y1, c.x2, c.y2)
-//            g.drawLine(c.x3, c.y1, c.x3, c.y2)
-//            g.drawLine(c.x2, c.y3, c.x2, c.y4)
-//            g.drawLine(c.x3, c.y3, c.x3, c.y4)
-//        } else {
-//            g.drawLine(c.x1, c.y2, c.x2, c.y2)
-//            g.drawLine(c.x1, c.y3, c.x2, c.y3)
-//            g.drawLine(c.x3, c.y2, c.x4, c.y2)
-//            g.drawLine(c.x3, c.y3, c.x4, c.y3)
+            // TODO das müssten wieder arcs sein
+            g.stroke = BasicStroke(5.0f)
+            g.draw(Line2D.Double(c.a, c.aL))
+            g.draw(Line2D.Double(c.b, c.bL))
+            g.draw(Line2D.Double(c.c, c.cR))
+            g.draw(Line2D.Double(c.d, c.dR))
+
+            g.stroke = BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.0f, floatArrayOf(9.0f), 0.0f)
+            g.draw(Line2D.Double(c.a, c.c))
+            g.draw(Line2D.Double(c.b, c.d))
+        } else {
+            g.stroke = BasicStroke(5.0f)
+            g.draw(Line2D.Double(c.a, c.aI))
+            g.draw(Line2D.Double(c.b, c.bO))
+            g.draw(Line2D.Double(c.c, c.cI))
+            g.draw(Line2D.Double(c.d, c.dO))
+
+            g.stroke = BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.0f, floatArrayOf(9.0f), 0.0f)
+            g.draw(Line2D.Double(c.a, c.b))
+            g.draw(Line2D.Double(c.c, c.d))
         }
     }
 }

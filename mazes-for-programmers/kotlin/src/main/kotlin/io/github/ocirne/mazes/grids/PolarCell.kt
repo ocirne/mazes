@@ -53,7 +53,7 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
         val thetaInset4: Double,
     )
 
-    private lateinit var c: Coordinates
+    lateinit var c: Coordinates
 
     private fun toPolar(center: Int, radius: Double, angle: Double): Point2D {
         return Point2D.Double(center + radius * cos(angle), center - radius * sin(angle))

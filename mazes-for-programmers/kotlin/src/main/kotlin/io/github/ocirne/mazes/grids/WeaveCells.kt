@@ -1,6 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import java.awt.BasicStroke
 import java.awt.Graphics2D
 
 class OverCell(row: Int, column: Int, val grid: WeaveGrid) : CartesianCell(row, column) {
@@ -95,15 +96,25 @@ class UnderCell(overCell: OverCell) : CartesianCell(overCell.row, overCell.colum
     override fun drawWalls(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorFor(this)
         if (verticalPassage()) {
+            g.stroke = BasicStroke(3.0f)
             g.drawLine(c.x2, c.y1, c.x2, c.y2)
             g.drawLine(c.x3, c.y1, c.x3, c.y2)
             g.drawLine(c.x2, c.y3, c.x2, c.y4)
             g.drawLine(c.x3, c.y3, c.x3, c.y4)
+
+            g.stroke = BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.0f, floatArrayOf(9.0f), 0.0f)
+            g.drawLine(c.x2, c.y2, c.x2, c.y3)
+            g.drawLine(c.x3, c.y2, c.x3, c.y3)
         } else {
+            g.stroke = BasicStroke(3.0f)
             g.drawLine(c.x1, c.y2, c.x2, c.y2)
             g.drawLine(c.x1, c.y3, c.x2, c.y3)
             g.drawLine(c.x3, c.y2, c.x4, c.y2)
             g.drawLine(c.x3, c.y3, c.x4, c.y3)
+
+            g.stroke = BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.0f, floatArrayOf(9.0f), 0.0f)
+            g.drawLine(c.x2, c.y2, c.x3, c.y2)
+            g.drawLine(c.x2, c.y3, c.x3, c.y3)
         }
     }
 }
