@@ -5,10 +5,7 @@ import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics2D
-import java.awt.geom.Arc2D
-import java.awt.geom.Area
-import java.awt.geom.Line2D
-import java.awt.geom.Point2D
+import java.awt.geom.*
 import java.lang.Math.toDegrees
 import kotlin.math.*
 
@@ -61,7 +58,6 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
 
     fun prepareCoordinates(grid: PolarGrid, center: Int, cellSize: Int, inset: Double=0.0) {
         val theta = 2 * PI / grid[row]!!.size
-
         val r1 = (row * cellSize).toDouble()
         val r4 = ((row + 1) * cellSize).toDouble()
         // TODO backInset muss ähnlich behandelt werden
@@ -130,7 +126,11 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
     override fun drawBackground(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.colorFor(this)
         if (c.withInset) {
-            drawFoo(g, c.r2, c.r3, c.thetaCw + c.thetaInset3, c.theta - 2 * c.thetaInset3)
+            if (row == 0) {
+                g.fill(Ellipse2D.Double(c.center - c.r3, c.center - c.r3, 2.0 * c.r3, 2.0 * c.r3))
+            } else {
+                drawFoo(g, c.r2, c.r3, c.thetaCw + c.thetaInset3, c.theta - 2 * c.thetaInset3)
+            }
             if (isLinked(ccw) && colorization.isColoredCell(ccw))
                 drawFoo(g, c.r2, c.r3, c.thetaCw, c.thetaInset2)
             if (isLinked(cw) && colorization.isColoredCell(cw))
@@ -138,21 +138,13 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
             if (isLinked(inward) && colorization.isColoredCell(inward))
                 drawFoo(g, c.r1, c.r2, c.thetaCw + c.thetaInset2, c.theta - 2 * c.thetaInset2)
 
-            if (outward.isEmpty()) {
-                // ignore
-            } else if (outward.size == 1) {
-                if (isLinked(outward[0]) && colorization.isColoredCell(outward[0])) {
-                    drawFoo(g, c.r3, c.r4, c.thetaCw + c.thetaInset4, c.theta - 2 * c.thetaInset4)
+            if (outward.isNotEmpty()) {
+                val subTheta = c.theta / outward.size
+                for (index in 0 until outward.size) {
+                    if (isLinked(outward[index]) && colorization.isColoredCell(outward[index])) {
+                        drawFoo(g, c.r3, c.r4, c.thetaCw + index * subTheta + c.thetaInset4, subTheta - 2 * c.thetaInset4)
+                    }
                 }
-            } else if (outward.size == 2) {
-                if (isLinked(outward[0]) && colorization.isColoredCell(outward[0])) {
-                    drawFoo(g, c.r3, c.r4, c.thetaCw + c.thetaInset4, 0.5 * c.theta - 2 * c.thetaInset4)
-                }
-                if (isLinked(outward[1]) && colorization.isColoredCell(outward[1])) {
-                    drawFoo(g, c.r3, c.r4, c.thetaCw + 0.5 * c.theta + c.thetaInset4, 0.5 * c.theta - 2 * c.thetaInset4)
-                }
-            } else {
-              //  throw NotImplementedError()
             }
 
         } else {
@@ -176,23 +168,25 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
         g.color = colorization.colorFor(this)
         g.stroke = BasicStroke(5.0f)
         if (c.withInset) {
-            if (isLinked(cw)) {
-                drawArc(g, c.r2, toDegrees(c.thetaCcw - c.thetaInset2), toDegrees(c.thetaInset2))
-                drawArc(g, c.r3, toDegrees(c.thetaCcw - c.thetaInset3), toDegrees(c.thetaInset3))
-            } else {
-                g.draw(Line2D.Double(c.a, c.b))
-            }
-            if (isLinked(ccw)) {
-                drawArc(g, c.r2, toDegrees(c.thetaCw), toDegrees(c.thetaInset2))
-                drawArc(g, c.r3, toDegrees(c.thetaCw), toDegrees(c.thetaInset3))
-            } else {
-                g.draw(Line2D.Double(c.c, c.d))
-            }
-            if (isLinked(inward)) {
-                g.draw(Line2D.Double(c.a, c.aI))
-                g.draw(Line2D.Double(c.c, c.cI))
-            } else {
-                drawArc(g, c.r2, toDegrees(c.thetaCw + c.thetaInset2), toDegrees(c.theta - (2*c.thetaInset2)))
+            if (row > 0) {
+                if (isLinked(cw)) {
+                    drawArc(g, c.r2, toDegrees(c.thetaCcw - c.thetaInset2), toDegrees(c.thetaInset2))
+                    drawArc(g, c.r3, toDegrees(c.thetaCcw - c.thetaInset3), toDegrees(c.thetaInset3))
+                } else {
+                    g.draw(Line2D.Double(c.a, c.b))
+                }
+                if (isLinked(ccw)) {
+                    drawArc(g, c.r2, toDegrees(c.thetaCw), toDegrees(c.thetaInset2))
+                    drawArc(g, c.r3, toDegrees(c.thetaCw), toDegrees(c.thetaInset3))
+                } else {
+                    g.draw(Line2D.Double(c.c, c.d))
+                }
+                if (isLinked(inward)) {
+                    g.draw(Line2D.Double(c.a, c.aI))
+                    g.draw(Line2D.Double(c.c, c.cI))
+                } else {
+                    drawArc(g, c.r2, toDegrees(c.thetaCw + c.thetaInset2), toDegrees(c.theta - (2 * c.thetaInset2)))
+                }
             }
             if (outward.isEmpty()) {
                 // Outer rim
@@ -223,7 +217,24 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
                                      toDegrees(0.5 * c.theta - (2*c.thetaInset3)))
                 }
             } else {
-                throw NotImplementedError()
+                val subTheta = c.theta / outward.size
+                for (index in 0 until outward.size) {
+                    if (isLinked(outward[index])) {
+                        val b = toPolar(c.center, c.r3, c.thetaCw + (index + 1) * subTheta - c.thetaInset3)
+                        val bO = toPolar(c.center, c.r4, c.thetaCw + (index + 1) * subTheta - c.thetaInset4)
+                        val e = toPolar(c.center, c.r3, c.thetaCw + index * subTheta + c.thetaInset3)
+                        val eO = toPolar(c.center, c.r4, c.thetaCw + index * subTheta + c.thetaInset4)
+                        g.draw(Line2D.Double(b, bO))
+                        g.draw(Line2D.Double(e, eO))
+                    } else {
+                        drawArc(g, c.r3,
+                            toDegrees(c.thetaCw + index * subTheta + c.thetaInset3),
+                            toDegrees(subTheta - 2 * c.thetaInset3))
+                    }
+                    drawArc(g, c.r3,
+                        toDegrees(c.thetaCw + (index + 1) * subTheta - c.thetaInset3),
+                        toDegrees(2 * c.thetaInset3))
+                }
             }
         } else {
             if (!isLinked(inward)) {
@@ -232,6 +243,13 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
             if (!isLinked(cw))
                 g.draw(Line2D.Double(c.a, c.b))
         }
+    }
+
+    private fun middle(grid: PolarGrid, center: Int, cellSize: Int): Point2D {
+        val r = (row +0.5) * cellSize
+        val theta = 2 * PI / grid[row]!!.size
+        val t = (column+0.5) * theta
+        return toPolar(center, r, t)
     }
 
     fun drawPath(g: Graphics2D, colorization: Colorization, grid: PolarGrid, center: Int, cellSize: Int) {
@@ -250,13 +268,6 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
             g.stroke = BasicStroke(10.0f)
             g.draw(Line2D.Double(m, o))
         }
-    }
-
-    private fun middle(grid: PolarGrid, center: Int, cellSize: Int): Point2D {
-        val r = (row +0.5) * cellSize
-        val theta = 2 * PI / grid[row]!!.size
-        val t = (column+0.5) * theta
-        return toPolar(center, r, t)
     }
 
     fun drawMarker(g: Graphics2D, colorization: Colorization, grid: PolarGrid, center: Int, cellSize: Int) {

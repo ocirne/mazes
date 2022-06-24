@@ -142,9 +142,6 @@ open class PolarGrid(private val rows: Int) : Grid {
                         cell.drawBackground(g, backgroundColors)
                     }
                     Grid.MODES.WALLS -> {
-                        if (cell.row == 0) { // TODO prüfen
-                            continue
-                        }
                         // TODO vielleicht trennen in coordinaten und insets?
                         cell.prepareCoordinates(this, center, cellSize, wallInset)
                         cell.drawWalls(g, wallColors)

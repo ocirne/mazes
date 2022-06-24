@@ -8,10 +8,10 @@ import io.github.ocirne.mazes.output.saveImage
 import java.awt.Color
 
 fun main() {
-    val grid = PolarWeaveGrid(10)
+    val grid = PolarWeaveGrid(5)
     RecursiveBacktracker.on(grid)
 
-    DeadEndKiller().remove(grid, passes=10, p=0.5)
+//    DeadEndKiller().remove(grid, passes=10, p=0.5)
 
     val colorization = Colorization(grid, defaultColor = Color.BLACK).dijkstra()
 
