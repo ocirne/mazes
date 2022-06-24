@@ -140,8 +140,8 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
 
             if (outward.isNotEmpty()) {
                 val subTheta = c.theta / outward.size
-                for (index in 0 until outward.size) {
-                    if (isLinked(outward[index]) && colorization.isColoredCell(outward[index])) {
+                outward.forEachIndexed { index, outwardCell ->
+                    if (isLinked(outwardCell) && colorization.isColoredCell(outwardCell)) {
                         drawFoo(g, c.r3, c.r4, c.thetaCw + index * subTheta + c.thetaInset4, subTheta - 2 * c.thetaInset4)
                     }
                 }
@@ -218,8 +218,8 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
                 }
             } else {
                 val subTheta = c.theta / outward.size
-                for (index in 0 until outward.size) {
-                    if (isLinked(outward[index])) {
+                outward.forEachIndexed { index, outwardCell ->
+                    if (isLinked(outwardCell)) {
                         val b = toPolar(c.center, c.r3, c.thetaCw + (index + 1) * subTheta - c.thetaInset3)
                         val bO = toPolar(c.center, c.r4, c.thetaCw + (index + 1) * subTheta - c.thetaInset4)
                         val e = toPolar(c.center, c.r3, c.thetaCw + index * subTheta + c.thetaInset3)
@@ -227,13 +227,17 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
                         g.draw(Line2D.Double(b, bO))
                         g.draw(Line2D.Double(e, eO))
                     } else {
-                        drawArc(g, c.r3,
+                        drawArc(
+                            g, c.r3,
                             toDegrees(c.thetaCw + index * subTheta + c.thetaInset3),
-                            toDegrees(subTheta - 2 * c.thetaInset3))
+                            toDegrees(subTheta - 2 * c.thetaInset3)
+                        )
                     }
-                    drawArc(g, c.r3,
+                    drawArc(
+                        g, c.r3,
                         toDegrees(c.thetaCw + (index + 1) * subTheta - c.thetaInset3),
-                        toDegrees(2 * c.thetaInset3))
+                        toDegrees(2 * c.thetaInset3)
+                    )
                 }
             }
         } else {

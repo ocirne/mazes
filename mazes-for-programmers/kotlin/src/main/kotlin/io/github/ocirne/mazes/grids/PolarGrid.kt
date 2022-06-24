@@ -147,12 +147,12 @@ open class PolarGrid(private val rows: Int) : Grid {
                         cell.drawWalls(g, wallColors)
                     }
                     Grid.MODES.PATH -> {
-//                        cell.prepareCoordinates(this, center, cellSize)
-//                        cell.drawPath(g, path, this, center, cellSize)
+                        cell.prepareCoordinates(this, center, cellSize)
+                        cell.drawPath(g, path, this, center, cellSize)
                     }
                     Grid.MODES.MARKER -> {
-//                        cell.prepareCoordinates(this, center, cellSize)
-//                        cell.drawMarker(g, marker, this, center, cellSize)
+                        cell.prepareCoordinates(this, center, cellSize)
+                        cell.drawMarker(g, marker, this, center, cellSize)
                     }
                 }
             }
