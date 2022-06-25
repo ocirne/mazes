@@ -56,7 +56,7 @@ class TriangleGrid(private val rows: Int, private val columns: Int) : Grid {
         g.drawLine(p1.x, p1.y, p2.x, p2.y)
     }
 
-    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double,
+    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double, debug: Boolean,
                          backgroundColors: Colorization,
                          wallColors: Colorization,
                          path: Colorization,

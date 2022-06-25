@@ -59,6 +59,7 @@ open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid
         cellSize: Int,
         wallInset: Double,
         backInset: Double,
+        debug: Boolean,
         backgroundColors: Colorization,
         wallColors: Colorization,
         path: Colorization,

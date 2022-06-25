@@ -54,7 +54,7 @@ class UpsilonGrid(private val rows: Int, private val columns: Int) : Grid {
         return grid.flatten()
     }
 
-    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double,
+    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double, debug: Boolean,
                          backgroundColors: Colorization,
                          wallColors: Colorization,
                          path: Colorization,

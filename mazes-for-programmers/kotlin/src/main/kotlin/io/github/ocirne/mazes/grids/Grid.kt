@@ -30,7 +30,7 @@ interface Grid {
         BACKGROUNDS, WALLS, PATH, MARKER
     }
 
-    fun toImage(cellSize: Int = 100, wallInset:Double=0.0, backInset: Double=0.0,
+    fun toImage(cellSize: Int = 100, wallInset:Double=0.0, backInset: Double=0.0, debug: Boolean=false,
                 backgroundColors: Colorization = DefaultBackground(this),
                 wallColors: Colorization = DefaultWalls(this),
                 path: Colorization = Colorization(this),

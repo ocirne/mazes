@@ -81,7 +81,7 @@ open class PolarGrid(private val rows: Int) : Grid {
         return grid.flatten()
     }
 
-    fun helperGrid(g: Graphics2D, cellSize: Int, center: Double, wallInset: Double) {
+    private fun debugGrid(g: Graphics2D, cellSize: Int, center: Double, wallInset: Double) {
         val dashed = BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.0f, floatArrayOf(9.0f), 0.0f)
         g.stroke = dashed;
         g.color = Color.WHITE
@@ -115,7 +115,7 @@ open class PolarGrid(private val rows: Int) : Grid {
         }
     }
 
-    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double,
+    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double, debug: Boolean,
                          backgroundColors: Colorization,
                          wallColors: Colorization,
                          path: Colorization,
@@ -132,7 +132,8 @@ open class PolarGrid(private val rows: Int) : Grid {
 
         val center = imgSize / 2
 
-        helperGrid(g, cellSize, center.toDouble(), wallInset)
+        if (debug)
+            debugGrid(g, cellSize, center.toDouble(), wallInset)
 
         for (mode in Grid.MODES.values()) {
             for (cell in eachCell()) {
