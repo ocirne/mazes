@@ -3,16 +3,16 @@ package io.github.ocirne.mazes.grids
 import kotlin.math.PI
 import kotlin.math.roundToInt
 
-class PolarWeaveGrid(val rows: Int): PolarGrid(rows) {
+class PolarWeaveGrid(private val rows: Int): PolarGrid(rows) {
 
-    val underCells: MutableList<PolarCell> = mutableListOf()
+    private val underCells: MutableList<PolarCell> = mutableListOf()
 
     init {
         grid = prepareGrid2()
         configureCells()
     }
 
-    fun prepareGrid2(): Array<Array<PolarCell>> {
+    private fun prepareGrid2(): Array<Array<PolarCell>> {
         val rings = mutableListOf<Array<PolarCell>>()
 
         val rowHeight = 1.0 / rows.toFloat()

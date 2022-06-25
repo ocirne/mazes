@@ -19,19 +19,19 @@ class OverCell(row: Int, column: Int, val grid: WeaveGrid) : CartesianCell(row, 
         return result.toList()
     }
 
-    fun canTunnelNorth(): Boolean {
+    private fun canTunnelNorth(): Boolean {
         return north != null && north!!.north != null && isHorizontalPassage(north!!)
     }
 
-    fun canTunnelSouth(): Boolean {
+    private fun canTunnelSouth(): Boolean {
         return south != null && south!!.south != null && isHorizontalPassage(south!!)
     }
 
-    fun canTunnelEast(): Boolean {
+    private fun canTunnelEast(): Boolean {
         return east != null && east!!.east != null && isVerticalPassage(east!!)
     }
 
-    fun canTunnelWest(): Boolean {
+    private fun canTunnelWest(): Boolean {
         return west != null && west!!.west != null && isVerticalPassage(west!!)
     }
 
@@ -39,7 +39,7 @@ class OverCell(row: Int, column: Int, val grid: WeaveGrid) : CartesianCell(row, 
         return cell.isLinked(cell.east) && cell.isLinked(cell.west) && !cell.isLinked(cell.north) && !cell.isLinked(cell.south)
     }
 
-    fun isVerticalPassage(cell: CartesianCell): Boolean {
+    private fun isVerticalPassage(cell: CartesianCell): Boolean {
         return cell.isLinked(cell.north) && cell.isLinked(cell.south) && !cell.isLinked(cell.east) && !cell.isLinked(cell.west)
     }
 
@@ -89,7 +89,7 @@ class UnderCell(overCell: OverCell) : CartesianCell(overCell.row, overCell.colum
         return east != null || west != null
     }
 
-    fun verticalPassage(): Boolean {
+    private fun verticalPassage(): Boolean {
         return north != null || south != null
     }
 

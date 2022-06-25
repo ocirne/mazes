@@ -25,7 +25,7 @@ open class Colorization(
         texts[cell] = value
     }
 
-    fun max(): Map.Entry<Cell, Int> {
+    private fun max(): Map.Entry<Cell, Int> {
         return weights.entries.maxBy { it.value }
     }
 

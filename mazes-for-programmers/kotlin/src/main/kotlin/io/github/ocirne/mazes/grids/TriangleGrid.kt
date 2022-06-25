@@ -2,8 +2,6 @@ package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
 import java.awt.Color
-import java.awt.Graphics
-import java.awt.Point
 import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
 import kotlin.math.sqrt
@@ -50,10 +48,6 @@ class TriangleGrid(private val rows: Int, private val columns: Int) : Grid {
 
     override fun eachCell(): List<TriangleCell> {
         return grid.flatten()
-    }
-
-    private fun drawline(g: Graphics, p1: Point, p2: Point) {
-        g.drawLine(p1.x, p1.y, p2.x, p2.y)
     }
 
     override fun toImage(cellSize: Int, wallInset:Double, backInset: Double, debug: Boolean,

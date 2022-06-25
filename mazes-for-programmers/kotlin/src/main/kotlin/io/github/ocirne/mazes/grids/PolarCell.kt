@@ -281,7 +281,7 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
         g.color = Color.RED
         g.fillOval(m.x.toInt() - size, m.y.toInt()-size, 2*size, 2*size)
         g.color = Color.WHITE
-        g.setFont(Font("Sans", Font.BOLD or Font.CENTER_BASELINE, size))
-        g.drawString(marker, m.x.toFloat() - size / 2, m.y.toFloat() + size / 3);
+        g.font = Font("Sans", Font.BOLD or Font.CENTER_BASELINE, size)
+        g.drawString(marker, m.x.toFloat() - size / 2, m.y.toFloat() + size / 3)
     }
 }

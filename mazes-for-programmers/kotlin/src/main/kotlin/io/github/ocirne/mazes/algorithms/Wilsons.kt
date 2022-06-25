@@ -21,7 +21,7 @@ class Wilsons {
                         path.add(cell)
                 }
                 path.zipWithNext { v, w -> v.link(w) }
-                unvisited.removeAll(path.subList(0, path.size-1))
+                unvisited.removeAll(path.subList(0, path.size-1).toSet())
             }
         }
     }

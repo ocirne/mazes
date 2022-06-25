@@ -1,15 +1,15 @@
 package io.github.ocirne.mazes.grids
 
-class WeaveGrid(val rows: Int, val columns: Int): CartesianGrid(rows, columns) {
+class WeaveGrid(private val rows: Int, private val columns: Int): CartesianGrid(rows, columns) {
 
-    val underCells: MutableList<CartesianCell> = mutableListOf()
+    private val underCells: MutableList<CartesianCell> = mutableListOf()
 
     init {
         grid = prepareGrid2()
         configureCells()
     }
 
-    fun prepareGrid2(): Array<Array<CartesianCell>> {
+    private fun prepareGrid2(): Array<Array<CartesianCell>> {
         return Array(rows) { row -> Array(columns) { column -> OverCell(row, column, this) } }
     }
 

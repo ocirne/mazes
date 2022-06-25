@@ -17,7 +17,7 @@ open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid
         configureCells()
     }
 
-    fun prepareGrid(): Array<Array<CartesianCell>> {
+    private fun prepareGrid(): Array<Array<CartesianCell>> {
         return Array(rows) { row -> Array(columns) { column -> CartesianCell(row, column) } }
     }
 

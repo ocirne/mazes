@@ -83,7 +83,7 @@ open class PolarGrid(private val rows: Int) : Grid {
 
     private fun debugGrid(g: Graphics2D, cellSize: Int, center: Double, wallInset: Double) {
         val dashed = BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.0f, floatArrayOf(9.0f), 0.0f)
-        g.stroke = dashed;
+        g.stroke = dashed
         g.color = Color.WHITE
         val theta = 2 * PI / grid[rows-1].size
         val outerRadius = rows * cellSize
@@ -159,9 +159,11 @@ open class PolarGrid(private val rows: Int) : Grid {
             }
         }
 
-        val radius = rows * cellSize
-        g.color = Color.WHITE
-        g.drawOval(center - radius, center - radius, 2*radius, 2*radius)
+        if (wallInset == 0.0) {
+            val radius = rows * cellSize
+            g.color = wallColors.valueFor(grid[0][0])
+            g.drawOval(center - radius, center - radius, 2 * radius, 2 * radius)
+        }
         return image
     }
 }

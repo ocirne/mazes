@@ -20,19 +20,19 @@ class PolarOverCell(row: Int, column: Int, val grid: PolarWeaveGrid) : PolarCell
         return result.toList()
     }
 
-    fun canTunnelCw(): Boolean {
+    private fun canTunnelCw(): Boolean {
         return outward.size == 1 && cw != null && cw!!.cw != null && isHorizontalPassage(cw!!)
     }
 
-    fun canTunnelCcw(): Boolean {
+    private fun canTunnelCcw(): Boolean {
         return outward.size == 1 && ccw != null && ccw!!.ccw != null && isHorizontalPassage(ccw!!)
     }
 
-    fun canTunnelInward(): Boolean {
+    private fun canTunnelInward(): Boolean {
         return outward.size == 1 && inward != null && inward!!.inward != null && isVerticalPassage(inward!!)
     }
 
-    fun canTunnelOutward(): Boolean {
+    private fun canTunnelOutward(): Boolean {
         return outward.size == 1 && outward[0].outward.size == 1 && isVerticalPassage(outward[0])
     }
 
@@ -90,7 +90,7 @@ class PolarUnderCell(private val overCell: PolarOverCell) : PolarCell(overCell.r
         return inward != null || outward.size == 1
     }
 
-    fun isVerticalPassage(): Boolean {
+    private fun isVerticalPassage(): Boolean {
         return cw != null || ccw != null
     }
 

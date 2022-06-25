@@ -4,7 +4,6 @@ import io.github.ocirne.mazes.algorithms.RecursiveBacktracker
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.grids.WeaveGrid
 import io.github.ocirne.mazes.output.saveImage
-import java.awt.Color
 
 fun main() {
     val grid = WeaveGrid(21, 21)
