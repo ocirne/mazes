@@ -142,6 +142,10 @@ open class PolarGrid(private val rows: Int) : Grid {
                         cell.prepareCoordinates(this, center, cellSize, backInset)
                         cell.drawBackground(g, backgroundColors)
                     }
+                    Grid.MODES.FAKE -> {
+                        cell.prepareCoordinates(this, center, cellSize, backInset)
+                        cell.drawSpaceBetweenWalls(g, 2 * backInset * cellSize)
+                    }
                     Grid.MODES.WALLS -> {
                         // TODO vielleicht trennen in coordinaten und insets?
                         cell.prepareCoordinates(this, center, cellSize, wallInset)

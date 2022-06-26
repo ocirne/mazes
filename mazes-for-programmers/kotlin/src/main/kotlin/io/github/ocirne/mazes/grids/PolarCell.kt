@@ -48,6 +48,10 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
         val thetaInset2: Double,
         val thetaInset3: Double,
         val thetaInset4: Double,
+        val a0: Point2D,
+        val b0: Point2D,
+        val c0: Point2D,
+        val d0: Point2D,
     )
 
     lateinit var c: Coordinates
@@ -91,6 +95,11 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
         val ff = toPolar(center, r3, thetaCw + 0.5 * theta - thetaInset3)
         val fO = toPolar(center, r4, thetaCw + 0.5 * theta - thetaInset4)
 
+        val a0 = toPolar(center, r1, thetaCw)
+        val b0 = toPolar(center, r4, thetaCw)
+        val c0 = toPolar(center, r1, thetaCcw)
+        val d0 = toPolar(center, r4, thetaCcw)
+
         c = Coordinates(inset > 0, center, cellSize, r1, r2, r3, r4, theta,
             aa, aI, aL, bb, bL, bO, cc, cI, cR, dd, dO, dR, ee, eO, ff, fO,
              thetaCw,
@@ -98,7 +107,7 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
          thetaInset1,
          thetaInset2,
          thetaInset3,
-         thetaInset4
+         thetaInset4, a0, b0, c0, d0
         )
     }
 
@@ -112,7 +121,7 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
         g.draw(Arc2D.Double(xy, xy, wh, wh, start, extent, Arc2D.OPEN))
     }
 
-    private fun drawFoo(g: Graphics2D, r1: Double, r2: Double, start: Double, extent: Double) {
+    private fun drawTile(g: Graphics2D, r1: Double, r2: Double, start: Double, extent: Double) {
         val xy1 = c.center - r2
         val wh1 = 2.0 * r2
         val outerPie = Area(Arc2D.Double(xy1, xy1, wh1, wh1, toDegrees(start), toDegrees(extent), Arc2D.PIE))
@@ -125,30 +134,28 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
 
     override fun drawBackground(g: Graphics2D, colorization: Colorization) {
         g.color = colorization.valueFor(this)
-        if (c.withInset) {
-            if (row == 0) {
-                g.fill(Ellipse2D.Double(c.center - c.r3, c.center - c.r3, 2.0 * c.r3, 2.0 * c.r3))
-            } else {
-                drawFoo(g, c.r2, c.r3, c.thetaCw + c.thetaInset3, c.theta - 2 * c.thetaInset3)
-            }
-            if (isLinked(ccw) && colorization.isValuedCell(ccw))
-                drawFoo(g, c.r2, c.r3, c.thetaCw, c.thetaInset2)
-            if (isLinked(cw) && colorization.isValuedCell(cw))
-                drawFoo(g, c.r2, c.r3, c.thetaCcw - c.thetaInset2, c.thetaInset2)
-            if (isLinked(inward) && colorization.isValuedCell(inward))
-                drawFoo(g, c.r1, c.r2, c.thetaCw + c.thetaInset2, c.theta - 2 * c.thetaInset2)
-
-            if (outward.isNotEmpty()) {
-                val subTheta = c.theta / outward.size
-                outward.forEachIndexed { index, outwardCell ->
-                    if (isLinked(outwardCell) && colorization.isValuedCell(outwardCell)) {
-                        drawFoo(g, c.r3, c.r4, c.thetaCw + index * subTheta + c.thetaInset4, subTheta - 2 * c.thetaInset4)
-                    }
-                }
-            }
-
+        if (row == 0) {
+            g.fill(Ellipse2D.Double(c.center - c.r4, c.center - c.r4, 2.0 * c.r4, 2.0 * c.r4))
         } else {
-            drawFoo(g, c.r1, c.r4, c.thetaCw, c.theta)
+            drawTile(g, c.r1, c.r4, c.thetaCw, c.theta)
+        }
+    }
+
+    fun drawSpaceBetweenWalls(g: Graphics2D, inset: Double) {
+        if (row == 0) {
+            return
+        }
+        // TODO Generelle Hintergrundfarbe?
+        g.color = Color.BLACK
+        g.stroke = BasicStroke(inset.toFloat())
+        if (!isLinked(inward)) {
+            drawArc(g, c.r1, toDegrees(c.thetaCw), toDegrees(c.theta))
+        }
+        if (outward.isEmpty()) {
+            drawArc(g, c.r4, toDegrees(c.thetaCw), toDegrees(c.theta))
+        }
+        if (!isLinked(cw)) {
+            g.draw(Line2D.Double(c.c0, c.d0))
         }
     }
 

@@ -27,7 +27,7 @@ interface Grid {
     }
 
     enum class MODES {
-        BACKGROUNDS, WALLS, PATH, MARKER
+        BACKGROUNDS, FAKE, WALLS, PATH, MARKER
     }
 
     fun toImage(cellSize: Int = 100, wallInset:Double=0.0, backInset: Double=0.0, debug: Boolean=false,
