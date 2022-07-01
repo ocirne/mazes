@@ -78,4 +78,12 @@ internal class PerfectionTest {
 
         CycleDetection(grid).assertNoCycle()
     }
+
+    @Test
+    fun `Upsilon Grid with Binary Tree maze is perfect`() {
+        val grid = UpsilonGrid(size, size)
+        BinaryTree().on(grid)
+
+        CycleDetection(grid).assertNoCycle()
+    }
 }
