@@ -8,5 +8,5 @@ fun saveImage(image: RenderedImage, filename: String) {
     val path = "images/$filename.png"
     val outputfile = File(path)
     ImageIO.write(image, "png", outputfile)
-    println("saved to $path")
+    println("saved to $path (${image.width} x ${image.height})")
 }

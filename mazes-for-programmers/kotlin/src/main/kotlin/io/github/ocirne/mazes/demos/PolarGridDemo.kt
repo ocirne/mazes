@@ -7,7 +7,7 @@ import io.github.ocirne.mazes.output.saveImage
 import java.awt.Color
 
 fun main() {
-    val grid = PolarGrid(3)
+    val grid = PolarGrid(10)
     saveImage(grid.toImage(), "polar")
     saveImage(grid.toImage(wallInset=0.2), "polar_inset")
 
@@ -24,7 +24,7 @@ fun main() {
     val markers = Colorization(grid)
     markers[longestPath.start!!] = "A"
     markers[longestPath.goal!!] = "B"
-    saveImage(grid.toImage(cellSize = 400, wallInset=0.2, backInset = 0.1,
+    saveImage(grid.toImage(wallInset=0.2, backInset = 0.1,
         backgroundColors = colorization,
         path = longestPath,
         marker = markers), "polar_recursive_backtracker_longest_path")
