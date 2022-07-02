@@ -2,7 +2,6 @@ package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.colorization.Strokes
-import java.awt.BasicStroke
 import java.awt.Graphics2D
 
 open class CartesianCell(val row: Int, val column: Int) : Cell() {

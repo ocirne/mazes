@@ -1,6 +1,9 @@
 package io.github.ocirne.mazes.demos
 
 fun main() {
+
+    TODO()
+
     // Ausgabe Seed
 
     // Auswahl des Grids

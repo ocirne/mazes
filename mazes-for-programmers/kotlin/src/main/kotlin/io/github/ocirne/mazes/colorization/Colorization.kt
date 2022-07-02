@@ -69,7 +69,8 @@ open class Colorization(
     }
 
     fun countLinks(): Colorization {
-        grid.eachCell().forEach { weights[it] = it.links().size }
+        val max = grid.eachCell().maxOf { it.links().size }
+        grid.eachCell().forEach { weights[it] = max - it.links().size }
         return this
     }
 
