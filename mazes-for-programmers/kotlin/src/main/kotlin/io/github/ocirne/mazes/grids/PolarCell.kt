@@ -197,8 +197,7 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
             }
             if (outward.isEmpty()) {
                 // Outer rim
-                val thetaR3 = c.theta * c.r3 / c.r1
-                drawArc(g, c.r3, toDegrees(c.thetaCw), toDegrees(thetaR3))
+                drawArc(g, c.r3, toDegrees(c.thetaCw + c.thetaInset3), toDegrees(c.theta - (2*c.thetaInset3)))
             } else if (outward.size == 1) {
                 if (isLinked(outward[0])) {
                     g.draw(Line2D.Double(c.b, c.bO))
