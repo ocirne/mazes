@@ -1,6 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import io.github.ocirne.mazes.colorization.Strokes
 import java.awt.BasicStroke
 import java.awt.Graphics2D
 
@@ -64,9 +65,9 @@ open class CartesianCell(val row: Int, val column: Int) : Cell() {
         }
     }
 
-    override fun drawWalls(g: Graphics2D, colorization: Colorization) {
+    override fun drawWalls(g: Graphics2D, colorization: Colorization, strokes: Strokes) {
         g.color = colorization.valueFor(this)
-        g.stroke = BasicStroke(3.0f)
+        g.stroke = strokes.getBasicWall()
         if (c.withInset) {
             if (isLinked(north)) {
                 g.drawLine(c.x2, c.y1, c.x2, c.y2)

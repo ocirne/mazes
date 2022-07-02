@@ -1,6 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import io.github.ocirne.mazes.colorization.Strokes
 import io.github.ocirne.mazes.grids.Grid.MODES.BACKGROUNDS
 import io.github.ocirne.mazes.grids.Grid.MODES.WALLS
 import java.awt.Color
@@ -63,7 +64,8 @@ open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid
         backgroundColors: Colorization,
         wallColors: Colorization,
         path: Colorization,
-        marker: Colorization
+        marker: Colorization,
+        strokes: Strokes
     ): RenderedImage {
         val imgWidth = cellSize * columns
         val imgHeight = cellSize * rows
@@ -88,7 +90,7 @@ open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid
                     }
                     WALLS -> {
                         cell.prepareCoordinates(cellSize, wallInsetAbsolute)
-                        cell.drawWalls(g, wallColors)
+                        cell.drawWalls(g, wallColors, strokes)
                     }
                     else -> { /* not implemented */ }
                 }

@@ -1,6 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import io.github.ocirne.mazes.colorization.Strokes
 import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Font
@@ -171,9 +172,9 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
                cr     dr
                    ccw
      */
-    override fun drawWalls(g: Graphics2D, colorization: Colorization) {
+    override fun drawWalls(g: Graphics2D, colorization: Colorization, strokes: Strokes) {
         g.color = colorization.valueFor(this)
-        g.stroke = BasicStroke(5.0f)
+        g.stroke = strokes.getBasicWall()
         if (c.withInset) {
             if (row > 0) {
                 if (isLinked(cw)) {
@@ -262,7 +263,7 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
         return toPolar(center, r, t)
     }
 
-    fun drawPath(g: Graphics2D, colorization: Colorization, grid: PolarGrid, center: Int, cellSize: Int) {
+    fun drawPath(g: Graphics2D, colorization: Colorization, strokes: Strokes, grid: PolarGrid, center: Int, cellSize: Int) {
         g.color = colorization.valueFor(this)
         if (g.color == Color.WHITE) {
             return
@@ -275,7 +276,7 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
             other as PolarCell
             val o = other.middle(grid, center, cellSize)
             g.color = Color.MAGENTA
-            g.stroke = BasicStroke(10.0f)
+            g.stroke = strokes.getPath()
             g.draw(Line2D.Double(m, o))
         }
     }

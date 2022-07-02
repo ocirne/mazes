@@ -1,6 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import io.github.ocirne.mazes.colorization.Strokes
 import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.Point
@@ -110,8 +111,9 @@ class UpsilonCell(val row: Int, val column: Int) : Cell() {
         g.drawLine(p1.x, p1.y, p2.x, p2.y)
     }
 
-    override fun drawWalls(g: Graphics2D, colorization: Colorization) {
+    override fun drawWalls(g: Graphics2D, colorization: Colorization, strokes: Strokes) {
         g.color = colorization.valueFor(this)
+        g.stroke = strokes.getBasicWall()
         if (west == null)
             drawline(g, c.p0, c.p1)
         if (north == null)

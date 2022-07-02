@@ -3,6 +3,7 @@ package io.github.ocirne.mazes.grids
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.colorization.DefaultBackground
 import io.github.ocirne.mazes.colorization.DefaultWalls
+import io.github.ocirne.mazes.colorization.Strokes
 import java.awt.image.RenderedImage
 
 interface Grid {
@@ -34,5 +35,6 @@ interface Grid {
                 backgroundColors: Colorization = DefaultBackground(this),
                 wallColors: Colorization = DefaultWalls(this),
                 path: Colorization = Colorization(this),
-                marker: Colorization = Colorization(this)): RenderedImage
+                marker: Colorization = Colorization(this),
+                strokes: Strokes = Strokes(cellSize)): RenderedImage
 }

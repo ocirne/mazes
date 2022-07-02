@@ -1,6 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import io.github.ocirne.mazes.colorization.Strokes
 import java.awt.Graphics2D
 
 abstract class Cell {
@@ -35,5 +36,5 @@ abstract class Cell {
 
     abstract fun drawBackground(g: Graphics2D, colorization: Colorization)
 
-    abstract fun drawWalls(g: Graphics2D, colorization: Colorization)
+    abstract fun drawWalls(g: Graphics2D, colorization: Colorization, strokes: Strokes)
 }

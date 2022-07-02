@@ -1,6 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import io.github.ocirne.mazes.colorization.Strokes
 import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Graphics2D
@@ -119,7 +120,9 @@ open class PolarGrid(private val rows: Int) : Grid {
                          backgroundColors: Colorization,
                          wallColors: Colorization,
                          path: Colorization,
-                         marker: Colorization): RenderedImage {
+                         marker: Colorization,
+                         strokes: Strokes
+    ): RenderedImage {
         val imgSize = 2 * rows * cellSize + 4
 
         val image = BufferedImage(imgSize + 1, imgSize + 1, BufferedImage.TYPE_INT_RGB)
@@ -149,11 +152,11 @@ open class PolarGrid(private val rows: Int) : Grid {
                     Grid.MODES.WALLS -> {
                         // TODO vielleicht trennen in coordinaten und insets?
                         cell.prepareCoordinates(this, center, cellSize, wallInset)
-                        cell.drawWalls(g, wallColors)
+                        cell.drawWalls(g, wallColors, strokes)
                     }
                     Grid.MODES.PATH -> {
                         cell.prepareCoordinates(this, center, cellSize)
-                        cell.drawPath(g, path, this, center, cellSize)
+                        cell.drawPath(g, path, strokes,this, center, cellSize)
                     }
                     Grid.MODES.MARKER -> {
                         cell.prepareCoordinates(this, center, cellSize)

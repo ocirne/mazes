@@ -1,6 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import io.github.ocirne.mazes.colorization.Strokes
 import java.awt.Graphics2D
 import java.awt.Polygon
 
@@ -58,8 +59,9 @@ class HexCell(val row: Int, val column: Int) : Cell() {
         g.fillPolygon(p)
     }
 
-    override fun drawWalls(g: Graphics2D, colorization: Colorization) {
+    override fun drawWalls(g: Graphics2D, colorization: Colorization, strokes: Strokes) {
         g.color = colorization.valueFor(this)
+        g.stroke = strokes.getBasicWall()
         if (southwest == null)
             g.drawLine(c.xFW, c.yM, c.xNW, c.yS)
         if (northwest == null)

@@ -1,6 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import io.github.ocirne.mazes.colorization.Strokes
 import java.awt.BasicStroke
 import java.awt.Graphics2D
 import java.awt.geom.Line2D
@@ -94,28 +95,28 @@ class PolarUnderCell(private val overCell: PolarOverCell) : PolarCell(overCell.r
         return cw != null || ccw != null
     }
 
-    override fun drawWalls(g: Graphics2D, colorization: Colorization) {
+    override fun drawWalls(g: Graphics2D, colorization: Colorization, strokes: Strokes) {
         g.color = colorization.valueFor(this)
         val c = overCell.c
         if (isVerticalPassage()) {
             // TODO das müssten wieder arcs sein
-            g.stroke = BasicStroke(5.0f)
+            g.stroke = strokes.getBasicWall()
             g.draw(Line2D.Double(c.a, c.aL))
             g.draw(Line2D.Double(c.b, c.bL))
             g.draw(Line2D.Double(c.c, c.cR))
             g.draw(Line2D.Double(c.d, c.dR))
 
-            g.stroke = BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.0f, floatArrayOf(9.0f), 0.0f)
+            g.stroke = strokes.getHiddenWall()
             g.draw(Line2D.Double(c.a, c.c))
             g.draw(Line2D.Double(c.b, c.d))
         } else {
-            g.stroke = BasicStroke(5.0f)
+            g.stroke = strokes.getBasicWall()
             g.draw(Line2D.Double(c.a, c.aI))
             g.draw(Line2D.Double(c.b, c.bO))
             g.draw(Line2D.Double(c.c, c.cI))
             g.draw(Line2D.Double(c.d, c.dO))
 
-            g.stroke = BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.0f, floatArrayOf(9.0f), 0.0f)
+            g.stroke = strokes.getHiddenWall()
             g.draw(Line2D.Double(c.a, c.b))
             g.draw(Line2D.Double(c.c, c.d))
         }

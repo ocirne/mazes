@@ -1,6 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import io.github.ocirne.mazes.colorization.Strokes
 import java.awt.BasicStroke
 import java.awt.Graphics2D
 
@@ -93,26 +94,26 @@ class UnderCell(overCell: OverCell) : CartesianCell(overCell.row, overCell.colum
         return north != null || south != null
     }
 
-    override fun drawWalls(g: Graphics2D, colorization: Colorization) {
+    override fun drawWalls(g: Graphics2D, colorization: Colorization, strokes: Strokes) {
         g.color = colorization.valueFor(this)
         if (verticalPassage()) {
-            g.stroke = BasicStroke(3.0f)
+            g.stroke = strokes.getBasicWall()
             g.drawLine(c.x2, c.y1, c.x2, c.y2)
             g.drawLine(c.x3, c.y1, c.x3, c.y2)
             g.drawLine(c.x2, c.y3, c.x2, c.y4)
             g.drawLine(c.x3, c.y3, c.x3, c.y4)
 
-            g.stroke = BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.0f, floatArrayOf(9.0f), 0.0f)
+            g.stroke = strokes.getHiddenWall()
             g.drawLine(c.x2, c.y2, c.x2, c.y3)
             g.drawLine(c.x3, c.y2, c.x3, c.y3)
         } else {
-            g.stroke = BasicStroke(3.0f)
+            g.stroke = strokes.getBasicWall()
             g.drawLine(c.x1, c.y2, c.x2, c.y2)
             g.drawLine(c.x1, c.y3, c.x2, c.y3)
             g.drawLine(c.x3, c.y2, c.x4, c.y2)
             g.drawLine(c.x3, c.y3, c.x4, c.y3)
 
-            g.stroke = BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.0f, floatArrayOf(9.0f), 0.0f)
+            g.stroke = strokes.getHiddenWall()
             g.drawLine(c.x2, c.y2, c.x3, c.y2)
             g.drawLine(c.x2, c.y3, c.x3, c.y3)
         }

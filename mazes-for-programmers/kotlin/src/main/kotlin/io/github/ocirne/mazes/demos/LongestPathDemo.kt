@@ -10,5 +10,5 @@ fun main() {
     Sidewinder().on(grid)
 
     val longestPath = Colorization(grid).longestPath()
-    saveImage(grid.toImage(wallInset=0.1, backInset = 0.4, path = longestPath), "cartesian_recursive_backtracker_longest_path")
+    saveImage(grid.toImage(wallInset=0.1, path = longestPath), "cartesian_recursive_backtracker_longest_path")
 }

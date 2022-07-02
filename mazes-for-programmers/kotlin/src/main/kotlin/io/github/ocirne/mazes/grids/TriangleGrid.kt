@@ -1,6 +1,7 @@
 package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
+import io.github.ocirne.mazes.colorization.Strokes
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.awt.image.RenderedImage
@@ -54,7 +55,9 @@ class TriangleGrid(private val rows: Int, private val columns: Int) : Grid {
                          backgroundColors: Colorization,
                          wallColors: Colorization,
                          path: Colorization,
-                         marker: Colorization): RenderedImage {
+                         marker: Colorization,
+                         strokes: Strokes
+    ): RenderedImage {
         val halfWidth = cellSize / 2.0
         val height = cellSize * sqrt(3.0) / 2.0
         val halfHeight = height / 2.0
@@ -74,7 +77,7 @@ class TriangleGrid(private val rows: Int, private val columns: Int) : Grid {
                 if (mode == Grid.MODES.BACKGROUNDS) {
                     cell.drawBackground(g, backgroundColors)
                 } else {
-                    cell.drawWalls(g, wallColors)
+                    cell.drawWalls(g, wallColors, strokes)
                 }
             }
         }
