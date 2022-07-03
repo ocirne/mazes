@@ -7,6 +7,6 @@ import java.awt.Color
 class DefaultWalls(grid: Grid): Colorization(grid) {
 
     override fun valueFor(cell: Cell): Color {
-        return Color.WHITE
+        return Color(33, 33, 33)
     }
 }

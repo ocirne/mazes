@@ -7,6 +7,6 @@ import java.awt.Color
 class DefaultBackground(grid: Grid): Colorization(grid) {
 
     override fun valueFor(cell: Cell): Color {
-        return Color(33, 33, 33)
+        return Color.WHITE
     }
 }

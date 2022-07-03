@@ -2,8 +2,7 @@ package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.colorization.Strokes
-import java.awt.Color
-import java.awt.image.BufferedImage
+import io.github.ocirne.mazes.output.createImage
 import java.awt.image.RenderedImage
 import kotlin.math.sqrt
 
@@ -69,11 +68,7 @@ class HexGrid(private val rows: Int, private val columns: Int) : Grid {
         val imgWidth = (3 * aSize * columns + aSize + 0.5).toInt()
         val imgHeight = (height * rows + bSize + 0.5).toInt()
 
-        val background = Color.BLACK
-
-        val image = BufferedImage(imgWidth + 1, imgHeight + 1, BufferedImage.TYPE_INT_RGB)
-        val g = image.createGraphics()
-        g.background = background
+        val (image, g) = createImage(imgWidth + 1, imgHeight + 1)
 
         for (mode in Grid.MODES.values()) {
             for (cell in eachCell()) {

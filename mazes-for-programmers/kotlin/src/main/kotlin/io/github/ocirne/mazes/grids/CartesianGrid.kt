@@ -4,8 +4,7 @@ import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.colorization.Strokes
 import io.github.ocirne.mazes.grids.Grid.MODES.BACKGROUNDS
 import io.github.ocirne.mazes.grids.Grid.MODES.WALLS
-import java.awt.Color
-import java.awt.image.BufferedImage
+import io.github.ocirne.mazes.output.createImage
 import java.awt.image.RenderedImage
 
 
@@ -74,11 +73,7 @@ open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid
         val wallInsetAbsolute = (cellSize * wallInset).toInt()
         val backInsetAbsolute = (cellSize * backInset).toInt()
 
-        val background = Color.BLACK
-
-        val image = BufferedImage(imgWidth + 1, imgHeight + 1, BufferedImage.TYPE_INT_RGB)
-        val g = image.createGraphics()
-        g.background = background
+        val (image, g) = createImage(imgWidth + 1, imgHeight + 1)
 
         for (mode in Grid.MODES.values()) {
             for (cell in eachCell()) {
