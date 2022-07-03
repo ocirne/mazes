@@ -2,6 +2,8 @@ package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.colorization.Strokes
+import java.awt.BasicStroke
+import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.geom.Line2D
 
@@ -63,6 +65,25 @@ class PolarOverCell(row: Int, column: Int, val grid: PolarWeaveGrid) : PolarCell
             super.link(cell, bidi)
         }
     }
+
+    // TODO refactor, almost same in super
+    override fun drawSpaceBetweenWalls(g: Graphics2D, inset: Double) {
+        if (row == 0) {
+            return
+        }
+        g.color = Color.BLACK
+        g.stroke = BasicStroke(inset.toFloat())
+
+        if (!isLinked(inward)) {
+            drawArc(g, c.r1, Math.toDegrees(c.thetaCw), Math.toDegrees(c.theta))
+        }
+        if (outward.isEmpty()) {
+            drawArc(g, c.r4, Math.toDegrees(c.thetaCw), Math.toDegrees(c.theta))
+        }
+        if (!isLinked(cw) && !grid.isUndercell(this)) {
+            g.draw(Line2D.Double(c.c0, c.d0))
+        }
+    }
 }
 
 class PolarUnderCell(private val overCell: PolarOverCell) : PolarCell(overCell.row, overCell.column) {
@@ -92,6 +113,10 @@ class PolarUnderCell(private val overCell: PolarOverCell) : PolarCell(overCell.r
 
     private fun isVerticalPassage(): Boolean {
         return cw != null || ccw != null
+    }
+
+    override fun drawSpaceBetweenWalls(g: Graphics2D, inset: Double) {
+        // draw nothing, undercells have no walls
     }
 
     override fun drawWalls(g: Graphics2D, colorization: Colorization, strokes: Strokes) {

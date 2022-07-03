@@ -47,4 +47,11 @@ class PolarWeaveGrid(private val rows: Int): PolarGrid(rows) {
     override fun size(): Int {
         return super.size() + underCells.size
     }
+
+    fun isUndercell(cell: PolarCell?): Boolean {
+        if (cell == null) {
+            return false
+        }
+        return underCells.any { it.row == cell.row && it.column == cell.column }
+    }
 }

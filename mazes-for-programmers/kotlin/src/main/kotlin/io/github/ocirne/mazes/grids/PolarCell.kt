@@ -116,7 +116,7 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
         return arrayListOf(cw, ccw, inward).filterNotNull() + outward
     }
 
-    private fun drawArc(g: Graphics2D, r: Double, start: Double, extent: Double) {
+    protected fun drawArc(g: Graphics2D, r: Double, start: Double, extent: Double) {
         val xy = c.center - r
         val wh = 2 * r
         g.draw(Arc2D.Double(xy, xy, wh, wh, start, extent, Arc2D.OPEN))
@@ -142,7 +142,7 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
         }
     }
 
-    fun drawSpaceBetweenWalls(g: Graphics2D, inset: Double) {
+    open fun drawSpaceBetweenWalls(g: Graphics2D, inset: Double) {
         if (row == 0) {
             return
         }
