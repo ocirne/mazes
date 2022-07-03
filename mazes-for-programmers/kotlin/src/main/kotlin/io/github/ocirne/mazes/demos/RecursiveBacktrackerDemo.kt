@@ -6,12 +6,11 @@ import io.github.ocirne.mazes.algorithms.RecursiveBacktracker
 import io.github.ocirne.mazes.output.saveImage
 
 fun main() {
-    val grid = CartesianGrid(21, 21)
-
+    val grid = CartesianGrid(11, 11)
     RecursiveBacktracker.on(grid)
     saveImage(grid.toImage(), "cartesian_recursive_backtracker")
 
-    val colorization1 = Colorization(grid).dijkstra(grid[20, 10]!!)
+    val colorization1 = Colorization(grid).dijkstra(grid[10, 5]!!)
     saveImage(grid.toImage(backgroundColors = colorization1), "cartesian_recursive_backtracker_colorized1")
 
     val colorization2 = Colorization(grid).countLinks()

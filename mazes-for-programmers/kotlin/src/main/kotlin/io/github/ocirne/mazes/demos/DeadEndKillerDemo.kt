@@ -8,7 +8,7 @@ import io.github.ocirne.mazes.output.saveImage
 import java.awt.Color
 
 fun main() {
-    val grid = CartesianGrid(21, 21)
+    val grid = CartesianGrid(11, 11)
     AldousBroder().on(grid)
 
     DeadEndKiller().remove(grid, passes = 5, p = 0.5)

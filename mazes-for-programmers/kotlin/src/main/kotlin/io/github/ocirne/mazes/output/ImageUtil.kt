@@ -10,3 +10,7 @@ fun saveImage(image: RenderedImage, filename: String) {
     ImageIO.write(image, "png", outputfile)
     println("saved to $path (${image.width} x ${image.height})")
 }
+
+fun RenderedImage.save(filename: String) {
+    saveImage(this, filename)
+}

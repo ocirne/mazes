@@ -6,7 +6,7 @@ import io.github.ocirne.mazes.grids.WeaveGrid
 import io.github.ocirne.mazes.output.saveImage
 
 fun main() {
-    val grid = WeaveGrid(21, 21)
+    val grid = WeaveGrid(11, 11)
     RecursiveBacktracker.on(grid)
 
     val colorization = Colorization(grid).dijkstra()

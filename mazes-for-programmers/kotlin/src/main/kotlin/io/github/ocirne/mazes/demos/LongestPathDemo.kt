@@ -6,7 +6,7 @@ import io.github.ocirne.mazes.grids.CartesianGrid
 import io.github.ocirne.mazes.output.saveImage
 
 fun main() {
-    val grid = CartesianGrid(21, 21)
+    val grid = CartesianGrid(11, 11)
     Sidewinder().on(grid)
 
     val longestPath = Colorization(grid).longestPath()

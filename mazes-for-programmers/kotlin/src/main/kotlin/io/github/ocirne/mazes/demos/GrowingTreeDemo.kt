@@ -8,11 +8,11 @@ import io.github.ocirne.mazes.output.saveImage
 import kotlin.random.Random.Default.nextBoolean
 
 private fun wrap(name: String, f : (List<Cell>) -> Cell) {
-    val grid = CartesianGrid(21, 21)
-    GrowingTree.on(grid, f, startAt=grid[20, 10]!!)
+    val grid = CartesianGrid(11, 11)
+    GrowingTree.on(grid, f, startAt=grid[10, 5]!!)
     saveImage(grid.toImage(), "cartesian_growingTree_$name")
 
-    val colorization = Colorization(grid).dijkstra(grid[20, 10]!!)
+    val colorization = Colorization(grid).dijkstra(grid[10, 5]!!)
     saveImage(grid.toImage(backgroundColors = colorization), "cartesian_growingTree_${name}_colorized")
 }
 
