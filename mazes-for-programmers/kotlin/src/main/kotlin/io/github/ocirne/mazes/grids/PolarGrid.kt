@@ -116,12 +116,14 @@ open class PolarGrid(private val rows: Int) : Grid {
         }
     }
 
-    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double, debug: Boolean,
-                         backgroundColors: Colorization,
-                         wallColors: Colorization,
-                         path: Colorization,
-                         marker: Colorization,
-                         strokes: Strokes
+    override fun toImage(
+        cellSize: Int, wallInset: Double, backInset: Double, drawDeadCells: Boolean,
+        debug: Boolean,
+        backgroundColors: Colorization,
+        wallColors: Colorization,
+        path: Colorization,
+        marker: Colorization,
+        strokes: Strokes
     ): RenderedImage {
         val imgSize = 2 * rows * cellSize + 4
 

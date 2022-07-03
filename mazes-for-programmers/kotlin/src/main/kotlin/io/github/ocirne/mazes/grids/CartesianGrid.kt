@@ -60,6 +60,7 @@ open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid
         cellSize: Int,
         wallInset: Double,
         backInset: Double,
+        drawDeadCells: Boolean,
         debug: Boolean,
         backgroundColors: Colorization,
         wallColors: Colorization,
@@ -81,7 +82,7 @@ open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid
 
         for (mode in Grid.MODES.values()) {
             for (cell in eachCell()) {
-                if (cell.links().isEmpty())
+                if (!drawDeadCells && cell.links().isEmpty())
                     continue
                 when (mode) {
                     BACKGROUNDS -> {

@@ -51,12 +51,14 @@ class TriangleGrid(private val rows: Int, private val columns: Int) : Grid {
         return grid.flatten()
     }
 
-    override fun toImage(cellSize: Int, wallInset:Double, backInset: Double, debug: Boolean,
-                         backgroundColors: Colorization,
-                         wallColors: Colorization,
-                         path: Colorization,
-                         marker: Colorization,
-                         strokes: Strokes
+    override fun toImage(
+        cellSize: Int, wallInset: Double, backInset: Double, drawDeadCells: Boolean,
+        debug: Boolean,
+        backgroundColors: Colorization,
+        wallColors: Colorization,
+        path: Colorization,
+        marker: Colorization,
+        strokes: Strokes
     ): RenderedImage {
         val halfWidth = cellSize / 2.0
         val height = cellSize * sqrt(3.0) / 2.0
