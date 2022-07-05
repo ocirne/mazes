@@ -3,7 +3,7 @@ package io.github.ocirne.mazes.colorization
 import java.awt.BasicStroke
 import java.awt.Stroke
 
-class Strokes(val cellSize: Int) {
+class Strokes(val cellSize: Float) {
 
     fun getBasicWall(): Stroke {
         return BasicStroke(0.1f * cellSize)

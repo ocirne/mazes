@@ -7,8 +7,8 @@ import java.awt.image.RenderedImage
 import java.io.File
 import javax.imageio.ImageIO
 
-fun createImage(width: Int, height: Int): Pair<BufferedImage, Graphics2D> {
-    val image = BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
+fun createImage(width: Double, height: Double): Pair<BufferedImage, Graphics2D> {
+    val image = BufferedImage(width.toInt(), height.toInt(), BufferedImage.TYPE_INT_ARGB)
     val g = image.createGraphics()
     g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
     g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)

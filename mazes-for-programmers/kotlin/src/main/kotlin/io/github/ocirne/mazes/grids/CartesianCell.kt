@@ -3,6 +3,8 @@ package io.github.ocirne.mazes.grids
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.colorization.Strokes
 import java.awt.Graphics2D
+import java.awt.geom.Line2D
+import java.awt.geom.Rectangle2D
 
 open class CartesianCell(val row: Int, val column: Int) : Cell() {
 
@@ -13,19 +15,19 @@ open class CartesianCell(val row: Int, val column: Int) : Cell() {
 
     data class Coordinates(
         val withInset: Boolean,
-        val x1: Int,
-        val x2: Int,
-        val x3: Int,
-        val x4: Int,
-        val y1: Int,
-        val y2: Int,
-        val y3: Int,
-        val y4: Int
+        val x1: Double,
+        val x2: Double,
+        val x3: Double,
+        val x4: Double,
+        val y1: Double,
+        val y2: Double,
+        val y3: Double,
+        val y4: Double
     )
 
     lateinit var c: Coordinates
 
-    fun prepareCoordinates(cellSize: Int, inset: Int) {
+    fun prepareCoordinates(cellSize: Double, inset: Double) {
         val x1 = column * cellSize
         val x4 = x1 + cellSize
         val x2 = x1 + inset
@@ -47,19 +49,19 @@ open class CartesianCell(val row: Int, val column: Int) : Cell() {
         g.color = colorization.valueFor(this)
         if (c.withInset) {
             if (this !is UnderCell) {
-                g.fillRect(c.x2, c.y2, c.x3 - c.x2, c.y3 - c.y2)
+                g.fill(Rectangle2D.Double(c.x2, c.y2, c.x3 - c.x2, c.y3 - c.y2))
             }
             if (isLinked(north) && colorization.isValuedCell(north))
-                g.fillRect(c.x2, c.y1, c.x3-c.x2, c.y2-c.y1)
+                g.fill(Rectangle2D.Double(c.x2, c.y1, c.x3-c.x2, c.y2-c.y1))
             if (isLinked(south) && colorization.isValuedCell(south))
-                g.fillRect(c.x2, c.y3, c.x3-c.x2, c.y4-c.y3)
+                g.fill(Rectangle2D.Double(c.x2, c.y3, c.x3-c.x2, c.y4-c.y3))
             if (isLinked(west) && colorization.isValuedCell(west))
-                g.fillRect(c.x1, c.y2, c.x2-c.x1, c.y3-c.y2)
+                g.fill(Rectangle2D.Double(c.x1, c.y2, c.x2-c.x1, c.y3-c.y2))
             if (isLinked(east) && colorization.isValuedCell(east))
-                g.fillRect(c.x3, c.y2, c.x4-c.x3, c.y3-c.y2)
+                g.fill(Rectangle2D.Double(c.x3, c.y2, c.x4-c.x3, c.y3-c.y2))
         } else {
             if (this !is UnderCell) {
-                g.fillRect(c.x1, c.y1, c.x4 - c.x1, c.y4 - c.y1)
+                g.fill(Rectangle2D.Double(c.x1, c.y1, c.x4 - c.x1, c.y4 - c.y1))
             }
         }
     }
@@ -69,38 +71,38 @@ open class CartesianCell(val row: Int, val column: Int) : Cell() {
         g.stroke = strokes.getBasicWall()
         if (c.withInset) {
             if (isLinked(north)) {
-                g.drawLine(c.x2, c.y1, c.x2, c.y2)
-                g.drawLine(c.x3, c.y1, c.x3, c.y2)
+                g.draw(Line2D.Double(c.x2, c.y1, c.x2, c.y2))
+                g.draw(Line2D.Double(c.x3, c.y1, c.x3, c.y2))
             } else {
-                g.drawLine(c.x2, c.y2, c.x3, c.y2)
+                g.draw(Line2D.Double(c.x2, c.y2, c.x3, c.y2))
             }
             if (isLinked(south)) {
-                g.drawLine(c.x2, c.y3, c.x2, c.y4)
-                g.drawLine(c.x3, c.y3, c.x3, c.y4)
+                g.draw(Line2D.Double(c.x2, c.y3, c.x2, c.y4))
+                g.draw(Line2D.Double(c.x3, c.y3, c.x3, c.y4))
             } else {
-                g.drawLine(c.x2, c.y3, c.x3, c.y3)
+                g.draw(Line2D.Double(c.x2, c.y3, c.x3, c.y3))
             }
             if (isLinked(west)) {
-                g.drawLine(c.x1, c.y2, c.x2, c.y2)
-                g.drawLine(c.x1, c.y3, c.x2, c.y3)
+                g.draw(Line2D.Double(c.x1, c.y2, c.x2, c.y2))
+                g.draw(Line2D.Double(c.x1, c.y3, c.x2, c.y3))
             } else {
-                g.drawLine(c.x2, c.y2, c.x2, c.y3)
+                g.draw(Line2D.Double(c.x2, c.y2, c.x2, c.y3))
             }
             if (isLinked(east)) {
-                g.drawLine(c.x3, c.y2, c.x4, c.y2)
-                g.drawLine(c.x3, c.y3, c.x4, c.y3)
+                g.draw(Line2D.Double(c.x3, c.y2, c.x4, c.y2))
+                g.draw(Line2D.Double(c.x3, c.y3, c.x4, c.y3))
             } else {
-                g.drawLine(c.x3, c.y2, c.x3, c.y3)
+                g.draw(Line2D.Double(c.x3, c.y2, c.x3, c.y3))
             }
         } else {
             if (north == null)
-                g.drawLine(c.x1, c.y1, c.x4, c.y1)
+                g.draw(Line2D.Double(c.x1, c.y1, c.x4, c.y1))
             if (west == null)
-                g.drawLine(c.x1, c.y1, c.x1, c.y4)
+                g.draw(Line2D.Double(c.x1, c.y1, c.x1, c.y4))
             if (!isLinked(east))
-                g.drawLine(c.x4, c.y1, c.x4, c.y4)
+                g.draw(Line2D.Double(c.x4, c.y1, c.x4, c.y4))
             if (!isLinked(south))
-                g.drawLine(c.x1, c.y4, c.x4, c.y4)
+                g.draw(Line2D.Double(c.x1, c.y4, c.x4, c.y4))
         }
     }
 }

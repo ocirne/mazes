@@ -16,6 +16,8 @@ import kotlin.math.sin
 
 open class PolarGrid(private val rows: Int) : Grid {
 
+    private val correctionFactor = 1.0
+
     var grid: Array<Array<PolarCell>>
 
     init {
@@ -81,7 +83,7 @@ open class PolarGrid(private val rows: Int) : Grid {
         return grid.flatten()
     }
 
-    private fun debugGrid(g: Graphics2D, cellSize: Int, center: Double, wallInset: Double) {
+    private fun debugGrid(g: Graphics2D, cellSize: Double, center: Double, wallInset: Double) {
         val dashed = BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0.0f, floatArrayOf(9.0f), 0.0f)
         g.stroke = dashed
         g.color = Color.WHITE
@@ -116,7 +118,10 @@ open class PolarGrid(private val rows: Int) : Grid {
     }
 
     override fun toImage(
-        cellSize: Int, wallInset: Double, backInset: Double, drawDeadCells: Boolean,
+        baseSize: Double,
+        wallInset: Double,
+        backInset: Double,
+        drawDeadCells: Boolean,
         debug: Boolean,
         backgroundColors: Colorization,
         wallColors: Colorization,
@@ -124,13 +129,14 @@ open class PolarGrid(private val rows: Int) : Grid {
         marker: Colorization,
         strokes: Strokes
     ): RenderedImage {
+        val cellSize = correctionFactor * baseSize
         val imgSize = 2 * rows * cellSize + 4
 
         val (image, g) = createImage(imgSize + 1, imgSize + 1)
         val center = imgSize / 2
 
         if (debug)
-            debugGrid(g, cellSize, center.toDouble(), wallInset)
+            debugGrid(g, cellSize, center, wallInset)
 
         for (mode in Grid.MODES.values()) {
             for (cell in eachCell()) {
@@ -163,7 +169,9 @@ open class PolarGrid(private val rows: Int) : Grid {
         if (wallInset == 0.0) {
             val radius = rows * cellSize
             g.color = wallColors.valueFor(grid[0][0])
-            g.drawOval(center - radius, center - radius, 2 * radius, 2 * radius)
+            val xy = (center - radius).toInt()
+            val wh = (2*radius).toInt()
+            g.drawOval(xy, xy, wh, wh)
         }
         return image
     }

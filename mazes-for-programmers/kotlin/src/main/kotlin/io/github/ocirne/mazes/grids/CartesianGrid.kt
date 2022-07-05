@@ -10,6 +10,8 @@ import java.awt.image.RenderedImage
 
 open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid {
 
+    private val correctionFactor = 1.0
+
     var grid: Array<Array<CartesianCell>>
 
     init {
@@ -56,7 +58,7 @@ open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid
     }
 
     override fun toImage(
-        cellSize: Int,
+        baseSize: Double,
         wallInset: Double,
         backInset: Double,
         drawDeadCells: Boolean,
@@ -67,11 +69,11 @@ open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid
         marker: Colorization,
         strokes: Strokes
     ): RenderedImage {
+        val cellSize = correctionFactor * baseSize
         val imgWidth = cellSize * columns
         val imgHeight = cellSize * rows
-        // TODO Ist um ein Pixel daneben, bei Gelegenheit anschauen
-        val wallInsetAbsolute = (cellSize * wallInset).toInt()
-        val backInsetAbsolute = (cellSize * backInset).toInt()
+        val wallInsetAbsolute = cellSize * wallInset
+        val backInsetAbsolute = cellSize * backInset
 
         val (image, g) = createImage(imgWidth + 1, imgHeight + 1)
 

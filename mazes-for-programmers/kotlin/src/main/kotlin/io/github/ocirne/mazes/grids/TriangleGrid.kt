@@ -8,6 +8,14 @@ import kotlin.math.sqrt
 
 class TriangleGrid(private val rows: Int, private val columns: Int) : Grid {
 
+    /**
+     * g = 1
+     * h = g * sqrt(3) / 2
+     * area = g * h / 2 = sqrt(3) / 4
+     * f = sqrt(1 / area) = sqrt(4 / sqrt(3))
+     */
+    private val correctionFactor = 1.5196713713031853
+
     private val grid: Array<Array<TriangleCell>>
 
     init {
@@ -51,7 +59,10 @@ class TriangleGrid(private val rows: Int, private val columns: Int) : Grid {
     }
 
     override fun toImage(
-        cellSize: Int, wallInset: Double, backInset: Double, drawDeadCells: Boolean,
+        baseSize: Double,
+        wallInset: Double,
+        backInset: Double,
+        drawDeadCells: Boolean,
         debug: Boolean,
         backgroundColors: Colorization,
         wallColors: Colorization,
@@ -59,12 +70,13 @@ class TriangleGrid(private val rows: Int, private val columns: Int) : Grid {
         marker: Colorization,
         strokes: Strokes
     ): RenderedImage {
+        val cellSize = correctionFactor * baseSize
         val halfWidth = cellSize / 2.0
         val height = cellSize * sqrt(3.0) / 2.0
         val halfHeight = height / 2.0
 
-        val imgWidth = (cellSize * (columns + 1) / 2.0).toInt()
-        val imgHeight = (height * rows).toInt()
+        val imgWidth = cellSize * (columns + 1) / 2.0
+        val imgHeight = height * rows
 
         val (image, g) = createImage(imgWidth + 1, imgHeight + 1)
 

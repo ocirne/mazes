@@ -32,7 +32,7 @@ interface Grid {
     }
 
     fun toImage(
-        cellSize: Int = 20,
+        baseSize: Double = 20.0,
         wallInset: Double = 0.0,
         backInset: Double = 0.0,
         drawDeadCells: Boolean = true,
@@ -41,6 +41,6 @@ interface Grid {
         wallColors: Colorization = DefaultWalls(this),
         path: Colorization = Colorization(this),
         marker: Colorization = Colorization(this),
-        strokes: Strokes = Strokes(cellSize)
+        strokes: Strokes = Strokes(baseSize.toFloat())
     ): RenderedImage
 }

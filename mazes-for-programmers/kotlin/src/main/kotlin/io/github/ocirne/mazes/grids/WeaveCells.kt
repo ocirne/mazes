@@ -3,6 +3,7 @@ package io.github.ocirne.mazes.grids
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.colorization.Strokes
 import java.awt.Graphics2D
+import java.awt.geom.Line2D
 
 class OverCell(row: Int, column: Int, val grid: WeaveGrid) : CartesianCell(row, column) {
 
@@ -97,24 +98,24 @@ class UnderCell(overCell: OverCell) : CartesianCell(overCell.row, overCell.colum
         g.color = colorization.valueFor(this)
         if (verticalPassage()) {
             g.stroke = strokes.getBasicWall()
-            g.drawLine(c.x2, c.y1, c.x2, c.y2)
-            g.drawLine(c.x3, c.y1, c.x3, c.y2)
-            g.drawLine(c.x2, c.y3, c.x2, c.y4)
-            g.drawLine(c.x3, c.y3, c.x3, c.y4)
+            g.draw(Line2D.Double(c.x2, c.y1, c.x2, c.y2))
+            g.draw(Line2D.Double(c.x3, c.y1, c.x3, c.y2))
+            g.draw(Line2D.Double(c.x2, c.y3, c.x2, c.y4))
+            g.draw(Line2D.Double(c.x3, c.y3, c.x3, c.y4))
 
             g.stroke = strokes.getHiddenWall()
-            g.drawLine(c.x2, c.y2, c.x2, c.y3)
-            g.drawLine(c.x3, c.y2, c.x3, c.y3)
+            g.draw(Line2D.Double(c.x2, c.y2, c.x2, c.y3))
+            g.draw(Line2D.Double(c.x3, c.y2, c.x3, c.y3))
         } else {
             g.stroke = strokes.getBasicWall()
-            g.drawLine(c.x1, c.y2, c.x2, c.y2)
-            g.drawLine(c.x1, c.y3, c.x2, c.y3)
-            g.drawLine(c.x3, c.y2, c.x4, c.y2)
-            g.drawLine(c.x3, c.y3, c.x4, c.y3)
+            g.draw(Line2D.Double(c.x1, c.y2, c.x2, c.y2))
+            g.draw(Line2D.Double(c.x1, c.y3, c.x2, c.y3))
+            g.draw(Line2D.Double(c.x3, c.y2, c.x4, c.y2))
+            g.draw(Line2D.Double(c.x3, c.y3, c.x4, c.y3))
 
             g.stroke = strokes.getHiddenWall()
-            g.drawLine(c.x2, c.y2, c.x3, c.y2)
-            g.drawLine(c.x2, c.y3, c.x3, c.y3)
+            g.draw(Line2D.Double(c.x2, c.y2, c.x3, c.y2))
+            g.draw(Line2D.Double(c.x2, c.y3, c.x3, c.y3))
         }
     }
 }

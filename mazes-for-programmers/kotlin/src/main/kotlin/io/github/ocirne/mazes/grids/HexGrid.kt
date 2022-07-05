@@ -8,6 +8,12 @@ import kotlin.math.sqrt
 
 class HexGrid(private val rows: Int, private val columns: Int) : Grid {
 
+    /**
+     * area = 6 * area_triangle (see TriangleGrid)
+     * f = sqrt(1 / area)
+     */
+    private val correctionFactor = 0.6204032394013997
+
     private val grid: Array<Array<HexCell>>
 
     init {
@@ -53,7 +59,10 @@ class HexGrid(private val rows: Int, private val columns: Int) : Grid {
     }
 
     override fun toImage(
-        cellSize: Int, wallInset: Double, backInset: Double, drawDeadCells: Boolean,
+        baseSize: Double,
+        wallInset: Double,
+        backInset: Double,
+        drawDeadCells: Boolean,
         debug: Boolean,
         backgroundColors: Colorization,
         wallColors: Colorization,
@@ -61,12 +70,13 @@ class HexGrid(private val rows: Int, private val columns: Int) : Grid {
         marker: Colorization,
         strokes: Strokes
     ): RenderedImage {
+        val cellSize = correctionFactor * baseSize
         val aSize = cellSize / 2.0
         val bSize = cellSize * sqrt(3.0) / 2.0
         val height = bSize * 2.0
 
-        val imgWidth = (3 * aSize * columns + aSize + 0.5).toInt()
-        val imgHeight = (height * rows + bSize + 0.5).toInt()
+        val imgWidth = 3 * aSize * columns + aSize + 0.5
+        val imgHeight = height * rows + bSize + 0.5
 
         val (image, g) = createImage(imgWidth + 1, imgHeight + 1)
 

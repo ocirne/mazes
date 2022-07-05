@@ -8,6 +8,15 @@ import kotlin.math.sqrt
 
 class UpsilonGrid(private val rows: Int, private val columns: Int) : Grid {
 
+    /**
+     * a = 1 / sqrt(2)
+     * area_8 = (1*1) + 4 * (a * 1) + 4 * (a * a / 2)
+     * area_4 = 1*1
+     * area_avg = (area_8 + area_4) / 2
+     * f = sqrt(1 / area_avg)
+     */
+    private val correctionFactor = 0.585786437626905
+
     private val grid: Array<Array<UpsilonCell>>
 
     init {
@@ -55,7 +64,10 @@ class UpsilonGrid(private val rows: Int, private val columns: Int) : Grid {
     }
 
     override fun toImage(
-        cellSize: Int, wallInset: Double, backInset: Double, drawDeadCells: Boolean,
+        baseSize: Double,
+        wallInset: Double,
+        backInset: Double,
+        drawDeadCells: Boolean,
         debug: Boolean,
         backgroundColors: Colorization,
         wallColors: Colorization,
@@ -63,12 +75,13 @@ class UpsilonGrid(private val rows: Int, private val columns: Int) : Grid {
         marker: Colorization,
         strokes: Strokes
     ): RenderedImage {
+        val cellSize = correctionFactor * baseSize
         val halfCSize = cellSize / 2.0
         val aSize = cellSize / sqrt(2.0)
         val correctedSize = cellSize + aSize
 
-        val imgWidth = (correctedSize * (columns + 1)).toInt()
-        val imgHeight = (correctedSize * (rows + 1)).toInt()
+        val imgWidth = correctedSize * (columns + 1)
+        val imgHeight = correctedSize * (rows + 1)
 
         val (image, g) = createImage(imgWidth + 1, imgHeight + 1)
 
