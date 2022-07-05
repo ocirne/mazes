@@ -76,6 +76,10 @@ class PolarOverCell(row: Int, column: Int, val grid: PolarWeaveGrid) : PolarCell
         }
         g.color = Color.WHITE
         g.stroke = BasicStroke(inset.toFloat())
+        drawArc(g, c.r4, Math.toDegrees(c.thetaCw), Math.toDegrees(0.0001))
+        drawArc(g, c.r4, Math.toDegrees(c.thetaCcw), Math.toDegrees(0.0001))
+        drawArc(g, c.r1, Math.toDegrees(c.thetaCw), Math.toDegrees(0.0001))
+        drawArc(g, c.r1, Math.toDegrees(c.thetaCcw), Math.toDegrees(0.0001))
 
         if (!isLinked(inward)) {
             drawArc(g, c.r1, Math.toDegrees(c.thetaCw), Math.toDegrees(c.theta))

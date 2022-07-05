@@ -149,8 +149,10 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
         // TODO Generelle Hintergrundfarbe?
         g.color = Color.WHITE
         g.stroke = BasicStroke(inset.toFloat())
-
-        // TODO das ist falsch für Weave Grids
+        drawArc(g, c.r1, toDegrees(c.thetaCw), toDegrees(20.0))
+        drawArc(g, c.r1, toDegrees(c.thetaCcw), toDegrees(20.0))
+        drawArc(g, c.r4, toDegrees(c.thetaCw), toDegrees(20.0))
+        drawArc(g, c.r4, toDegrees(c.thetaCcw), toDegrees(20.0))
 
         if (!isLinked(inward)) {
             drawArc(g, c.r1, toDegrees(c.thetaCw), toDegrees(c.theta))
