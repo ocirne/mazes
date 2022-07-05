@@ -147,7 +147,7 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
             return
         }
         // TODO Generelle Hintergrundfarbe?
-        g.color = Color.BLACK
+        g.color = Color.WHITE
         g.stroke = BasicStroke(inset.toFloat())
 
         // TODO das ist falsch für Weave Grids

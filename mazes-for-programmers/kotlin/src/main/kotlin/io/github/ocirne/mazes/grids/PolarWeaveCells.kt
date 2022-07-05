@@ -71,7 +71,10 @@ class PolarOverCell(row: Int, column: Int, val grid: PolarWeaveGrid) : PolarCell
         if (row == 0) {
             return
         }
-        g.color = Color.BLACK
+        if (grid.isUndercell(this)) {
+            return
+        }
+        g.color = Color.WHITE
         g.stroke = BasicStroke(inset.toFloat())
 
         if (!isLinked(inward)) {
@@ -80,7 +83,7 @@ class PolarOverCell(row: Int, column: Int, val grid: PolarWeaveGrid) : PolarCell
         if (outward.isEmpty()) {
             drawArc(g, c.r4, Math.toDegrees(c.thetaCw), Math.toDegrees(c.theta))
         }
-        if (!isLinked(cw) && !grid.isUndercell(this)) {
+        if (!isLinked(cw)) {
             g.draw(Line2D.Double(c.c0, c.d0))
         }
     }
