@@ -14,12 +14,4 @@
       alt: Upsilon Grid
   settings:
     height: 400
-    initialHeight:
-    maxHeight:
-    interval:
-    transitionDuration:
-    effect:
-    disableNav:
-    keyboardNav:
-    previousNavSelector:
-    nextNavSelector:
+    keyboardNav: false

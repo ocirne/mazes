@@ -9,7 +9,7 @@ Based on *Mazes for Programmers* by Jamis Buck.
 
 ## Grids
 
-Currently implemented are the default (cartesian) grid, a polar, a hex, a triangle, and an upsilon grid.
+Currently implemented are the default cartesian grid, a polar, a hex, a triangle, and an upsilon grid.
 
 {% include slider.html selector="slider_grids" %}
 
