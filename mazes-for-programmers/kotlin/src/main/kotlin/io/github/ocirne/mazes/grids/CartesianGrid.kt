@@ -5,7 +5,7 @@ import io.github.ocirne.mazes.colorization.Strokes
 import io.github.ocirne.mazes.grids.Grid.MODES.BACKGROUNDS
 import io.github.ocirne.mazes.grids.Grid.MODES.WALLS
 import io.github.ocirne.mazes.output.createImage
-import java.awt.image.RenderedImage
+import java.awt.image.BufferedImage
 
 
 open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid {
@@ -68,7 +68,7 @@ open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid
         path: Colorization,
         marker: Colorization,
         strokes: Strokes
-    ): RenderedImage {
+    ): BufferedImage {
         val cellSize = correctionFactor * baseSize
         val imgWidth = cellSize * columns
         val imgHeight = cellSize * rows

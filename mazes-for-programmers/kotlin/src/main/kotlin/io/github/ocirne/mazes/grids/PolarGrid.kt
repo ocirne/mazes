@@ -8,7 +8,7 @@ import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.geom.Ellipse2D
 import java.awt.geom.Line2D
-import java.awt.image.RenderedImage
+import java.awt.image.BufferedImage
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.roundToInt
@@ -128,7 +128,7 @@ open class PolarGrid(private val rows: Int) : Grid {
         path: Colorization,
         marker: Colorization,
         strokes: Strokes
-    ): RenderedImage {
+    ): BufferedImage {
         val cellSize = correctionFactor * baseSize
         val imgSize = 2 * rows * cellSize + 4
 

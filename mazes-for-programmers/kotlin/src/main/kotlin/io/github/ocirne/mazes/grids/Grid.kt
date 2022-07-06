@@ -4,7 +4,7 @@ import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.colorization.DefaultBackground
 import io.github.ocirne.mazes.colorization.DefaultWalls
 import io.github.ocirne.mazes.colorization.Strokes
-import java.awt.image.RenderedImage
+import java.awt.image.BufferedImage
 
 interface Grid {
 
@@ -32,7 +32,7 @@ interface Grid {
     }
 
     fun toImage(
-        baseSize: Double = 20.0,
+        baseSize: Double = 35.0,
         wallInset: Double = 0.0,
         backInset: Double = 0.0,
         drawDeadCells: Boolean = true,
@@ -42,5 +42,5 @@ interface Grid {
         path: Colorization = Colorization(this),
         marker: Colorization = Colorization(this),
         strokes: Strokes = Strokes(baseSize.toFloat())
-    ): RenderedImage
+    ): BufferedImage
 }

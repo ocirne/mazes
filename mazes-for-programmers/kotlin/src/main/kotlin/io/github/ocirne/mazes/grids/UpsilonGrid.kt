@@ -3,7 +3,7 @@ package io.github.ocirne.mazes.grids
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.colorization.Strokes
 import io.github.ocirne.mazes.output.createImage
-import java.awt.image.RenderedImage
+import java.awt.image.BufferedImage
 import kotlin.math.sqrt
 
 class UpsilonGrid(private val rows: Int, private val columns: Int) : Grid {
@@ -74,7 +74,7 @@ class UpsilonGrid(private val rows: Int, private val columns: Int) : Grid {
         path: Colorization,
         marker: Colorization,
         strokes: Strokes
-    ): RenderedImage {
+    ): BufferedImage {
         val cellSize = correctionFactor * baseSize
         val halfCSize = cellSize / 2.0
         val aSize = cellSize / sqrt(2.0)

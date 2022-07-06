@@ -16,13 +16,23 @@ fun createImage(width: Double, height: Double): Pair<BufferedImage, Graphics2D> 
     return image to g
 }
 
-fun saveImage(image: RenderedImage, filename: String) {
-    val path = "images/$filename.png"
-    val outputfile = File(path)
-    ImageIO.write(image, "png", outputfile)
-    println("saved to $path (${image.width} x ${image.height})")
+fun resizeImage(image: BufferedImage): RenderedImage {
+    val largerImage = BufferedImage(800, 400, BufferedImage.TYPE_INT_ARGB)
+    val g = largerImage.createGraphics()
+    val x = (800 - image.width) / 2
+    val y = (400 - image.height) / 2
+    g.drawImage(image, x, y, image.width, image.height, null)
+    return largerImage
 }
 
-fun RenderedImage.save(filename: String) {
+fun saveImage(image: BufferedImage, filename: String) {
+    val largerImage = resizeImage(image)
+    val path = "images/$filename.png"
+    val outputfile = File(path)
+    ImageIO.write(largerImage, "png", outputfile)
+    println("saved to $path")
+}
+
+fun BufferedImage.save(filename: String) {
     saveImage(this, filename)
 }
