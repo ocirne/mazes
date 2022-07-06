@@ -2,15 +2,15 @@
   bullets: true
   captions: true
   images:
-    - src: /mazes/images/cartesian.png
+    - src: /images/cartesian.png
       alt: Cartesian Grid
-    - src: /mazes/images/polar.png
+    - src: /images/polar.png
       alt: Polar Grid
-    - src: /mazes/images/hex.png
+    - src: /images/hex.png
       alt: Hex Grid
-    - src: /mazes/images/triangle.png
+    - src: /images/triangle.png
       alt: Triangle Grid
-    - src: /mazes/images/upsilon.png
+    - src: /images/upsilon.png
       alt: Upsilon Grid
   settings:
     height: 400

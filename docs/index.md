@@ -1,7 +1,6 @@
 ---
 layout: page
 title: Mazes
-permalink: /mazes/
 image_sliders:
   - slider_grids
 ---
