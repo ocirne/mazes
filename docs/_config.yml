@@ -1,1 +1,12 @@
+# Config settings
+title: Mazes Demo
+baseurl: "/mazes"
+
+# Build settings
+markdown: kramdown
 theme: minima
+plugins:
+  - jekyll-feed
+exclude:
+  - Gemfile
+  - Gemfile.lock

@@ -1,24 +1,17 @@
-# Mazes
+---
+layout: page
+title: Mazes
+permalink: /mazes/
+image_sliders:
+  - slider_grids
+---
 
 Based on *Mazes for Programmers* by Jamis Buck.
 
 ## Grids
 
-### Cartesian Grid
-![Polar Grid](images/cartesian.png)
+Currently implemented are the default (cartesian) grid, a polar, a hex, a triangle, and an upsilon grid.
 
-### Hexagonal Grid
-![Polar Grid](images/hex.png)
-
-### Polar Grid
-![Polar Grid](images/polar.png)
-
-### Triangle Grid
-![Polar Grid](images/triangle.png)
-
-### Upsilon Grid
-![Polar Grid](images/upsilon.png)
+{% include slider.html selector="slider_grids" %}
 
 ## Algorithms
-
-...

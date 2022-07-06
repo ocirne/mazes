@@ -1,0 +1,25 @@
+- selector: slider_grids
+  bullets: true
+  captions: true
+  images:
+    - src: /mazes/images/cartesian.png
+      alt: Cartesian Grid
+    - src: /mazes/images/polar.png
+      alt: Polar Grid
+    - src: /mazes/images/hex.png
+      alt: Hex Grid
+    - src: /mazes/images/triangle.png
+      alt: Triangle Grid
+    - src: /mazes/images/upsilon.png
+      alt: Upsilon Grid
+  settings:
+    height: 400
+    initialHeight:
+    maxHeight:
+    interval:
+    transitionDuration:
+    effect:
+    disableNav:
+    keyboardNav:
+    previousNavSelector:
+    nextNavSelector:
