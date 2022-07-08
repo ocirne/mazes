@@ -1,4 +1,4 @@
-package io.github.ocirne.mazes.demos
+package io.github.ocirne.mazes.pages
 
 import io.github.ocirne.mazes.grids.*
 import io.github.ocirne.mazes.output.formatForPages
