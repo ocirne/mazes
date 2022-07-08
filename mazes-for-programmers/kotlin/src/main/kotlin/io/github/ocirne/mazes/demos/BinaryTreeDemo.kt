@@ -3,16 +3,16 @@ package io.github.ocirne.mazes.demos
 import io.github.ocirne.mazes.algorithms.BinaryTree
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.grids.*
-import io.github.ocirne.mazes.output.combineToImage
+import io.github.ocirne.mazes.output.formatForPages
 import io.github.ocirne.mazes.output.save
 
 fun allGridsWith(algorithm: BinaryTree) {
-    val baseSize = 15.0
-    val cartesianGrid = CartesianGrid(15, 15)
+    val baseSize = 20.0
+    val cartesianGrid = CartesianGrid(11, 11)
     algorithm.on(cartesianGrid)
     val cartesianImage = cartesianGrid.toImage(baseSize = baseSize)
 
-    val polarGrid = PolarGrid(5)
+    val polarGrid = PolarGrid(6)
     algorithm.on(polarGrid)
     val polarImage = polarGrid.toImage(baseSize = baseSize)
 
@@ -20,7 +20,7 @@ fun allGridsWith(algorithm: BinaryTree) {
     algorithm.on(triangleGrid)
     val triangleImage = triangleGrid.toImage(baseSize = baseSize)
 
-    val hexGrid = HexGrid(9, 11)
+    val hexGrid = HexGrid(10, 11)
     algorithm.on(hexGrid)
     val hexImage = hexGrid.toImage(baseSize = baseSize)
 
@@ -28,7 +28,7 @@ fun allGridsWith(algorithm: BinaryTree) {
     algorithm.on(upsilonGrid)
     val upsilonImage = upsilonGrid.toImage(baseSize = baseSize)
 
-    combineToImage(listOf(cartesianImage, polarImage, triangleImage, hexImage, upsilonImage))
+    formatForPages(listOf(cartesianImage, polarImage, triangleImage, hexImage, upsilonImage), 3, 2)
         .save("all_grids_${algorithm::class.simpleName}")
 }
 
@@ -39,7 +39,7 @@ fun cartesianBinaryTreeColorized() {
         val colorization = Colorization(grid).dijkstra(grid[7, 7]!!)
         grid.toImage(baseSize = 15.0, backgroundColors = colorization)
     }
-    combineToImage(grids).save("cartesian_binarytrees_colorized")
+    formatForPages(grids, 3, 2).save("cartesian_binarytrees_colorized")
 }
 
 fun main() {
