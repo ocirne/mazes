@@ -6,15 +6,21 @@ import io.github.ocirne.mazes.grids.*
 import io.github.ocirne.mazes.output.formatForPages
 import io.github.ocirne.mazes.output.save
 
+val ALL_GRIDS = listOf(
+    CartesianGrid(11, 11),
+    PolarGrid(6),
+    TriangleGrid(8, 13),
+    HexGrid(10, 11),
+    UpsilonGrid(11, 11)
+)
+
+fun allGridsPlain() {
+    val images = ALL_GRIDS.map { grid -> grid.toImage(baseSize = 20.0) }
+    formatForPages(images, 3, 2).save("all_grids_plain")
+}
+
 fun allGridsWith(algorithm: PassageCarver) {
-    val grids = listOf(
-        CartesianGrid(11, 11),
-        PolarGrid(6),
-        TriangleGrid(8, 13),
-        HexGrid(10, 11),
-        UpsilonGrid(11, 11)
-    )
-    val images = grids.map { grid ->
+    val images = ALL_GRIDS.map { grid ->
         algorithm.on(grid)
         grid.toImage(baseSize = 20.0)
     }
@@ -32,6 +38,7 @@ fun cartesianBinaryTreeColorized(algorithm: PassageCarver) {
 }
 
 fun main() {
+    allGridsPlain()
     // TODO Sidewinder
     val passageCarvers = listOf(AldousBroder(), BinaryTree(), HuntAndKill(), RecursiveBacktracker(), Wilsons())
     passageCarvers.forEach {
