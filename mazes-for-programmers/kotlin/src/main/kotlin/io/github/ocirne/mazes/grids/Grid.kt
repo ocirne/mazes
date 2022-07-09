@@ -32,7 +32,7 @@ interface Grid {
     }
 
     fun toImage(
-        baseSize: Double = 35.0,
+        baseSize: Double = 10.0,
         wallInset: Double = 0.0,
         backInset: Double = 0.0,
         drawDeadCells: Boolean = true,
