@@ -1,10 +1,10 @@
 package io.github.ocirne.mazes.algorithms
 
-import io.github.ocirne.mazes.grids.CartesianGrid
+import io.github.ocirne.mazes.grids.Grid
 
 class AldousBroder : PassageCarver {
 
-    override fun on(grid: CartesianGrid) {
+    override fun on(grid: Grid) {
         var cell = grid.randomCell()
         var unvisited = grid.size() - 1
 

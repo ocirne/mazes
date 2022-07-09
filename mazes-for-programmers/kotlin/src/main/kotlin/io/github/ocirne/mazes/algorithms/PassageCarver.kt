@@ -1,9 +1,9 @@
 package io.github.ocirne.mazes.algorithms
 
-import io.github.ocirne.mazes.grids.CartesianGrid
+import io.github.ocirne.mazes.grids.Grid
 
 
 interface PassageCarver {
 
-    fun on(grid: CartesianGrid)
+    fun on(grid: Grid)
 }
