@@ -4,8 +4,16 @@ import io.github.ocirne.mazes.grids.*
 
 class BinaryTree : PassageCarver {
 
-    override fun on(grid: Grid) {
-        throw NotImplementedError("see specialized functions")
+    override fun on(grid: Grid, startAt: Cell) {
+        // sieht doof aus, aber funktioniert
+        return when (grid) {
+            is CartesianGrid -> on(grid)
+            is PolarGrid -> on(grid)
+            is TriangleGrid -> on(grid)
+            is HexGrid -> on(grid)
+            is UpsilonGrid -> on(grid)
+            else -> throw NotImplementedError()
+        }
     }
 
     private fun generalizedBinaryTree(grid: Grid, availableNeighbors: (cell: Cell) -> List<Cell>) {

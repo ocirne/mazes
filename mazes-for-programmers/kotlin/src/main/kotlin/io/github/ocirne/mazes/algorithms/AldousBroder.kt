@@ -1,10 +1,11 @@
 package io.github.ocirne.mazes.algorithms
 
+import io.github.ocirne.mazes.grids.Cell
 import io.github.ocirne.mazes.grids.Grid
 
 class AldousBroder : PassageCarver {
 
-    override fun on(grid: Grid) {
+    override fun on(grid: Grid, startAt: Cell) {
         var cell = grid.randomCell()
         var unvisited = grid.size() - 1
 

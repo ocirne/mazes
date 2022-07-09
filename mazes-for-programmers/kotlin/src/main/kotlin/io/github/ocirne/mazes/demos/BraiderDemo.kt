@@ -8,7 +8,7 @@ import io.github.ocirne.mazes.output.saveImage
 
 fun main() {
     val grid = CartesianGrid(11, 11)
-    RecursiveBacktracker.on(grid)
+    RecursiveBacktracker().on(grid)
     saveImage(grid.toImage(), "cartesian_recursive_backtracker_dead_ends")
 
     val colorization1 = Colorization(grid).countLinks()

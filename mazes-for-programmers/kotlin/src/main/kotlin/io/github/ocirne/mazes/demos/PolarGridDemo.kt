@@ -10,7 +10,7 @@ fun main() {
     val grid = PolarGrid(10)
     saveImage(grid.toImage(wallInset=0.2), "polar_inset")
 
-    RecursiveBacktracker.on(grid)
+    RecursiveBacktracker().on(grid)
     saveImage(grid.toImage(), "polar_recursive_backtracker")
     saveImage(grid.toImage(wallInset=0.1), "polar_recursive_backtracker_inset_1")
     saveImage(grid.toImage(wallInset=0.2), "polar_recursive_backtracker_inset_2")

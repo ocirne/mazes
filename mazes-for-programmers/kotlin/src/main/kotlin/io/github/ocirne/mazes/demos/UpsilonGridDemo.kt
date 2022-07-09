@@ -7,7 +7,7 @@ import io.github.ocirne.mazes.output.saveImage
 
 fun main() {
     val grid = UpsilonGrid(11, 11)
-    RecursiveBacktracker.on(grid)
+    RecursiveBacktracker().on(grid)
     saveImage(grid.toImage(), "upsilon_recursive_backtracker")
 
     val colorization1 = Colorization(grid).dijkstra(grid[10, 5]!!)

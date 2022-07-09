@@ -3,7 +3,7 @@ package io.github.ocirne.mazes.algorithms
 import io.github.ocirne.mazes.grids.Cell
 import io.github.ocirne.mazes.grids.Grid
 
-class GrowingTree {
+class GrowingTree {  // PassageCarver
 
     companion object {
         fun on(grid: Grid, f : (List<Cell>) -> Cell, startAt: Cell = grid.randomCell()) {

@@ -10,7 +10,7 @@ class RecursiveBacktrackerIsPerfectTest {
     @Test
     fun `Cartesian Grid with Recursive Backtracker maze is perfect`() {
         val grid = CartesianGrid(size, size)
-        RecursiveBacktracker.on(grid)
+        RecursiveBacktracker().on(grid)
 
         CycleDetection(grid).assertNoCycle()
     }
@@ -18,7 +18,7 @@ class RecursiveBacktrackerIsPerfectTest {
     @Test
     fun `Polar grid with RecursiveBacktracker maze is perfect`() {
         val grid = PolarGrid(size)
-        RecursiveBacktracker.on(grid)
+        RecursiveBacktracker().on(grid)
 
         CycleDetection(grid).assertNoCycle()
     }
@@ -26,7 +26,7 @@ class RecursiveBacktrackerIsPerfectTest {
     @Test
     fun `Triangle grid with RecursiveBacktracker maze is perfect`() {
         val grid = TriangleGrid(size, size)
-        RecursiveBacktracker.on(grid)
+        RecursiveBacktracker().on(grid)
 
         CycleDetection(grid).assertNoCycle()
     }
@@ -34,7 +34,7 @@ class RecursiveBacktrackerIsPerfectTest {
     @Test
     fun `Hex grid with RecursiveBacktracker maze is perfect`() {
         val grid = HexGrid(size, size)
-        RecursiveBacktracker.on(grid)
+        RecursiveBacktracker().on(grid)
 
         CycleDetection(grid).assertNoCycle()
     }
@@ -42,7 +42,7 @@ class RecursiveBacktrackerIsPerfectTest {
     @Test
     fun `Upsilon grid with RecursiveBacktracker maze is perfect`() {
         val grid = UpsilonGrid(size, size)
-        RecursiveBacktracker.on(grid)
+        RecursiveBacktracker().on(grid)
 
         CycleDetection(grid).assertNoCycle()
     }
@@ -50,7 +50,7 @@ class RecursiveBacktrackerIsPerfectTest {
     @Test
     fun `Weave grid with RecursiveBacktracker maze is perfect`() {
         val grid = WeaveGrid(size, size)
-        RecursiveBacktracker.on(grid)
+        RecursiveBacktracker().on(grid)
 
         CycleDetection(grid).assertNoCycle()
     }
@@ -58,7 +58,7 @@ class RecursiveBacktrackerIsPerfectTest {
     @Test
     fun `Polar Weave grid with RecursiveBacktracker maze is perfect`() {
         val grid = PolarWeaveGrid(size)
-        RecursiveBacktracker.on(grid)
+        RecursiveBacktracker().on(grid)
 
         CycleDetection(grid).assertNoCycle()
     }

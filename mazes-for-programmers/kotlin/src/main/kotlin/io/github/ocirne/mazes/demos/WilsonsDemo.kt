@@ -8,7 +8,7 @@ import io.github.ocirne.mazes.output.saveImage
 fun main() {
     val grid = CartesianGrid(11, 11)
 
-    Wilsons.on(grid)
+    Wilsons().on(grid)
     saveImage(grid.toImage(), "cartesian_wilsons")
 
     val colorization1 = Colorization(grid).dijkstra(grid[10, 5]!!)

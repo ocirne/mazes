@@ -7,7 +7,7 @@ import io.github.ocirne.mazes.output.saveImage
 
 fun main() {
     val grid = PolarWeaveGrid(10)
-    RecursiveBacktracker.on(grid)
+    RecursiveBacktracker().on(grid)
 
 //    DeadEndKiller().remove(grid, passes=10, p=0.5)
 
