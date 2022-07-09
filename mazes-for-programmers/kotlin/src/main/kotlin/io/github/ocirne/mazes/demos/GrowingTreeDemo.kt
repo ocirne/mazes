@@ -9,7 +9,7 @@ import kotlin.random.Random.Default.nextBoolean
 
 private fun wrap(name: String, f : (List<Cell>) -> Cell) {
     val grid = CartesianGrid(11, 11)
-    GrowingTree.on(grid, f, startAt=grid[10, 5]!!)
+    GrowingTree(f).on(grid, startAt=grid[10, 5]!!)
     saveImage(grid.toImage(), "cartesian_growingTree_$name")
 
     val colorization = Colorization(grid).dijkstra(grid[10, 5]!!)
