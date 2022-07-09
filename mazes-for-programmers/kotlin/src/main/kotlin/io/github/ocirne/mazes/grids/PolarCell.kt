@@ -143,7 +143,7 @@ open class PolarCell(val row: Int, val column: Int) : Cell() {
     }
 
     open fun drawSpaceBetweenWalls(g: Graphics2D, inset: Double) {
-        if (row == 0) {
+        if (row == 0 || inset == 0.0) {
             return
         }
         // TODO Generelle Hintergrundfarbe?
