@@ -32,7 +32,7 @@ fun cartesianBinaryTreeColorized(algorithm: PassageCarver) {
 }
 
 fun main() {
-    val passageCarvers = listOf(AldousBroder(), BinaryTree(), RecursiveBacktracker(), Wilsons())
+    val passageCarvers = listOf(AldousBroder(), BinaryTree(), HuntAndKill(), RecursiveBacktracker(), Wilsons())
     passageCarvers.forEach {
         allGridsWith(it)
         cartesianBinaryTreeColorized(it)

@@ -8,7 +8,7 @@ import io.github.ocirne.mazes.output.saveImage
 fun main() {
     val grid = CartesianGrid(11, 11)
 
-    HuntAndKill.on(grid)
+    HuntAndKill().on(grid)
     saveImage(grid.toImage(), "cartesian_huntAndKill_backtracker")
 
     val colorization1 = Colorization(grid).dijkstra(grid[10, 5]!!)

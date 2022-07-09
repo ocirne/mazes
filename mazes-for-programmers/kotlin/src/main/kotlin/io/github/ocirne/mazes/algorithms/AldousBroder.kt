@@ -6,7 +6,7 @@ import io.github.ocirne.mazes.grids.Grid
 class AldousBroder : PassageCarver {
 
     override fun on(grid: Grid, startAt: Cell) {
-        var cell = grid.randomCell()
+        var cell = startAt
         var unvisited = grid.size() - 1
 
         while (unvisited > 0) {
