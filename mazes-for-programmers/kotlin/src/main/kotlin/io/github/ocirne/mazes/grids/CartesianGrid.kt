@@ -45,6 +45,14 @@ open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid
         return grid[row][column]
     }
 
+    fun getRows(): Int {
+        return rows
+    }
+
+    fun getColumns(): Int {
+        return columns
+    }
+
     override fun size(): Int {
         return rows * columns
     }
