@@ -1,22 +1,27 @@
 package io.github.ocirne.mazes.algorithms
 
 import io.github.ocirne.mazes.grids.*
+import io.github.ocirne.mazes.grids.CartesianGrid.CartesianMaze
+import io.github.ocirne.mazes.grids.HexGrid.HexMaze
+import io.github.ocirne.mazes.grids.PolarGrid.PolarMaze
+import io.github.ocirne.mazes.grids.TriangleGrid.TriangleMaze
+import io.github.ocirne.mazes.grids.UpsilonGrid.UpsilonMaze
 
 class BinaryTree : PassageCarver {
 
-    override fun on(gridProvider: GridProvider, startAt: (MutableGrid) -> Cell): MutableGrid {
+    override fun on(gridProvider: GridProvider, startAt: (Maze) -> Cell): Maze {
         // sieht doof aus, aber funktioniert
-        return when (val grid = gridProvider.createPassageCarver()) {
-            is CartesianGrid -> on(grid)
-            is PolarGrid -> on(grid)
-            is TriangleGrid -> on(grid)
-            is HexGrid -> on(grid)
-            is UpsilonGrid -> on(grid)
+        return when (val grid = gridProvider.forPassageCarver()) {
+            is CartesianMaze -> on(grid)
+            is PolarMaze -> on(grid)
+            is TriangleMaze -> on(grid)
+            is HexMaze -> on(grid)
+            is UpsilonMaze -> on(grid)
             else -> throw NotImplementedError()
         }
     }
 
-    private fun generalizedBinaryTree(grid: MutableGrid, availableNeighbors: (cell: Cell) -> List<Cell>): MutableGrid {
+    private fun generalizedBinaryTree(grid: Maze, availableNeighbors: (cell: Cell) -> List<Cell>): Maze {
         for (cell in grid.eachCell()) {
             val neighbors = availableNeighbors(cell)
             if (neighbors.isEmpty()) {
@@ -28,17 +33,17 @@ class BinaryTree : PassageCarver {
         return grid
     }
 
-    fun on(grid: CartesianGrid): MutableGrid {
-        return generalizedBinaryTree(grid) { cell -> listOfNotNull((cell as CartesianCell).north, cell.east) }
+    fun on(grid: CartesianMaze): Maze {
+        return generalizedBinaryTree(grid) { cell -> listOfNotNull((cell as CartesianGrid.CartesianCell).north, cell.east) }
     }
 
-    fun on(grid: PolarGrid): MutableGrid {
-        return generalizedBinaryTree(grid) { cell -> listOfNotNull((cell as PolarCell).inward, cell.cw) }
+    fun on(grid: PolarMaze): Maze {
+        return generalizedBinaryTree(grid) { cell -> listOfNotNull((cell as PolarGrid.PolarCell).inward, cell.cw) }
     }
 
-    fun on(grid: TriangleGrid): MutableGrid {
+    fun on(grid: TriangleMaze): Maze {
         return generalizedBinaryTree(grid) { cell ->
-            cell as TriangleCell
+            cell as TriangleGrid.TriangleCell
             if (cell.isUpright()) {
                 if (cell.east != null) {
                     listOfNotNull(cell.east)
@@ -55,11 +60,11 @@ class BinaryTree : PassageCarver {
         }
     }
 
-    fun on(grid: HexGrid): MutableGrid {
-        return generalizedBinaryTree(grid) { cell -> listOfNotNull((cell as HexCell).north, cell.northeast, cell.southeast) }
+    fun on(grid: HexMaze): Maze {
+        return generalizedBinaryTree(grid) { cell -> listOfNotNull((cell as HexGrid.HexCell).north, cell.northeast, cell.southeast) }
     }
 
-    fun on(grid: UpsilonGrid): MutableGrid {
-        return generalizedBinaryTree(grid) { cell -> listOfNotNull((cell as UpsilonCell).north, cell.northeast, cell.east, cell.southeast) }
+    fun on(grid: UpsilonMaze): Maze {
+        return generalizedBinaryTree(grid) { cell -> listOfNotNull((cell as UpsilonGrid.UpsilonCell).north, cell.northeast, cell.east, cell.southeast) }
     }
 }

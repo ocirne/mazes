@@ -1,13 +1,15 @@
 package io.github.ocirne.mazes.algorithms
 
 import io.github.ocirne.mazes.grids.*
+import io.github.ocirne.mazes.grids.CartesianGrid.CartesianCell
+import io.github.ocirne.mazes.grids.CartesianGrid.CartesianMaze
 import kotlin.random.Random.Default.nextBoolean
 
 class Sidewinder : PassageCarver {
 
-    override fun on(gridProvider: GridProvider, startAt: (MutableGrid) -> Cell): MutableGrid {
-        val grid = gridProvider.createPassageCarver()
-        grid as CartesianGrid
+    override fun on(gridProvider: GridProvider, startAt: (Maze) -> Cell): Maze {
+        val grid = gridProvider.forPassageCarver()
+        grid as CartesianMaze
         for (row in grid.eachRow()) {
             val run = mutableListOf<CartesianCell>()
             for (cell in row) {

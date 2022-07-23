@@ -8,7 +8,7 @@ import java.awt.Color
 
 fun main() {
     val grid = PolarGrid(10)
-    saveImage(grid.toImage(wallInset=0.2), "polar_inset")
+    saveImage(grid.forPassageCarver().toImage(wallInset=0.2), "polar_inset")
 
     val maze = RecursiveBacktracker().on(grid)
     saveImage(maze.toImage(), "polar_recursive_backtracker")

@@ -1,11 +1,11 @@
 package io.github.ocirne.mazes.algorithms
 
-import io.github.ocirne.mazes.grids.MutableGrid
+import io.github.ocirne.mazes.grids.Maze
 import kotlin.random.Random
 
 class DeadEndKiller {
 
-    fun remove(grid: MutableGrid, passes:Int=1, p:Double=1.0) {
+    fun remove(grid: Maze, passes:Int=1, p:Double=1.0) {
         repeat(passes) {
             val deadEnds = grid.deadEnds()
             for (cell in deadEnds.shuffled()) {

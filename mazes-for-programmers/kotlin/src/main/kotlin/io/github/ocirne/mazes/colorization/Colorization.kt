@@ -1,12 +1,12 @@
 package io.github.ocirne.mazes.colorization
 
 import io.github.ocirne.mazes.grids.Cell
-import io.github.ocirne.mazes.grids.MutableGrid
+import io.github.ocirne.mazes.grids.Maze
 import java.awt.Color
 import kotlin.math.roundToInt
 
 open class Colorization(
-    private val grid: MutableGrid,
+    private val grid: Maze,
     private val fromColor: Color = Color.DARK_GRAY,
     private val toColor: Color = Color.GREEN
 ){

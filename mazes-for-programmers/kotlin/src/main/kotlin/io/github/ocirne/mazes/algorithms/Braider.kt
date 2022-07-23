@@ -1,11 +1,11 @@
 package io.github.ocirne.mazes.algorithms
 
-import io.github.ocirne.mazes.grids.MutableGrid
+import io.github.ocirne.mazes.grids.Maze
 import kotlin.random.Random.Default.nextDouble
 
 class Braider {
 
-    fun braid(grid: MutableGrid, p:Double=1.0) {
+    fun braid(grid: Maze, p:Double=1.0) {
         val deadEnds = grid.deadEnds()
         for (cell in deadEnds.shuffled()) {
             // TODO Es werden mehr als p % DeadEnds entfernt - fixen

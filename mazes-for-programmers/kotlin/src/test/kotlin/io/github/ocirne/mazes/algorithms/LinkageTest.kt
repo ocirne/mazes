@@ -1,7 +1,7 @@
 package io.github.ocirne.mazes.algorithms
 
-import io.github.ocirne.mazes.grids.CartesianCell
 import io.github.ocirne.mazes.grids.CartesianGrid
+import io.github.ocirne.mazes.grids.CartesianGrid.CartesianCell
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import kotlin.math.abs

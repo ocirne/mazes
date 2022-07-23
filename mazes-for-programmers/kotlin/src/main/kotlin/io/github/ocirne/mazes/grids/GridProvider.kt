@@ -2,7 +2,7 @@ package io.github.ocirne.mazes.grids
 
 interface GridProvider {
 
-    fun createPassageCarver(): MutableGrid
+    fun forPassageCarver(): Maze
 
-    fun createWallAdder(): MutableGrid
+    fun forWallAdder(): Maze
 }

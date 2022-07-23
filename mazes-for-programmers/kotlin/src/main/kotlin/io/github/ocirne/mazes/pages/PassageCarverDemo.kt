@@ -17,7 +17,7 @@ fun createAllGrids(): List<GridProvider> {
 }
 
 fun allGridsPlain() {
-    val images = createAllGrids().map { grid -> (grid as MutableGrid).toImage(baseSize = 20.0) }
+    val images = createAllGrids().map { it.forPassageCarver().toImage(baseSize = 20.0) }
     formatForPages(images, 3, 2).save("all_grids_plain")
 }
 
@@ -32,9 +32,9 @@ fun allGridsWith(algorithm: PassageCarver) {
 fun cartesianBinaryTreeColorized(algorithm: PassageCarver) {
     val images = (1..6).map {
         val grid = CartesianGrid(15, 15)
-        algorithm.on(grid)
-        val colorization = Colorization(grid).dijkstra(grid[7, 7]!!)
-        grid.toImage(baseSize = 15.0, backgroundColors = colorization)
+        val maze = algorithm.on(grid)
+        val colorization = Colorization(maze).dijkstra(maze[7, 7]!!)
+        maze.toImage(baseSize = 15.0, backgroundColors = colorization)
     }
     formatForPages(images, 3, 2).save("cartesian_${algorithm::class.simpleName}_colorized")
 }

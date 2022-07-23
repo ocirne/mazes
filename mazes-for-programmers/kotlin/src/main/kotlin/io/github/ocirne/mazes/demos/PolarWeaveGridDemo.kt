@@ -7,14 +7,14 @@ import io.github.ocirne.mazes.output.saveImage
 
 fun main() {
     val grid = PolarWeaveGrid(10)
-    RecursiveBacktracker().on(grid)
+    val maze = RecursiveBacktracker().on(grid)
 
 //    DeadEndKiller().remove(grid, passes=10, p=0.5)
 
-    val backgrounds = Colorization(grid).dijkstra()
+    val backgrounds = Colorization(maze).dijkstra()
 
     saveImage(
-        grid.toImage(
+        maze.toImage(
             wallInset = 0.2,
             backInset = 0.1,
             backgroundColors = backgrounds

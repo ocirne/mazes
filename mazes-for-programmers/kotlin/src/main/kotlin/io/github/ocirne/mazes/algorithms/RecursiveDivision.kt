@@ -1,18 +1,20 @@
 package io.github.ocirne.mazes.algorithms
 
-import io.github.ocirne.mazes.grids.CartesianCell
-import io.github.ocirne.mazes.grids.CartesianGrid
+import io.github.ocirne.mazes.grids.CartesianGrid.CartesianCell
+import io.github.ocirne.mazes.grids.CartesianGrid.CartesianMaze
+import io.github.ocirne.mazes.grids.GridProvider
 import kotlin.random.Random.Default.nextInt
 
 class RecursiveDivision(private val rooms: Boolean=false) {
 
-    fun on(gridProvider: CartesianGrid): CartesianGrid {
-        val grid = gridProvider.createWallAdder()
+    fun on(gridProvider: GridProvider): CartesianMaze {
+        val grid = gridProvider.forWallAdder()
+        grid as CartesianMaze
         divide(grid, 0, 0, grid.getRows(), grid.getColumns())
         return grid
     }
 
-    private fun divide(grid: CartesianGrid, row: Int, column: Int, height: Int, width: Int) {
+    private fun divide(grid: CartesianMaze, row: Int, column: Int, height: Int, width: Int) {
         if (rooms) {
             if (height <= 1 || width <= 1 || (height < 5 && width < 5 && nextInt(4) == 0)) {
                 return
@@ -29,7 +31,7 @@ class RecursiveDivision(private val rooms: Boolean=false) {
         }
     }
 
-    private fun divideHorizontally(grid: CartesianGrid, row: Int, column: Int, height: Int, width: Int) {
+    private fun divideHorizontally(grid: CartesianMaze, row: Int, column: Int, height: Int, width: Int) {
         val divideSouthOf = nextInt(height - 1)
         val passageAt = nextInt(width)
         repeat(width) { x ->
@@ -42,7 +44,7 @@ class RecursiveDivision(private val rooms: Boolean=false) {
         divide(grid, row+divideSouthOf+1, column, height-divideSouthOf-1, width)
     }
 
-    private fun divideVertically(grid: CartesianGrid, row: Int, column: Int, height: Int, width: Int) {
+    private fun divideVertically(grid: CartesianMaze, row: Int, column: Int, height: Int, width: Int) {
         val divideEastOf = nextInt(width - 1)
         val passageAt = nextInt(height)
         repeat(height) { y ->

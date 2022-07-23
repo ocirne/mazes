@@ -6,7 +6,7 @@ import io.github.ocirne.mazes.colorization.DefaultWalls
 import io.github.ocirne.mazes.colorization.Strokes
 import java.awt.image.BufferedImage
 
-interface MutableGrid {
+interface Maze {
 
     operator fun get(row: Int, column: Int): Cell?
 
@@ -25,12 +25,6 @@ interface MutableGrid {
 
     fun deadEnds(): List<Cell> {
         return eachCell().filter { it.links().size == 1 }
-    }
-
-    fun addAllPassages() {
-        for (cell in eachCell()) {
-            cell.neighbors().forEach { n -> cell.link(n, false) }
-        }
     }
 
     enum class MODES {
