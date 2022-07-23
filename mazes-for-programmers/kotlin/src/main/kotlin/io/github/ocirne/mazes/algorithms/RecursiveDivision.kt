@@ -2,15 +2,15 @@ package io.github.ocirne.mazes.algorithms
 
 import io.github.ocirne.mazes.grids.CartesianCell
 import io.github.ocirne.mazes.grids.CartesianGrid
+import io.github.ocirne.mazes.grids.CartesianGridProvider
 import kotlin.random.Random.Default.nextInt
 
 class RecursiveDivision(private val rooms: Boolean=false) {
 
-    fun on(grid: CartesianGrid) {
-        for (cell in grid.eachCell()) {
-            cell.neighbors().forEach { n -> cell.link(n, false) }
-        }
+    fun on(gridProvider: CartesianGridProvider): CartesianGrid {
+        val grid = gridProvider.createWallAdder()
         divide(grid, 0, 0, grid.getRows(), grid.getColumns())
+        return grid
     }
 
     private fun divide(grid: CartesianGrid, row: Int, column: Int, height: Int, width: Int) {
