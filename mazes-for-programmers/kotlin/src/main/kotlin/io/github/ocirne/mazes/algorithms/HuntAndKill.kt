@@ -1,12 +1,14 @@
 package io.github.ocirne.mazes.algorithms
 
 import io.github.ocirne.mazes.grids.Cell
+import io.github.ocirne.mazes.grids.GridProvider
 import io.github.ocirne.mazes.grids.MutableGrid
 
 class HuntAndKill : PassageCarver {
 
-    override fun on(grid: MutableGrid, startAt: Cell) {
-        var current: Cell? = startAt
+    override fun on(gridProvider: GridProvider, startAt: (MutableGrid) -> Cell): MutableGrid {
+        val grid = gridProvider.createPassageCarver()
+        var current: Cell? = startAt.invoke(grid)
         while (current != null) {
             val unvisitedNeighbors = current.neighbors().filter { it.links().isEmpty() }
             current = if (unvisitedNeighbors.isNotEmpty()) {
@@ -25,5 +27,6 @@ class HuntAndKill : PassageCarver {
                 }
             }
         }
+        return grid
     }
 }

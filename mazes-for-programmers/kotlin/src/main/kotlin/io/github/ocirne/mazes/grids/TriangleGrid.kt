@@ -6,7 +6,7 @@ import io.github.ocirne.mazes.output.createImage
 import java.awt.image.BufferedImage
 import kotlin.math.sqrt
 
-class TriangleGrid(private val rows: Int, private val columns: Int) : MutableGrid {
+class TriangleGrid(private val rows: Int, private val columns: Int) : MutableGrid, GridProvider {
 
     /**
      * g = 1
@@ -38,6 +38,16 @@ class TriangleGrid(private val rows: Int, private val columns: Int) : MutableGri
             else
                 cell.north = this[row - 1, col]
         }
+    }
+
+    override fun createPassageCarver(): TriangleGrid {
+        return TriangleGrid(rows, columns)
+    }
+
+    override fun createWallAdder(): TriangleGrid {
+        val grid = TriangleGrid(rows, columns)
+        addAllPassages()
+        return grid
     }
 
     override operator fun get(row: Int, column: Int): TriangleCell? {

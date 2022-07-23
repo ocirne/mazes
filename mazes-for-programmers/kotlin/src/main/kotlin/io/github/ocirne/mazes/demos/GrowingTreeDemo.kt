@@ -4,20 +4,21 @@ import io.github.ocirne.mazes.algorithms.GrowingTree
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.grids.CartesianGrid
 import io.github.ocirne.mazes.grids.Cell
+import io.github.ocirne.mazes.grids.GridProvider
 import io.github.ocirne.mazes.output.saveImage
 import kotlin.random.Random.Default.nextBoolean
 
-private fun wrap(name: String, f : (List<Cell>) -> Cell) {
-    val grid = CartesianGrid(11, 11)
-    GrowingTree(f).on(grid, startAt=grid[10, 5]!!)
-    saveImage(grid.toImage(), "cartesian_growingTree_$name")
+private fun wrap(grid: GridProvider, name: String, f : (List<Cell>) -> Cell) {
+    val maze = GrowingTree(f).on(grid, startAt={ it[10, 5]!! })
+    saveImage(maze.toImage(), "cartesian_growingTree_$name")
 
-    val colorization = Colorization(grid).dijkstra(grid[10, 5]!!)
-    saveImage(grid.toImage(backgroundColors = colorization), "cartesian_growingTree_${name}_colorized")
+    val colorization = Colorization(maze).dijkstra(maze[10, 5]!!)
+    saveImage(maze.toImage(backgroundColors = colorization), "cartesian_growingTree_${name}_colorized")
 }
 
 fun main() {
-    wrap("random") { list -> list.random() }
-    wrap("last") { list -> list.last() }
-    wrap("mix") { list -> if (nextBoolean()) list.last() else list.random() }
+    val grid = CartesianGrid(11, 11)
+    wrap(grid, "random") { list -> list.random() }
+    wrap(grid, "last") { list -> list.last() }
+    wrap(grid, "mix") { list -> if (nextBoolean()) list.last() else list.random() }
 }

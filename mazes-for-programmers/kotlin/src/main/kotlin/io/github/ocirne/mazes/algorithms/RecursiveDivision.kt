@@ -2,12 +2,11 @@ package io.github.ocirne.mazes.algorithms
 
 import io.github.ocirne.mazes.grids.CartesianCell
 import io.github.ocirne.mazes.grids.CartesianGrid
-import io.github.ocirne.mazes.grids.CartesianGridProvider
 import kotlin.random.Random.Default.nextInt
 
 class RecursiveDivision(private val rooms: Boolean=false) {
 
-    fun on(gridProvider: CartesianGridProvider): CartesianGrid {
+    fun on(gridProvider: CartesianGrid): CartesianGrid {
         val grid = gridProvider.createWallAdder()
         divide(grid, 0, 0, grid.getRows(), grid.getColumns())
         return grid

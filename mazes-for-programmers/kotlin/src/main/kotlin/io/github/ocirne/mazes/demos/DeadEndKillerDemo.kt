@@ -9,13 +9,13 @@ import java.awt.Color
 
 fun main() {
     val grid = CartesianGrid(11, 11)
-    AldousBroder().on(grid)
+    val maze = AldousBroder().on(grid)
 
-    DeadEndKiller().remove(grid, passes = 5, p = 0.5)
-    saveImage(grid.toImage(wallInset = 0.1), "cartesian_dead_ends_removed")
+    DeadEndKiller().remove(maze, passes = 5, p = 0.5)
+    saveImage(maze.toImage(wallInset = 0.1), "cartesian_dead_ends_removed")
 
-    val colorization2 = Colorization(grid, fromColor = Color.LIGHT_GRAY, toColor = Color.DARK_GRAY).dijkstra(grid.randomCell(noNeighborsAllowed = false))
-    saveImage(grid.toImage(wallInset = 0.1, backgroundColors = colorization2), "cartesian_dead_ends_removed_colored")
+    val colorization2 = Colorization(maze, fromColor = Color.LIGHT_GRAY, toColor = Color.DARK_GRAY).dijkstra(maze.randomCell(noNeighborsAllowed = false))
+    saveImage(maze.toImage(wallInset = 0.1, backgroundColors = colorization2), "cartesian_dead_ends_removed_colored")
 
-    saveImage(grid.toImage(wallInset = 0.2, backInset = 0.1, backgroundColors = colorization2), "cartesian_dead_ends_removed_colored_insets")
+    saveImage(maze.toImage(wallInset = 0.2, backInset = 0.1, backgroundColors = colorization2), "cartesian_dead_ends_removed_colored_insets")
 }

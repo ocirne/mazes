@@ -13,8 +13,8 @@ internal class PerfectionTest {
     @Test
     fun `Cartesian grid with Sidewinder is perfect`() {
         val grid = CartesianGrid(size, size)
-        Sidewinder().on(grid)
+        val maze = Sidewinder().on(grid)
 
-        CycleDetection(grid).assertNoCycle()
+        CycleDetection(maze).assertNoCycle()
     }
 }

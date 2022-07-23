@@ -14,9 +14,10 @@ class LinkageTest {
     @Test
     fun `Cartesian grid with Wilsons maze has only neighbors as links`() {
         val grid = CartesianGrid(size, size)
-        Wilsons().on(grid)
+        val maze = Wilsons().on(grid)
 
-        for (cell in grid.eachCell()) {
+        for (cell in maze.eachCell()) {
+            cell as CartesianCell
             val row = cell.row
             val col = cell.column
 

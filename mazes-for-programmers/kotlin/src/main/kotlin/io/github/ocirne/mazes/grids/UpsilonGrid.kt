@@ -6,7 +6,7 @@ import io.github.ocirne.mazes.output.createImage
 import java.awt.image.BufferedImage
 import kotlin.math.sqrt
 
-class UpsilonGrid(private val rows: Int, private val columns: Int) : MutableGrid {
+class UpsilonGrid(private val rows: Int, private val columns: Int) : MutableGrid, GridProvider {
 
     /**
      * a = 1 / sqrt(2)
@@ -43,6 +43,16 @@ class UpsilonGrid(private val rows: Int, private val columns: Int) : MutableGrid
                 cell.southwest = this[row + 1, col - 1]
             }
         }
+    }
+
+    override fun createPassageCarver(): UpsilonGrid {
+        return UpsilonGrid(rows, columns)
+    }
+
+    override fun createWallAdder(): UpsilonGrid {
+        val grid = UpsilonGrid(rows, columns)
+        addAllPassages()
+        return grid
     }
 
     override operator fun get(row: Int, column: Int): UpsilonCell? {

@@ -7,8 +7,8 @@ import io.github.ocirne.mazes.output.saveImage
 
 fun main() {
     val grid = CartesianGrid(11, 11)
-    Sidewinder().on(grid)
+    val maze = Sidewinder().on(grid)
 
-    val longestPath = Colorization(grid).longestPath()
-    saveImage(grid.toImage(wallInset=0.1, path = longestPath), "cartesian_recursive_backtracker_longest_path")
+    val longestPath = Colorization(maze).longestPath()
+    saveImage(maze.toImage(wallInset=0.1, path = longestPath), "cartesian_recursive_backtracker_longest_path")
 }

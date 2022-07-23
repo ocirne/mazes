@@ -6,7 +6,7 @@ import io.github.ocirne.mazes.output.createImage
 import java.awt.image.BufferedImage
 import kotlin.math.sqrt
 
-class HexGrid(private val rows: Int, private val columns: Int) : MutableGrid {
+class HexGrid(private val rows: Int, private val columns: Int) : MutableGrid, GridProvider {
 
     /**
      * area = 6 * area_triangle (see TriangleGrid)
@@ -38,6 +38,16 @@ class HexGrid(private val rows: Int, private val columns: Int) : MutableGrid {
             cell.south     = this[row + 1, col]
             cell.southeast = this[southDiagonal, col + 1]
         }
+    }
+
+    override fun createPassageCarver(): HexGrid {
+        return HexGrid(rows, columns)
+    }
+
+    override fun createWallAdder(): HexGrid {
+        val grid = HexGrid(rows, columns)
+        addAllPassages()
+        return grid
     }
 
     override operator fun get(row: Int, column: Int): HexCell? {

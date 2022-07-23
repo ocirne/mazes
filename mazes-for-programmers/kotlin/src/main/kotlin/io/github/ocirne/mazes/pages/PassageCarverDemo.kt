@@ -6,7 +6,7 @@ import io.github.ocirne.mazes.grids.*
 import io.github.ocirne.mazes.output.formatForPages
 import io.github.ocirne.mazes.output.save
 
-fun createAllGrids(): List<MutableGrid> {
+fun createAllGrids(): List<GridProvider> {
     return listOf(
         CartesianGrid(11, 11),
         PolarGrid(6),
@@ -17,14 +17,14 @@ fun createAllGrids(): List<MutableGrid> {
 }
 
 fun allGridsPlain() {
-    val images = createAllGrids().map { grid -> grid.toImage(baseSize = 20.0) }
+    val images = createAllGrids().map { grid -> (grid as MutableGrid).toImage(baseSize = 20.0) }
     formatForPages(images, 3, 2).save("all_grids_plain")
 }
 
 fun allGridsWith(algorithm: PassageCarver) {
     val images = createAllGrids().map { grid ->
-        algorithm.on(grid)
-        grid.toImage(baseSize = 20.0)
+        val maze = algorithm.on(grid)
+        maze.toImage(baseSize = 20.0)
     }
     formatForPages(images, 3, 2).save("all_grids_${algorithm::class.simpleName}")
 }

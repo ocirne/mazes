@@ -9,7 +9,7 @@ class RecursiveDivisionIsPerfectTest {
 
     @Test
     fun `Cartesian Grid with RecursiveDivision maze is perfect`() {
-        val grid = CartesianGridProvider(size, size)
+        val grid = CartesianGrid(size, size)
         val maze = RecursiveDivision(rooms = false).on(grid)
 
         CycleDetection(maze).assertNoCycle()

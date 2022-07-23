@@ -27,6 +27,12 @@ interface MutableGrid {
         return eachCell().filter { it.links().size == 1 }
     }
 
+    fun addAllPassages() {
+        for (cell in eachCell()) {
+            cell.neighbors().forEach { n -> cell.link(n, false) }
+        }
+    }
+
     enum class MODES {
         BACKGROUNDS, FAKE, WALLS, PATH, MARKER
     }

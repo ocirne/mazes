@@ -7,12 +7,12 @@ import io.github.ocirne.mazes.output.saveImage
 
 fun main() {
     val grid = HexGrid(11, 11)
-    RecursiveBacktracker().on(grid)
-    saveImage(grid.toImage(), "hex_recursive_backtracker")
+    val maze = RecursiveBacktracker().on(grid)
+    saveImage(maze.toImage(), "hex_recursive_backtracker")
 
-    val colorization1 = Colorization(grid).dijkstra(grid[10, 5]!!)
-    saveImage(grid.toImage(backgroundColors = colorization1), "hex_recursive_backtracker_colorized1")
+    val colorization1 = Colorization(maze).dijkstra(maze[10, 5]!!)
+    saveImage(maze.toImage(backgroundColors = colorization1), "hex_recursive_backtracker_colorized1")
 
-    val colorization2 = Colorization(grid).countLinks()
-    saveImage(grid.toImage(backgroundColors = colorization2), "hex_recursive_backtracker_colorized2")
+    val colorization2 = Colorization(maze).countLinks()
+    saveImage(maze.toImage(backgroundColors = colorization2), "hex_recursive_backtracker_colorized2")
 }

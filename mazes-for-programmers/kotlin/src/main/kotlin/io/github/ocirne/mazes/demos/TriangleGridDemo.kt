@@ -8,12 +8,12 @@ import io.github.ocirne.mazes.output.saveImage
 // also DeltaMaze
 fun main() {
     val grid = TriangleGrid(11, 18)
-    RecursiveBacktracker().on(grid)
-    saveImage(grid.toImage(), "triangle_recursive_backtracker")
+    val maze = RecursiveBacktracker().on(grid)
+    saveImage(maze.toImage(), "triangle_recursive_backtracker")
 
-    val colorization1 = Colorization(grid).dijkstra(grid[9, 8]!!)
-    saveImage(grid.toImage(backgroundColors = colorization1), "triangle_recursive_backtracker_colorized1")
+    val colorization1 = Colorization(maze).dijkstra(maze[9, 8]!!)
+    saveImage(maze.toImage(backgroundColors = colorization1), "triangle_recursive_backtracker_colorized1")
 
-    val colorization2 = Colorization(grid).countLinks()
-    saveImage(grid.toImage(backgroundColors = colorization2), "triangle_recursive_backtracker_colorized2")
+    val colorization2 = Colorization(maze).countLinks()
+    saveImage(maze.toImage(backgroundColors = colorization2), "triangle_recursive_backtracker_colorized2")
 }

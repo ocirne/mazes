@@ -8,12 +8,12 @@ import io.github.ocirne.mazes.output.saveImage
 fun main() {
     val grid = CartesianGrid(11, 11)
 
-    HuntAndKill().on(grid)
-    saveImage(grid.toImage(), "cartesian_huntAndKill_backtracker")
+    val maze = HuntAndKill().on(grid)
+    saveImage(maze.toImage(), "cartesian_huntAndKill_backtracker")
 
-    val colorization1 = Colorization(grid).dijkstra(grid[10, 5]!!)
-    saveImage(grid.toImage(backgroundColors = colorization1), "cartesian_huntAndKill_colorized1")
+    val colorization1 = Colorization(maze).dijkstra(maze[10, 5]!!)
+    saveImage(maze.toImage(backgroundColors = colorization1), "cartesian_huntAndKill_colorized1")
 
-    val colorization2 = Colorization(grid).countLinks()
-    saveImage(grid.toImage(backgroundColors = colorization2), "cartesian_huntAndKill_colorized2")
+    val colorization2 = Colorization(maze).countLinks()
+    saveImage(maze.toImage(backgroundColors = colorization2), "cartesian_huntAndKill_colorized2")
 }

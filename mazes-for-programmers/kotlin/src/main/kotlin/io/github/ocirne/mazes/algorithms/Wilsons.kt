@@ -1,11 +1,13 @@
 package io.github.ocirne.mazes.algorithms
 
 import io.github.ocirne.mazes.grids.Cell
+import io.github.ocirne.mazes.grids.GridProvider
 import io.github.ocirne.mazes.grids.MutableGrid
 
 class Wilsons : PassageCarver {
 
-    override fun on(grid: MutableGrid, startAt: Cell) {
+    override fun on(gridProvider: GridProvider, startAt: (MutableGrid) -> Cell): MutableGrid {
+        val grid = gridProvider.createPassageCarver()
         val unvisited = grid.eachCell().toMutableList()
         val first = unvisited.random()
         unvisited.remove(first)
@@ -23,5 +25,6 @@ class Wilsons : PassageCarver {
             path.zipWithNext { v, w -> v.link(w) }
             unvisited.removeAll(path.subList(0, path.size-1).toSet())
         }
+        return grid
     }
 }

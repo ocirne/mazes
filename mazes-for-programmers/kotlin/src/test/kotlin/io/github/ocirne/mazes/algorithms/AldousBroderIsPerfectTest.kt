@@ -10,40 +10,40 @@ class AldousBroderIsPerfectTest {
     @Test
     fun `Cartesian Grid with AldousBroder maze is perfect`() {
         val grid = CartesianGrid(size, size)
-        AldousBroder().on(grid)
+        val maze = AldousBroder().on(grid)
 
-        CycleDetection(grid).assertNoCycle()
+        CycleDetection(maze).assertNoCycle()
     }
 
     @Test
     fun `Polar Grid with AldousBroder maze is perfect`() {
         val grid = PolarGrid(size)
-        AldousBroder().on(grid)
+        val maze = AldousBroder().on(grid)
 
-        CycleDetection(grid).assertNoCycle()
+        CycleDetection(maze).assertNoCycle()
     }
 
     @Test
     fun `Triangle Grid with AldousBroder maze is perfect`() {
         val grid = TriangleGrid(size, size)
-        AldousBroder().on(grid)
+        val maze = AldousBroder().on(grid)
 
-        CycleDetection(grid).assertNoCycle()
+        CycleDetection(maze).assertNoCycle()
     }
 
     @Test
     fun `Hex Grid with AldousBroder maze is perfect`() {
         val grid = HexGrid(size, size)
-        AldousBroder().on(grid)
+        val maze = AldousBroder().on(grid)
 
-        CycleDetection(grid).assertNoCycle()
+        CycleDetection(maze).assertNoCycle()
     }
 
     @Test
     fun `Upsilon Grid with AldousBroder maze is perfect`() {
         val grid = UpsilonGrid(size, size)
-        AldousBroder().on(grid)
+        val maze = AldousBroder().on(grid)
 
-        CycleDetection(grid).assertNoCycle()
+        CycleDetection(maze).assertNoCycle()
     }
 }

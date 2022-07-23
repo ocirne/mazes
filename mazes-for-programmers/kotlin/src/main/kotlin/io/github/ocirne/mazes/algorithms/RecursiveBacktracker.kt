@@ -1,13 +1,15 @@
 package io.github.ocirne.mazes.algorithms
 
 import io.github.ocirne.mazes.grids.Cell
+import io.github.ocirne.mazes.grids.GridProvider
 import io.github.ocirne.mazes.grids.MutableGrid
 
 class RecursiveBacktracker : PassageCarver {
 
-    override fun on(grid: MutableGrid, startAt: Cell) {
+    override fun on(gridProvider: GridProvider, startAt: (MutableGrid) -> Cell): MutableGrid {
+        val grid = gridProvider.createPassageCarver()
         val stack = ArrayDeque<Cell>()
-        stack.addLast(startAt)
+        stack.addLast(startAt.invoke(grid))
         while (stack.isNotEmpty()) {
             val current = stack.last()
             val neighbors = current.neighbors().filter { it.links().isEmpty() }
@@ -20,6 +22,7 @@ class RecursiveBacktracker : PassageCarver {
                 stack.addLast(neighbor)
             }
         }
+        return grid
     }
 
     fun recursivelyOn(grid: MutableGrid, start_at: Cell = grid.randomCell()): MutableGrid {

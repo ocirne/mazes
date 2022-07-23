@@ -7,12 +7,12 @@ import io.github.ocirne.mazes.output.saveImage
 
 fun main() {
     val grid = WeaveGrid(11, 11)
-    RecursiveBacktracker().on(grid)
+    val maze = RecursiveBacktracker().on(grid)
 
-    val colorization = Colorization(grid).dijkstra()
+    val colorization = Colorization(maze).dijkstra()
 
     saveImage(
-        grid.toImage(
+        maze.toImage(
             wallInset = 0.2,
             backInset = 0.2,
             backgroundColors = colorization

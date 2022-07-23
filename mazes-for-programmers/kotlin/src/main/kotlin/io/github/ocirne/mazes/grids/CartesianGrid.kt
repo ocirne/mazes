@@ -8,7 +8,7 @@ import io.github.ocirne.mazes.output.createImage
 import java.awt.image.BufferedImage
 
 
-open class CartesianGrid(private val rows: Int, private val columns: Int) : MutableGrid {
+open class CartesianGrid(private val rows: Int, private val columns: Int) : MutableGrid, GridProvider {
 
     private val correctionFactor = 1.0
 
@@ -33,6 +33,16 @@ open class CartesianGrid(private val rows: Int, private val columns: Int) : Muta
             cell.west = this[row, col - 1]
             cell.east = this[row, col + 1]
         }
+    }
+
+    override fun createPassageCarver(): CartesianGrid {
+        return CartesianGrid(rows, columns)
+    }
+
+    override fun createWallAdder(): CartesianGrid {
+        val grid = CartesianGrid(rows, columns)
+        addAllPassages()
+        return grid
     }
 
     override operator fun get(row: Int, column: Int): CartesianCell? {

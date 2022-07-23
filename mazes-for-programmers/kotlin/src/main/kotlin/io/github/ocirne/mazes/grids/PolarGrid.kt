@@ -14,7 +14,7 @@ import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
 
-open class PolarGrid(private val rows: Int) : MutableGrid {
+open class PolarGrid(private val rows: Int) : MutableGrid, GridProvider {
 
     private val correctionFactor = 1.0
 
@@ -59,6 +59,16 @@ open class PolarGrid(private val rows: Int) : MutableGrid {
                 cell.inward = parent
             }
         }
+    }
+
+    override fun createPassageCarver(): PolarGrid {
+        return PolarGrid(rows)
+    }
+
+    override fun createWallAdder(): PolarGrid {
+        val grid = PolarGrid(rows)
+        addAllPassages()
+        return grid
     }
 
     operator fun get(row: Int): Array<PolarCell>? {

@@ -8,9 +8,9 @@ import io.github.ocirne.mazes.output.save
 
 fun main() {
     val grid = CartesianGrid(21, 21)
-    BinaryTree().on(grid)
-    grid.toImage().save("cartesian_binarytree")
+    val maze = BinaryTree().on(grid)
+    maze.toImage().save("cartesian_binarytree")
 
-    val colorization = Colorization(grid).dijkstra(grid[20, 10]!!)
-    grid.toImage(backgroundColors = colorization).save("cartesian_binarytree_colorized")
+    val colorization = Colorization(maze).dijkstra(maze[20, 10]!!)
+    maze.toImage(backgroundColors = colorization).save("cartesian_binarytree_colorized")
 }

@@ -9,10 +9,10 @@ import io.github.ocirne.mazes.output.save
 fun main() {
     (1.. 3).forEach { i ->
         val grid = CartesianGrid(21, 21)
-        Sidewinder().on(grid)
-        grid.toImage().save("cartesian_sidewinder_$i")
+        val maze = Sidewinder().on(grid)
+        maze.toImage().save("cartesian_sidewinder_$i")
 
-        val colorization = Colorization(grid).dijkstra(grid[20, 10]!!)
-        grid.toImage(backgroundColors = colorization).save("cartesian_sidewinder_${i}_colorized")
+        val colorization = Colorization(maze).dijkstra(maze[20, 10]!!)
+        maze.toImage(backgroundColors = colorization).save("cartesian_sidewinder_${i}_colorized")
     }
 }

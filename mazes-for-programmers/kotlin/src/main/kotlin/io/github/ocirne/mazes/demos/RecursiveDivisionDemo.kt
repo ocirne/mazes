@@ -2,11 +2,11 @@ package io.github.ocirne.mazes.demos
 
 import io.github.ocirne.mazes.algorithms.RecursiveDivision
 import io.github.ocirne.mazes.colorization.Colorization
-import io.github.ocirne.mazes.grids.CartesianGridProvider
+import io.github.ocirne.mazes.grids.CartesianGrid
 import io.github.ocirne.mazes.output.save
 
 fun main() {
-    val grid = CartesianGridProvider(21, 21)
+    val grid = CartesianGrid(21, 21)
 
     val maze = RecursiveDivision().on(grid)
     maze.toImage().save("cartesian_recursive_division")

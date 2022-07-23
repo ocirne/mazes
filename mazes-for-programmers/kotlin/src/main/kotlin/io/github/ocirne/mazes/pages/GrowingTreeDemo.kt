@@ -16,9 +16,9 @@ fun allGridsWith(marker: String, algorithm: GrowingTree) {
         UpsilonGrid(11, 11)
     )
     val images = grids.map { grid ->
-        algorithm.on(grid, startAt=grid[0, 0]!!)
-        val colorization = Colorization(grid).dijkstra(grid[0, 0]!!)
-        grid.toImage(baseSize = 20.0, backgroundColors = colorization)
+        val maze = algorithm.on(grid, startAt={it[0, 0]!!})
+        val colorization = Colorization(maze).dijkstra(maze[0, 0]!!)
+        maze.toImage(baseSize = 20.0, backgroundColors = colorization)
     }
     formatForPages(images, 3, 2).save("all_grids_${algorithm::class.simpleName}_${marker}_colorized")
 }
