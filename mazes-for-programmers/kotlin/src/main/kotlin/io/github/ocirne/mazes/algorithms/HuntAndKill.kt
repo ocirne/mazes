@@ -1,11 +1,11 @@
 package io.github.ocirne.mazes.algorithms
 
 import io.github.ocirne.mazes.grids.Cell
-import io.github.ocirne.mazes.grids.Grid
+import io.github.ocirne.mazes.grids.MutableGrid
 
 class HuntAndKill : PassageCarver {
 
-    override fun on(grid: Grid, startAt: Cell) {
+    override fun on(grid: MutableGrid, startAt: Cell) {
         var current: Cell? = startAt
         while (current != null) {
             val unvisitedNeighbors = current.neighbors().filter { it.links().isEmpty() }

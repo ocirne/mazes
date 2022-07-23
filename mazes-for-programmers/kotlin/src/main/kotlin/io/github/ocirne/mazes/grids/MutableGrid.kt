@@ -6,7 +6,7 @@ import io.github.ocirne.mazes.colorization.DefaultWalls
 import io.github.ocirne.mazes.colorization.Strokes
 import java.awt.image.BufferedImage
 
-interface Grid {
+interface MutableGrid {
 
     operator fun get(row: Int, column: Int): Cell?
 

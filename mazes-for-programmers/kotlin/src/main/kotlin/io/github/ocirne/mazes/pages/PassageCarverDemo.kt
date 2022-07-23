@@ -6,7 +6,7 @@ import io.github.ocirne.mazes.grids.*
 import io.github.ocirne.mazes.output.formatForPages
 import io.github.ocirne.mazes.output.save
 
-fun createAllGrids(): List<Grid> {
+fun createAllGrids(): List<MutableGrid> {
     return listOf(
         CartesianGrid(11, 11),
         PolarGrid(6),

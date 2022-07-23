@@ -14,7 +14,7 @@ import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
 
-open class PolarGrid(private val rows: Int) : Grid {
+open class PolarGrid(private val rows: Int) : MutableGrid {
 
     private val correctionFactor = 1.0
 
@@ -138,27 +138,27 @@ open class PolarGrid(private val rows: Int) : Grid {
         if (debug)
             debugGrid(g, cellSize, center, wallInset)
 
-        for (mode in Grid.MODES.values()) {
+        for (mode in MutableGrid.MODES.values()) {
             for (cell in eachCell()) {
                 when (mode) {
-                    Grid.MODES.BACKGROUNDS -> {
+                    MutableGrid.MODES.BACKGROUNDS -> {
                         cell.prepareCoordinates(this, center, cellSize, backInset)
                         cell.drawBackground(g, backgroundColors)
                     }
-                    Grid.MODES.FAKE -> {
+                    MutableGrid.MODES.FAKE -> {
                         cell.prepareCoordinates(this, center, cellSize, backInset)
                         cell.drawSpaceBetweenWalls(g, 2 * backInset * cellSize)
                     }
-                    Grid.MODES.WALLS -> {
+                    MutableGrid.MODES.WALLS -> {
                         // TODO vielleicht trennen in coordinaten und insets?
                         cell.prepareCoordinates(this, center, cellSize, wallInset)
                         cell.drawWalls(g, wallColors, strokes)
                     }
-                    Grid.MODES.PATH -> {
+                    MutableGrid.MODES.PATH -> {
                         cell.prepareCoordinates(this, center, cellSize)
                         cell.drawPath(g, path, strokes,this, center, cellSize)
                     }
-                    Grid.MODES.MARKER -> {
+                    MutableGrid.MODES.MARKER -> {
                         cell.prepareCoordinates(this, center, cellSize)
                         cell.drawMarker(g, marker, this, center, cellSize)
                     }

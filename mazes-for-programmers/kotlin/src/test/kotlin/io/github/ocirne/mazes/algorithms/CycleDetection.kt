@@ -1,12 +1,12 @@
 package io.github.ocirne.mazes.algorithms
 
 import io.github.ocirne.mazes.grids.Cell
-import io.github.ocirne.mazes.grids.Grid
+import io.github.ocirne.mazes.grids.MutableGrid
 import io.kotest.matchers.collections.shouldNotContain
 import io.kotest.matchers.shouldBe
 
 /** see https://en.wikipedia.org/wiki/Cycle_(graph_theory) */
-class CycleDetection(private val grid: Grid) {
+class CycleDetection(private val grid: MutableGrid) {
     private val visited: MutableSet<Cell> = mutableSetOf()
     private val finished: MutableSet<Cell> = mutableSetOf()
 

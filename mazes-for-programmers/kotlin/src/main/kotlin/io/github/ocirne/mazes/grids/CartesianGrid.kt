@@ -2,13 +2,13 @@ package io.github.ocirne.mazes.grids
 
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.colorization.Strokes
-import io.github.ocirne.mazes.grids.Grid.MODES.BACKGROUNDS
-import io.github.ocirne.mazes.grids.Grid.MODES.WALLS
+import io.github.ocirne.mazes.grids.MutableGrid.MODES.BACKGROUNDS
+import io.github.ocirne.mazes.grids.MutableGrid.MODES.WALLS
 import io.github.ocirne.mazes.output.createImage
 import java.awt.image.BufferedImage
 
 
-open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid {
+open class CartesianGrid(private val rows: Int, private val columns: Int) : MutableGrid {
 
     private val correctionFactor = 1.0
 
@@ -85,7 +85,7 @@ open class CartesianGrid(private val rows: Int, private val columns: Int) : Grid
 
         val (image, g) = createImage(imgWidth + 1, imgHeight + 1)
 
-        for (mode in Grid.MODES.values()) {
+        for (mode in MutableGrid.MODES.values()) {
             for (cell in eachCell()) {
                 if (!drawDeadCells && cell.links().isEmpty())
                     continue

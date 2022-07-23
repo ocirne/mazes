@@ -4,7 +4,7 @@ import io.github.ocirne.mazes.grids.*
 
 class BinaryTree : PassageCarver {
 
-    override fun on(grid: Grid, startAt: Cell) {
+    override fun on(grid: MutableGrid, startAt: Cell) {
         // sieht doof aus, aber funktioniert
         return when (grid) {
             is CartesianGrid -> on(grid)
@@ -16,7 +16,7 @@ class BinaryTree : PassageCarver {
         }
     }
 
-    private fun generalizedBinaryTree(grid: Grid, availableNeighbors: (cell: Cell) -> List<Cell>) {
+    private fun generalizedBinaryTree(grid: MutableGrid, availableNeighbors: (cell: Cell) -> List<Cell>) {
         for (cell in grid.eachCell()) {
             val neighbors = availableNeighbors(cell)
             if (neighbors.isEmpty()) {

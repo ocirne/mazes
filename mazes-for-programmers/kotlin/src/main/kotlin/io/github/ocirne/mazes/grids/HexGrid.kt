@@ -6,7 +6,7 @@ import io.github.ocirne.mazes.output.createImage
 import java.awt.image.BufferedImage
 import kotlin.math.sqrt
 
-class HexGrid(private val rows: Int, private val columns: Int) : Grid {
+class HexGrid(private val rows: Int, private val columns: Int) : MutableGrid {
 
     /**
      * area = 6 * area_triangle (see TriangleGrid)
@@ -80,10 +80,10 @@ class HexGrid(private val rows: Int, private val columns: Int) : Grid {
 
         val (image, g) = createImage(imgWidth + 1, imgHeight + 1)
 
-        for (mode in Grid.MODES.values()) {
+        for (mode in MutableGrid.MODES.values()) {
             for (cell in eachCell()) {
                 cell.prepareCoordinates(cellSize, height, aSize, bSize)
-                if (mode == Grid.MODES.BACKGROUNDS) {
+                if (mode == MutableGrid.MODES.BACKGROUNDS) {
                     cell.drawBackground(g, backgroundColors)
                 } else {
                     cell.drawWalls(g, wallColors, strokes)
