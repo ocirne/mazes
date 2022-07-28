@@ -2,7 +2,7 @@ package io.github.ocirne.mazes.demos
 
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.algorithms.RecursiveBacktracker
-import io.github.ocirne.mazes.grids.PolarGrid
+import io.github.ocirne.mazes.grids.polar.PolarGrid
 import io.github.ocirne.mazes.output.saveImage
 import java.awt.Color
 

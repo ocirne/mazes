@@ -1,11 +1,16 @@
 package io.github.ocirne.mazes.algorithms
 
 import io.github.ocirne.mazes.grids.*
-import io.github.ocirne.mazes.grids.CartesianGrid.CartesianMaze
-import io.github.ocirne.mazes.grids.HexGrid.HexMaze
-import io.github.ocirne.mazes.grids.PolarGrid.PolarMaze
-import io.github.ocirne.mazes.grids.TriangleGrid.TriangleMaze
-import io.github.ocirne.mazes.grids.UpsilonGrid.UpsilonMaze
+import io.github.ocirne.mazes.grids.cartesian.CartesianGrid.CartesianMaze
+import io.github.ocirne.mazes.grids.hex.HexGrid.HexMaze
+import io.github.ocirne.mazes.grids.polar.PolarGrid.PolarMaze
+import io.github.ocirne.mazes.grids.triangle.TriangleGrid.TriangleMaze
+import io.github.ocirne.mazes.grids.upsilon.UpsilonGrid.UpsilonMaze
+import io.github.ocirne.mazes.grids.cartesian.CartesianGrid
+import io.github.ocirne.mazes.grids.hex.HexGrid
+import io.github.ocirne.mazes.grids.polar.PolarGrid
+import io.github.ocirne.mazes.grids.triangle.TriangleGrid
+import io.github.ocirne.mazes.grids.upsilon.UpsilonGrid
 
 class BinaryTree : PassageCarver {
 

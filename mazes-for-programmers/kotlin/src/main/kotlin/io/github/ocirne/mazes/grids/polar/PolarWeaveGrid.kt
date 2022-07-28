@@ -1,7 +1,8 @@
-package io.github.ocirne.mazes.grids
+package io.github.ocirne.mazes.grids.polar
 
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.colorization.Strokes
+import io.github.ocirne.mazes.grids.Cell
 import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Graphics2D
@@ -11,7 +12,7 @@ import kotlin.math.roundToInt
 
 class PolarWeaveGrid(private val rows: Int): PolarGrid(rows) {
 
-    class PolarWeaveMaze(private val rows: Int) : PolarGrid.PolarMaze(rows) {
+    class PolarWeaveMaze(private val rows: Int) : PolarMaze(rows) {
 
         private val underCells: MutableList<PolarCell> = mutableListOf()
 

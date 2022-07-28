@@ -3,7 +3,7 @@ package io.github.ocirne.mazes.demos
 import io.github.ocirne.mazes.algorithms.AldousBroder
 import io.github.ocirne.mazes.algorithms.DeadEndKiller
 import io.github.ocirne.mazes.colorization.Colorization
-import io.github.ocirne.mazes.grids.CartesianGrid
+import io.github.ocirne.mazes.grids.cartesian.CartesianGrid
 import io.github.ocirne.mazes.output.saveImage
 import java.awt.Color
 

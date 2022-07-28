@@ -1,13 +1,15 @@
 package io.github.ocirne.mazes.algorithms
 
-import io.github.ocirne.mazes.grids.CartesianGrid.CartesianCell
-import io.github.ocirne.mazes.grids.CartesianGrid.CartesianMaze
+import io.github.ocirne.mazes.grids.Cell
+import io.github.ocirne.mazes.grids.cartesian.CartesianGrid.CartesianCell
+import io.github.ocirne.mazes.grids.cartesian.CartesianGrid.CartesianMaze
 import io.github.ocirne.mazes.grids.GridProvider
+import io.github.ocirne.mazes.grids.Maze
 import kotlin.random.Random.Default.nextInt
 
-class RecursiveDivision(private val rooms: Boolean=false) {
+class RecursiveDivision(private val rooms: Boolean=false): WallAdder {
 
-    fun on(gridProvider: GridProvider): CartesianMaze {
+    override fun on(gridProvider: GridProvider, startAt: (Maze) -> Cell): CartesianMaze {
         val grid = gridProvider.forWallAdder()
         grid as CartesianMaze
         divide(grid, 0, 0, grid.getRows(), grid.getColumns())

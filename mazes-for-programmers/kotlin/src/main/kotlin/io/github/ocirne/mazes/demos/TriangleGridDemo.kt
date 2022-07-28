@@ -2,7 +2,7 @@ package io.github.ocirne.mazes.demos
 
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.algorithms.RecursiveBacktracker
-import io.github.ocirne.mazes.grids.TriangleGrid
+import io.github.ocirne.mazes.grids.triangle.TriangleGrid
 import io.github.ocirne.mazes.output.saveImage
 
 // also DeltaMaze

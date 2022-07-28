@@ -34,7 +34,8 @@ abstract class Cell {
 
     abstract fun neighbors(): List<Cell>
 
-    abstract fun drawBackground(g: Graphics2D, colorization: Colorization)
+    // TODO
+    open fun drawBackground(g: Graphics2D, colorization: Colorization) {}
 
-    abstract fun drawWalls(g: Graphics2D, colorization: Colorization, strokes: Strokes)
+    open fun drawWalls(g: Graphics2D, colorization: Colorization, strokes: Strokes) {}
 }

@@ -1,8 +1,12 @@
-package io.github.ocirne.mazes.pages
+package io.github.ocirne.mazes.demos
 
 import io.github.ocirne.mazes.algorithms.*
 import io.github.ocirne.mazes.colorization.Colorization
-import io.github.ocirne.mazes.grids.*
+import io.github.ocirne.mazes.grids.cartesian.CartesianGrid
+import io.github.ocirne.mazes.grids.hex.HexGrid
+import io.github.ocirne.mazes.grids.polar.PolarGrid
+import io.github.ocirne.mazes.grids.triangle.TriangleGrid
+import io.github.ocirne.mazes.grids.upsilon.UpsilonGrid
 import io.github.ocirne.mazes.output.formatForPages
 import io.github.ocirne.mazes.output.save
 import kotlin.random.Random.Default.nextBoolean

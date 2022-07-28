@@ -1,8 +1,8 @@
 package io.github.ocirne.mazes.algorithms
 
 import io.github.ocirne.mazes.grids.*
-import io.github.ocirne.mazes.grids.CartesianGrid.CartesianCell
-import io.github.ocirne.mazes.grids.CartesianGrid.CartesianMaze
+import io.github.ocirne.mazes.grids.cartesian.CartesianGrid.CartesianCell
+import io.github.ocirne.mazes.grids.cartesian.CartesianGrid.CartesianMaze
 import kotlin.random.Random.Default.nextBoolean
 
 class Sidewinder : PassageCarver {

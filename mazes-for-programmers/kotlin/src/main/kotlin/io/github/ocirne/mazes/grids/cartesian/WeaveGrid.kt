@@ -1,7 +1,8 @@
-package io.github.ocirne.mazes.grids
+package io.github.ocirne.mazes.grids.cartesian
 
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.colorization.Strokes
+import io.github.ocirne.mazes.grids.Cell
 import java.awt.Graphics2D
 import java.awt.geom.Line2D
 

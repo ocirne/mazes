@@ -1,6 +1,6 @@
 package io.github.ocirne.mazes.algorithms
 
-import io.github.ocirne.mazes.grids.*
+import io.github.ocirne.mazes.grids.cartesian.CartesianGrid
 import org.junit.jupiter.api.Test
 
 class RecursiveDivisionIsPerfectTest {

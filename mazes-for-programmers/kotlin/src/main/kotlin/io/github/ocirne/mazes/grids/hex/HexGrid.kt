@@ -1,7 +1,10 @@
-package io.github.ocirne.mazes.grids
+package io.github.ocirne.mazes.grids.hex
 
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.colorization.Strokes
+import io.github.ocirne.mazes.grids.Cell
+import io.github.ocirne.mazes.grids.GridProvider
+import io.github.ocirne.mazes.grids.Maze
 import io.github.ocirne.mazes.output.createImage
 import java.awt.Graphics2D
 import java.awt.Polygon

@@ -2,7 +2,7 @@ package io.github.ocirne.mazes.demos
 
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.algorithms.RecursiveBacktracker
-import io.github.ocirne.mazes.grids.UpsilonGrid
+import io.github.ocirne.mazes.grids.upsilon.UpsilonGrid
 import io.github.ocirne.mazes.output.saveImage
 
 fun main() {
