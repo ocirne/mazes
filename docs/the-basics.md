@@ -9,9 +9,9 @@ Nothing to code so far.
 
 ## Automating and Displaying Your Mazes
 
-### Introducing Our Basic Grid
+### Introducing Our Basic Grid & Displaying a Maze on a Terminal
 
-Printing the cartesian grid as ASCII art:
+Printing the (cartesian) grid as ASCII art:
 
 ```
 +---+---+---+---+
@@ -29,7 +29,22 @@ Printing the cartesian grid as ASCII art:
 | [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/cartesian_grid_demo.py)
 
 ### Implementing the Binary Tree Algorithm
-### Displaying a Maze on a Terminal
+
+```
++---+---+---+---+
+|               |
++   +   +---+   +
+|   |   |       |
++   +---+   +   +
+|   |       |   |
++---+---+   +   +
+|           |   |
++---+---+---+---+
+```
+
+[Kotlin](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/kotlin/src/main/kotlin/io/github/ocirne/mazes/demos/BinaryTreeAsciiDemo.kt)
+| [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/binary_tree.py)
+
 ### Implementing the Sidewinder Algorithm
 ### Rendering a Maze as an Image
 ### Your Turn

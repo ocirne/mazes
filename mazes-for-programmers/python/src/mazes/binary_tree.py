@@ -1,4 +1,4 @@
-from random import choice
+from random import choice, seed
 from grid import Grid
 from image_saver import save
 
@@ -16,6 +16,23 @@ class BinaryTree:
                 neighbor = choice(neighbors)
                 cell.link(neighbor)
         return grid
+
+
+def binary_tree_demo():
+    """
+    >>> seed(42)
+    >>> print(BinaryTree().on(Grid(4, 4)))
+    +---+---+---+---+
+    |               |
+    +   +   +   +   +
+    |   |   |   |   |
+    +   +---+   +   +
+    |   |       |   |
+    +   +   +   +   +
+    |   |   |   |   |
+    +---+---+---+---+
+    <BLANKLINE>
+    """
 
 
 if __name__ == "__main__":
