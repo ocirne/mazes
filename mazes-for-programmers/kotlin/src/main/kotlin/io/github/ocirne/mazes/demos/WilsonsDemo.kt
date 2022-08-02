@@ -3,7 +3,7 @@ package io.github.ocirne.mazes.demos
 import io.github.ocirne.mazes.algorithms.Wilsons
 import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.grids.cartesian.CartesianGrid
-import io.github.ocirne.mazes.grids.cartesian.createAsciiArt
+import io.github.ocirne.mazes.grids.cartesian.createAsciiGrid
 import io.github.ocirne.mazes.grids.cartesian.createImage
 import io.github.ocirne.mazes.grids.cartesian.save
 
@@ -11,7 +11,7 @@ fun main() {
     val grid = CartesianGrid(11, 11)
 
     val maze = Wilsons().on(grid)
-    maze.createAsciiArt().print()
+    println(maze.createAsciiGrid())
     maze.createImage().save("cartesian_wilsons")
 
     val background = Colorization(maze).dijkstra(maze[10, 5]!!)

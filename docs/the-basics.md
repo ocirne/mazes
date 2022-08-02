@@ -4,13 +4,30 @@ title: The Basics
 ---
 
 ## Your First Random Mazes excerpt
-### Preparing the Grid
-### The Binary Tree Algorithm [[Python](TODO) | [Kotlin](TODO)]
-### The Sidewinder Algorithm
-### Your Turn
+
+Nothing to code so far.
 
 ## Automating and Displaying Your Mazes
+
 ### Introducing Our Basic Grid
+
+Printing the cartesian grid as ASCII art:
+
+```
++---+---+---+---+
+|   |   |   |   |
++---+---+---+---+
+|   |   |   |   |
++---+---+---+---+
+|   |   |   |   |
++---+---+---+---+
+|   |   |   |   |
++---+---+---+---+
+```
+
+[Kotlin](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/kotlin/src/main/kotlin/io/github/ocirne/mazes/demos/CartesianGridAsciiDemo.kt)
+| [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/cartesian_grid_demo.py)
+
 ### Implementing the Binary Tree Algorithm
 ### Displaying a Maze on a Terminal
 ### Implementing the Sidewinder Algorithm
