@@ -1,4 +1,4 @@
-from random import choice, randint
+from random import choice, randint, seed
 from grid import Grid
 from image_saver import save
 
@@ -21,6 +21,23 @@ class Sidewinder:
                 else:
                     cell.link(cell.east)
         return grid
+
+
+def sidewinder_demo():
+    """
+    >>> seed(42)
+    >>> print(Sidewinder().on(Grid(4, 4)))
+    +---+---+---+---+
+    |               |
+    +   +   +   +   +
+    |   |   |   |   |
+    +   +---+---+   +
+    |           |   |
+    +   +   +---+---+
+    |   |           |
+    +---+---+---+---+
+    <BLANKLINE>
+    """
 
 
 if __name__ == "__main__":
