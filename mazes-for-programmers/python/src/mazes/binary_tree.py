@@ -18,10 +18,10 @@ class BinaryTree:
         return grid
 
 
-def binary_tree_demo():
+def binary_tree_ascii_demo():
     """
     >>> seed(42)
-    >>> print(BinaryTree().on(Grid(4, 4)))
+    >>> print(binary_tree_ascii_demo())
     +---+---+---+---+
     |               |
     +   +   +   +   +
@@ -33,6 +33,7 @@ def binary_tree_demo():
     +---+---+---+---+
     <BLANKLINE>
     """
+    return BinaryTree().on(Grid(4, 4))
 
 
 def binary_tree_image_demo():
@@ -40,5 +41,25 @@ def binary_tree_image_demo():
     save(maze.to_img(), filename="binary_tree.png")
 
 
+def binary_tree_unicode_demo():
+    """
+    >>> seed(42)
+    >>> print(binary_tree_unicode_demo())
+    ┏━━━━━━━━━━━━━━━┓
+    ┃               ┃
+    ┃   ╷   ╷   ╷   ┃
+    ┃   │   │   │   ┃
+    ┃   ├───┘   │   ┃
+    ┃   │       │   ┃
+    ┃   │   ╷   │   ┃
+    ┃   │   │   │   ┃
+    ┗━━━┷━━━┷━━━┷━━━┛
+    <BLANKLINE>
+    """
+    return BinaryTree().on(Grid(4, 4)).to_str_unicode()
+
+
 if __name__ == "__main__":
+    print(binary_tree_ascii_demo())
+    print(binary_tree_unicode_demo())
     binary_tree_image_demo()

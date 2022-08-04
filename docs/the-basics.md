@@ -69,7 +69,21 @@ Printing the (cartesian) grid as ASCII art:
 [Kotlin](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/kotlin/src/main/kotlin/io/github/ocirne/mazes/demos/BinaryTreeDemo.kt)
 | [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/binary_tree.py)
 
-### Your Turn
+### Bonus: Unicode Grids
+
+```
+┏━━━━━━━━━━━━━━━┓
+┃               ┃
+┃   ╷   ╷   ╷   ┃
+┃   │   │   │   ┃
+┃   │   ├───┘   ┃
+┃   │   │       ┃
+┠───┴───┘   ╷   ┃
+┃           │   ┃
+┗━━━━━━━━━━━┷━━━┛
+```
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/binary_tree.py)
 
 ## Finding Solutions
 ### Dijkstra’s Algorithm

@@ -200,25 +200,25 @@ class Grid:
 
         # top boundary: for every cell top boundary and top right corner
         for x in range(self.columns):
-            top_boundary = self.horizontal_wall(None, self[x, 0])
-            top_right_corner = self.corner(None, None, self[x, 0], self[x + 1, 0])
+            top_boundary = self.horizontal_wall(None, self[0, x])
+            top_right_corner = self.corner(None, None, self[0, x], self[0, x + 1])
             output += top_boundary + top_right_corner
         output += "\n"
 
         for y in range(self.rows):
             # first cell handles the left wall and bottom left corner
-            top = self.vertical_wall(None, self[0, y])
-            bottom_left_corner = self.corner(None, self[0, y], None, self[0, y + 1])
+            top = self.vertical_wall(None, self[y, 0])
+            bottom_left_corner = self.corner(None, self[y, 0], None, self[y + 1, 0])
             bottom = bottom_left_corner
 
             # every cell handle right wall and bottom right corner
             for x in range(self.columns):
-                body = self.contents_of(self[x, y])
-                east_boundary = self.vertical_wall(self[x, y], self[x + 1, y])
+                body = self.contents_of(self[y, x])
+                east_boundary = self.vertical_wall(self[y, x], self[y, x + 1])
                 top += body + east_boundary
 
-                south_boundary = self.horizontal_wall(self[x, y], self[x, y + 1])
-                bottom_right_corner = self.corner(self[x, y], self[x + 1, y], self[x, y + 1], self[x + 1, y + 1])
+                south_boundary = self.horizontal_wall(self[y, x], self[y + 1, x])
+                bottom_right_corner = self.corner(self[y, x], self[y, x + 1], self[y + 1, x], self[y + 1, x + 1])
                 bottom += south_boundary + bottom_right_corner
             output += top + "\n" + bottom + "\n"
 
