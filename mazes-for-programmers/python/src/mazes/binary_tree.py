@@ -35,11 +35,10 @@ def binary_tree_demo():
     """
 
 
-if __name__ == "__main__":
-    grid = Grid(4, 4)
-    BinaryTree().on(grid)
-    print(grid)
+def binary_tree_image_demo():
+    maze = BinaryTree().on(Grid(4, 4))
+    save(maze.to_img(), filename="binary_tree.png")
 
-    save(grid.to_img(), filename="binary_tree.png")
-    dead_ends = grid.dead_ends()
-    print("%s dead-ends" % len(dead_ends))
+
+if __name__ == "__main__":
+    binary_tree_image_demo()

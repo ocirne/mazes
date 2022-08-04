@@ -17,7 +17,7 @@ class CartesianImage(val maze: CartesianGrid.CartesianMaze) {
 
     private val correctionFactor = 1.0
 
-    val baseSize = 10.0
+    val baseSize = 40.0
     val wallInset = 0.0
     val backInset = 0.0
 

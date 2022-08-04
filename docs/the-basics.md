@@ -63,6 +63,12 @@ Printing the (cartesian) grid as ASCII art:
 | [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/sidewinder.py)
 
 ### Rendering a Maze as an Image
+
+![Cartesian Binary Tree](images/cartesian_binarytree.png)
+
+[Kotlin](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/kotlin/src/main/kotlin/io/github/ocirne/mazes/demos/BinaryTreeDemo.kt)
+| [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/binary_tree.py)
+
 ### Your Turn
 
 ## Finding Solutions
