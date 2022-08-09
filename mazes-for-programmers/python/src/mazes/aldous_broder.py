@@ -1,6 +1,5 @@
-from grid import Grid
 from random import choice
-
+from colored_grid import ColoredGrid
 from image_saver import save
 
 
@@ -18,8 +17,17 @@ class AldousBroder:
         return grid
 
 
+def aldous_broder_demo():
+    grid = ColoredGrid(11, 11)
+    AldousBroder.on(grid)
+    save(grid.to_img(cell_size=20), "aldous_broder.png")
+
+    middle = grid[grid.rows // 2, grid.columns // 2]
+    grid.set_distances(middle.distances())
+
+    save(grid.to_img(cell_size=20), "aldous_broder_colored.png")
+
+
 # Demo
 if __name__ == "__main__":
-    grid = Grid(20, 20)
-    AldousBroder.on(grid)
-    save(grid.to_img(), "aldous_broder.png")
+    aldous_broder_demo()

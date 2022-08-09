@@ -151,11 +151,20 @@ Printing the (cartesian) grid as ASCII art:
 ### Your Turn
 
 ## Avoiding Bias with Random Walks excerpt
-### Understanding Biases
-### The Aldous-Broder Algorithm
-### Implementing Aldous-Broder
+### Aldous-Broder
+
+![Cartesian Aldous Broder](images/aldous_broder.png)
+![Cartesian Aldous Broder Colored](images/aldous_broder_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/aldous_broder.py)
+
 ### Wilson’s Algorithm
-### Implementing Wilson’s Algorithm
+
+![Cartesian Wilsons](images/wilsons.png)
+![Cartesian Wilsons Colored](images/wilsons_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/wilsons.py)
+
 ### Your Turn
 
 ## Adding Constraints to Random Walks

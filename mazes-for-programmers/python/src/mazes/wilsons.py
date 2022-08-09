@@ -1,7 +1,7 @@
-from grid import Grid
 from random import choice
 
 from image_saver import save
+from colored_grid import ColoredGrid
 
 
 class Wilsons:
@@ -26,9 +26,17 @@ class Wilsons:
         return grid
 
 
+def wilsons_demo():
+    grid = ColoredGrid(11, 11)
+    Wilsons.on(grid)
+    save(grid.to_img(cell_size=20), filename="wilsons.png")
+
+    middle = grid[grid.rows // 2, grid.columns // 2]
+    grid.set_distances(middle.distances())
+
+    save(grid.to_img(cell_size=20), "wilsons_colored.png")
+
+
 # Demo
 if __name__ == "__main__":
-    grid = Grid(20, 20)
-    Wilsons.on(grid)
-
-    save(grid.to_img(), filename="wilsons.png")
+    wilsons_demo()
