@@ -86,9 +86,43 @@ Printing the (cartesian) grid as ASCII art:
 [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/binary_tree.py)
 
 ## Finding Solutions
-### Dijkstra’s Algorithm
-### Implementing Dijkstra’s
+
+### Implementing Dijkstra’s Algorithm
+
+```
++---+---+---+---+---+
+|  0   1   2   3   4|
++   +---+---+---+   +
+|  1|  8   7   6   5|
++---+---+   +   +   +
+| 10   9   8|  7|  6|
++   +   +---+---+   +
+| 11| 10  11  12|  7|
++---+---+---+   +   +
+| 16  15  14  13|  8|
++---+---+---+---+---+
+```
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/dijkstra.py)
+
 ### Finding the Shortest Path
+
+```
++---+---+---+---+---+
+|  0   1   2   3    |
++---+---+---+   +   +
+|          5   4|   |
++---+---+   +   +   +
+|  8   7   6|   |   |
++   +   +   +---+   +
+|  9|   |   |       |
++   +---+---+   +   +
+| 10|           |   |
++---+---+---+---+---+
+```
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/dijkstra.py)
+
 ### Making Challenging Mazes
 ### Coloring Your Mazes
 ### Your Turn
