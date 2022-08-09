@@ -142,6 +142,12 @@ Printing the (cartesian) grid as ASCII art:
 [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/longest_path.py)
 
 ### Coloring Your Mazes
+
+![Cartesian Binary Tree Colored](images/coloring_binarytree.png)
+![Cartesian Sidewinder Colored](images/coloring_sidewinder.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/coloring.py)
+
 ### Your Turn
 
 ## Avoiding Bias with Random Walks excerpt

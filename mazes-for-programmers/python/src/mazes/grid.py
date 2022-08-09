@@ -232,8 +232,8 @@ class Grid:
         img_height = cell_size * self.rows
         inset = int(cell_size * inset)
 
-        background = ImageColor.getrgb("black")
-        wall_color = ImageColor.getrgb("white")
+        background = ImageColor.getrgb("white")
+        wall_color = ImageColor.getrgb("black")
 
         img = Image.new("RGB", (img_width + 1, img_height + 1), background)
         draw = ImageDraw.Draw(img)
