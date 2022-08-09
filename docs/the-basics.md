@@ -124,6 +124,23 @@ Printing the (cartesian) grid as ASCII art:
 [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/dijkstra.py)
 
 ### Making Challenging Mazes
+
+```
++---+---+---+---+---+
+|      8   7   6   5|
++   +   +   +   +   +
+|   |  9|   |   |  4|
++   +   +   +   +   +
+|   | 10|   |   |  3|
++   +   +---+   +   +
+|   | 11|       |  2|
++---+   +   +---+   +
+| 13  12|   |  0   1|
++---+---+---+---+---+
+```
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/longest_path.py)
+
 ### Coloring Your Mazes
 ### Your Turn
 
