@@ -1,6 +1,7 @@
 from random import choice
 from grid import Grid
 from image_saver import save
+from colored_grid import ColoredGrid
 
 
 class HuntAndKill:
@@ -25,8 +26,17 @@ class HuntAndKill:
         return grid
 
 
+def hunt_and_kill_demo():
+    grid = ColoredGrid(11, 11)
+    HuntAndKill.on(grid)
+    save(grid.to_img(cell_size=20), "hunt_and_kill.png")
+
+    middle = grid[grid.rows // 2, grid.columns // 2]
+    grid.set_distances(middle.distances())
+
+    save(grid.to_img(cell_size=20), "hunt_and_kill_colored.png")
+
+
 # Demo
 if __name__ == "__main__":
-    grid = Grid(20, 20)
-    HuntAndKill.on(grid)
-    save(grid.to_img(), filename="hunt_and_kill.png")
+    hunt_and_kill_demo()
