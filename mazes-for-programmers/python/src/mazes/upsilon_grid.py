@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 import math
 
 from PIL import Image, ImageColor, ImageDraw
@@ -9,13 +11,22 @@ from recursive_backtracker import RecursiveBacktracker
 
 
 class UpsilonGrid(Grid):
-    def __init__(self, rows, columns):
+
+    correction_factor = 0.585786437626905
+
+    def __init__(self, rows, columns, mask=None):
+        if mask is None:
+            mask = defaultdict(lambda: True)
         self.distances = None
         self.maximum = None
+        self.mask = mask
         super().__init__(rows, columns)
 
     def prepare_grid(self):
-        return [[UpsilonCell(row, column) for column in range(self.columns)] for row in range(self.rows)]
+        return [
+            [UpsilonCell(row, column) if self.mask[row, column] else None for column in range(self.columns)]
+            for row in range(self.rows)
+        ]
 
     def configure_cells(self):
         for cell in self.each_cell():
@@ -30,7 +41,8 @@ class UpsilonGrid(Grid):
                 cell.southeast = self[row + 1, col + 1]
                 cell.southwest = self[row + 1, col - 1]
 
-    def to_img(self, cell_size=10, wall_size=3, inset=0.0):
+    def to_img(self, base_size=10, wall_size=3, inset=0.0):
+        cell_size = self.correction_factor * base_size
         if inset != 0.0:
             raise NotImplementedError
         c_size = cell_size
@@ -41,8 +53,8 @@ class UpsilonGrid(Grid):
         img_width = int(corrected_size * (self.columns + 1))
         img_height = int(corrected_size * (self.rows + 1))
 
-        background = ImageColor.getrgb("black")
-        wall = ImageColor.getrgb("white")
+        background = ImageColor.getrgb("white")
+        wall = ImageColor.getrgb("black")
 
         img = Image.new("RGB", (img_width + 1, img_height + 1), background)
         draw = ImageDraw.Draw(img)
@@ -112,7 +124,7 @@ class UpsilonGrid(Grid):
         farthest, self.maximum = distances.max()
 
     def background_color_for(self, cell):
-        if cell not in self.distances:
+        if self.distances is None or cell not in self.distances:
             return None
         distance = self.distances[cell]
         intensity = (self.maximum - distance) / self.maximum
@@ -121,12 +133,32 @@ class UpsilonGrid(Grid):
         return dark, bright, dark
 
 
-if __name__ == "__main__":
-    grid = UpsilonGrid(10, 10)
+def upsilon_grid_demo():
+    grid = UpsilonGrid(11, 11)
     RecursiveBacktracker.on(grid)
 
-    start = grid[0, 0]
-    distances = start.distances()
-    grid.set_distances(distances)
+    save(grid.to_img(base_size=20), filename="upsilon.png")
 
-    save(grid.to_img(), filename="upsilon.png")
+    middle = grid[grid.rows // 2, grid.columns // 2]
+    grid.set_distances(middle.distances())
+
+    save(grid.to_img(base_size=20), "upsilon_colored.png")
+
+
+def masked_upsilon_grid_demo():
+    rows, columns = 11, 11
+    mask = {(row, column): (column + row) % 2 == 0 for row in range(rows) for column in range(columns)}
+    grid = UpsilonGrid(rows, columns, mask)
+    RecursiveBacktracker.on(grid)
+
+    save(grid.to_img(base_size=20), filename="masked_upsilon.png")
+
+    middle = grid[grid.rows // 2, grid.columns // 2]
+    grid.set_distances(middle.distances())
+
+    save(grid.to_img(base_size=20), "masked_upsilon_colored.png")
+
+
+if __name__ == "__main__":
+    upsilon_grid_demo()
+    masked_upsilon_grid_demo()

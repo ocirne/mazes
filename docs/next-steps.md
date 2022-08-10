@@ -51,6 +51,16 @@ title: Next Steps
 
 [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/hex_grid.py)
 
+### Bonus: Upsilon Grid & Masked Upsilon Grid
+
+![Upsilon Grid with Recursive Backtracker](images/upsilon.png)
+![Upsilon Grid with Recursive Backtracker Colored](images/upsilon_colored.png)
+
+![Masked Upsilon Grid with Recursive Backtracker](images/masked_upsilon.png)
+![Masked Upsilon Grid with Recursive Backtracker Colored](images/masked_upsilon_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/upsilon_grid.py)
+
 ## Braiding and Weaving Your Mazes
 ### Braiding Mazes
 ### Cost versus Distance
