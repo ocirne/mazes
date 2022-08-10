@@ -178,6 +178,26 @@ Printing the (cartesian) grid as ASCII art:
 
 ### Counting Dead-Ends
 
+```
+running BinaryTree ...
+running Sidewinder ...
+running AldousBroder ...
+running Wilsons ...
+running HuntAndKill ...
+running RecursiveBacktracker ...
+
+Average dead-ends per 20x20 maze 400 (sample size 100)
+
+             Wilsons: 116/400 (std 5.822) (29%)
+        AldousBroder: 115/400 (std 5.094) (28%)
+          Sidewinder: 107/400 (std 6.170) (26%)
+          BinaryTree: 100/400 (std 4.973) (25%)
+RecursiveBacktracker:  42/400 (std 3.782) (10%)
+         HuntAndKill:  39/400 (std 3.765) (9%)
+```
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/deadend_counts.py)
+
 ### The Recursive Backtracker Algorithm
 
 ![Cartesian Recursive Backtracker](images/recursive_backtracker.png)
