@@ -21,10 +21,16 @@ title: Next Steps
 ### Implementing a Hex Grid
 ### Displaying a Hex Grid
 ### Making Hexagon (Sigma) Mazes
-### Implementing a Triangle Grid
-### Displaying a Triangle Grid
+### Triangle Grid
+
+![Triangle Grid with Recursive Backtracker](images/triangle.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/triangle.py)
+
 ### Making Triangle (Delta) Mazes
-### Your Turn
+### Bonus: Shaping Grids
+
+TODO
 
 ## Braiding and Weaving Your Mazes
 ### Braiding Mazes

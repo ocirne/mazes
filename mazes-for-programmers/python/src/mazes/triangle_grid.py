@@ -8,6 +8,9 @@ from PIL import Image, ImageColor, ImageDraw
 
 
 class TriangleGrid(Grid):
+
+    correction_factor = 1.5196713713031853
+
     def prepare_grid(self):
         return [[TriangleCell(row, column) for column in range(self.columns)] for row in range(self.rows)]
 
@@ -23,7 +26,8 @@ class TriangleGrid(Grid):
             else:
                 cell.north = self[row - 1, col]
 
-    def to_img(self, cell_size=10, wall_size=3, inset=0.0):
+    def to_img(self, base_size=10, wall_size=3, inset=0.0):
+        cell_size = self.correction_factor * base_size
         if inset != 0.0:
             raise NotImplementedError
         half_width = cell_size / 2.0
@@ -33,8 +37,8 @@ class TriangleGrid(Grid):
         img_width = int(cell_size * (self.columns + 1) / 2.0)
         img_height = int(height * self.rows)
 
-        background = ImageColor.getrgb("black")
-        wall = ImageColor.getrgb("white")
+        background = ImageColor.getrgb("white")
+        wall = ImageColor.getrgb("black")
 
         img = Image.new("RGB", (img_width + 1, img_height + 1), background)
         draw = ImageDraw.Draw(img)
@@ -75,8 +79,12 @@ class TriangleGrid(Grid):
         return img
 
 
-if __name__ == "__main__":
-    grid = TriangleGrid(10, 17)
+def triangle_grid_demo():
+    grid = TriangleGrid(8, 13)
     RecursiveBacktracker.on(grid)
 
-    save(grid.to_img(), filename="triangle.png")
+    save(grid.to_img(base_size=20), filename="triangle.png")
+
+
+if __name__ == "__main__":
+    triangle_grid_demo()
