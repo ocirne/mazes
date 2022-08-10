@@ -21,6 +21,12 @@ title: Next Steps
 
 ### Hex Grid & Sigma Mazes
 
+![Simga Maze with Recursive Backtracker](images/hex.png)
+&nbsp;
+![Simga Maze with Recursive Backtracker Colored](images/hex_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/hex_grid.py)
+
 ### Triangle Grid & Delta Mazes
 
 ![Delta Maze with Recursive Backtracker](images/triangle.png)
@@ -36,6 +42,14 @@ title: Next Steps
 ![Shaped Delta Maze with Recursive Backtracker Colored](images/shaped_triangle_colored.png)
 
 [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/triangle.py)
+
+### Bonus: Shaping Hex Grid
+
+![Shaped Sigma Maze with Recursive Backtracker](images/shaped_hex.png)
+&nbsp;
+![Shaped Sigma Maze with Recursive Backtracker Colored](images/shaped_hex_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/hex_grid.py)
 
 ## Braiding and Weaving Your Mazes
 ### Braiding Mazes

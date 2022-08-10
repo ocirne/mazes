@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 import math
 
 from PIL import Image, ImageColor, ImageDraw
@@ -9,8 +11,22 @@ from image_saver import save
 
 
 class HexGrid(Grid):
+
+    correction_factor = 0.6204032394013997
+
+    def __init__(self, rows, columns, mask=None):
+        if mask is None:
+            mask = defaultdict(lambda: True)
+        self.distances = None
+        self.maximum = None
+        self.mask = mask
+        super().__init__(rows, columns)
+
     def prepare_grid(self):
-        return [[HexCell(row, column) for column in range(self.columns)] for row in range(self.rows)]
+        return [
+            [HexCell(row, column) if self.mask[row, column] else None for column in range(self.columns)]
+            for row in range(self.rows)
+        ]
 
     def configure_cells(self):
         for cell in self.each_cell():
@@ -29,7 +45,8 @@ class HexGrid(Grid):
             cell.south = self[row + 1, col]
             cell.southeast = self[south_diagonal, col + 1]
 
-    def to_img(self, cell_size=10, wall_size=3, inset=0.0):
+    def to_img(self, base_size=10, wall_size=3, inset=0.0):
+        cell_size = self.correction_factor * base_size
         if inset != 0.0:
             raise NotImplementedError
         a_size = cell_size / 2.0
@@ -83,9 +100,50 @@ class HexGrid(Grid):
 
         return img
 
+    def set_distances(self, distances):
+        self.distances = distances
+        farthest, self.maximum = distances.max()
 
-if __name__ == "__main__":
-    grid = HexGrid(10, 10)
+    def background_color_for(self, cell):
+        if self.distances is None or cell not in self.distances:
+            return None
+        distance = self.distances[cell]
+        intensity = (self.maximum - distance) / self.maximum
+        dark = round(255 * intensity)
+        bright = 128 + round(127 * intensity)
+        return dark, bright, dark
+
+
+def hex_grid_demo():
+    grid = HexGrid(10, 11)
     RecursiveBacktracker.on(grid)
 
-    save(grid.to_img(), filename="hex_grid.png")
+    save(grid.to_img(base_size=20), filename="hex.png")
+
+    middle = grid[grid.rows // 2, grid.columns // 2]
+    grid.set_distances(middle.distances())
+
+    save(grid.to_img(base_size=20), "hex_colored.png")
+
+
+def shaped_hex_grid_demo():
+    rows, columns = 11, 11
+    mask = {
+        (row, column): abs(column - 5) + 2 * abs(row - 5) < 11 + int(row > 5)
+        for row in range(rows)
+        for column in range(columns)
+    }
+    grid = HexGrid(rows, columns, mask)
+    RecursiveBacktracker.on(grid)
+
+    save(grid.to_img(base_size=20), filename="shaped_hex.png")
+
+    middle = grid[grid.rows // 2, grid.columns // 2]
+    grid.set_distances(middle.distances())
+
+    save(grid.to_img(base_size=20), "shaped_hex_colored.png")
+
+
+if __name__ == "__main__":
+    hex_grid_demo()
+    shaped_hex_grid_demo()
