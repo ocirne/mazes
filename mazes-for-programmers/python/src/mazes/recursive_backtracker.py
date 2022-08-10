@@ -7,7 +7,7 @@ from colored_grid import ColoredGrid
 class RecursiveBacktracker:
     @staticmethod
     def on(grid: Grid, start_at=None):
-        if start_at is None:
+        while start_at is None:
             start_at = grid.random_cell()
         stack = [start_at]
         while stack:

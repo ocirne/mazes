@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from grid import Grid
 from image_saver import save
 from triangle_cell import TriangleCell
@@ -11,13 +13,19 @@ class TriangleGrid(Grid):
 
     correction_factor = 1.5196713713031853
 
-    def __init__(self, rows, columns):
+    def __init__(self, rows, columns, mask=None):
+        if mask is None:
+            mask = defaultdict(lambda: True)
         self.distances = None
         self.maximum = None
+        self.mask = mask
         super().__init__(rows, columns)
 
     def prepare_grid(self):
-        return [[TriangleCell(row, column) for column in range(self.columns)] for row in range(self.rows)]
+        return [
+            [TriangleCell(row, column) if self.mask[row, column] else None for column in range(self.columns)]
+            for row in range(self.rows)
+        ]
 
     def configure_cells(self):
         for cell in self.each_cell():
@@ -109,5 +117,21 @@ def triangle_grid_demo():
     save(grid.to_img(base_size=20), "triangle_colored.png")
 
 
+def shaped_triangle_grid_demo():
+    rows = 13
+    columns = 2 * rows - 1
+    mask = {(row, column): abs(column - rows + 1) <= row for row in range(rows) for column in range(columns)}
+    grid = TriangleGrid(rows, columns, mask)
+    RecursiveBacktracker.on(grid)
+
+    save(grid.to_img(base_size=10), filename="shaped_triangle.png")
+
+    middle = grid[grid.rows // 2, grid.columns // 2]
+    grid.set_distances(middle.distances())
+
+    save(grid.to_img(base_size=10), "shaped_triangle_colored.png")
+
+
 if __name__ == "__main__":
     triangle_grid_demo()
+    shaped_triangle_grid_demo()
