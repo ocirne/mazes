@@ -24,6 +24,8 @@ title: Next Steps
 ### Triangle Grid
 
 ![Triangle Grid with Recursive Backtracker](images/triangle.png)
+&nbsp;
+![Triangle Grid with Recursive Backtracker Colored](images/triangle_colored.png)
 
 [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/triangle.py)
 

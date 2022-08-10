@@ -11,6 +11,11 @@ class TriangleGrid(Grid):
 
     correction_factor = 1.5196713713031853
 
+    def __init__(self, rows, columns):
+        self.distances = None
+        self.maximum = None
+        super().__init__(rows, columns)
+
     def prepare_grid(self):
         return [[TriangleCell(row, column) for column in range(self.columns)] for row in range(self.rows)]
 
@@ -78,12 +83,30 @@ class TriangleGrid(Grid):
 
         return img
 
+    def set_distances(self, distances):
+        self.distances = distances
+        farthest, self.maximum = distances.max()
+
+    def background_color_for(self, cell):
+        if self.distances is None or cell not in self.distances:
+            return None
+        distance = self.distances[cell]
+        intensity = (self.maximum - distance) / self.maximum
+        dark = round(255 * intensity)
+        bright = 128 + round(127 * intensity)
+        return dark, bright, dark
+
 
 def triangle_grid_demo():
     grid = TriangleGrid(8, 13)
     RecursiveBacktracker.on(grid)
 
     save(grid.to_img(base_size=20), filename="triangle.png")
+
+    middle = grid[grid.rows // 2, grid.columns // 2]
+    grid.set_distances(middle.distances())
+
+    save(grid.to_img(base_size=20), "triangle_colored.png")
 
 
 if __name__ == "__main__":
