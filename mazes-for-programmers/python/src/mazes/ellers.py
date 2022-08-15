@@ -61,7 +61,16 @@ class Ellers:
                 row_state = next_row
 
 
-if __name__ == "__main__":
-    grid = ColoredGrid(20, 20)
+def ellers_demo():
+    grid = ColoredGrid(11, 11)
     Ellers.on(grid)
-    save(grid.to_img(), filename="ellers.png")
+    save(grid.to_img(cell_size=20), filename="ellers.png")
+
+    middle = grid[grid.rows // 2, grid.columns // 2]
+    grid.set_distances(middle.distances())
+
+    save(grid.to_img(cell_size=20), "ellers_colored.png")
+
+
+if __name__ == "__main__":
+    ellers_demo()

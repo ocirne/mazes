@@ -19,7 +19,12 @@ title: More Algorithms
 
 ## Combining, Dividing
 ### Eller’s Algorithm
-### Implementing Eller’s Algorithm
+
+![Cartesian Maze with Eller's](images/ellers.png)
+![Cartesian Maze with Ellers's Colored](images/ellers_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/ellers.py)
+
 ### Recursive Division
 
 #### No Rooms
@@ -34,4 +39,6 @@ title: More Algorithms
 
 [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/recursive_division.py)
 
-### Your Turn
+### Bonus: Eller's on Polar Grid
+
+TODO
