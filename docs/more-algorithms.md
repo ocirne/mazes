@@ -21,5 +21,17 @@ title: More Algorithms
 ### Eller’s Algorithm
 ### Implementing Eller’s Algorithm
 ### Recursive Division
-### Implementing Recursive Division
+
+#### No Rooms
+
+![Cartesian Maze with Recursive Division](images/recursive_division.png)
+![Cartesian Maze with Recursive Division Colored](images/recursive_division_colored.png)
+
+#### With Rooms
+
+![Cartesian Maze with Recursive Division and Rooms](images/recursive_division_rooms.png)
+![Cartesian Maze with Recursive Division and Rooms Colored](images/recursive_division_rooms_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/recursive_division.py)
+
 ### Your Turn

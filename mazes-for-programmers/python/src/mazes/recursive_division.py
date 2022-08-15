@@ -1,11 +1,11 @@
 from random import randint
-
-from grid import Grid
 from image_saver import save
+from colored_grid import ColoredGrid
 
 
 class RecursiveDivision:
-    def __init__(self, grid):
+    def __init__(self, grid, with_rooms=False):
+        self.with_rooms = with_rooms
         self.grid = grid
 
     def on(self):
@@ -15,7 +15,9 @@ class RecursiveDivision:
         self.divide(0, 0, self.grid.rows, self.grid.columns)
 
     def divide(self, row, column, height, width):
-        if height <= 1 or width <= 1 or (height <= 5 and width <= 5 and randint(0, 4) == 0):
+        if height <= 1 or width <= 1:
+            return
+        if self.with_rooms and height <= 5 and width <= 5 and randint(0, 4) == 0:
             return
         if height > width:
             self.divide_horizontally(row, column, height, width)
@@ -47,9 +49,28 @@ class RecursiveDivision:
         self.divide(row, column + divide_east_of + 1, height, width - divide_east_of - 1)
 
 
-# Demo
-if __name__ == "__main__":
-    grid = Grid(20, 20)
+def recursive_division_demo():
+    grid = ColoredGrid(11, 11)
     RecursiveDivision(grid).on()
+    save(grid.to_img(cell_size=20), "recursive_division.png")
 
-    save(grid.to_img(), filename="recursive_division.png")
+    middle = grid[grid.rows // 2, grid.columns // 2]
+    grid.set_distances(middle.distances())
+
+    save(grid.to_img(cell_size=20), "recursive_division_colored.png")
+
+
+def recursive_division_rooms_demo():
+    grid = ColoredGrid(11, 11)
+    RecursiveDivision(grid, with_rooms=True).on()
+    save(grid.to_img(cell_size=20), "recursive_division_rooms.png")
+
+    middle = grid[grid.rows // 2, grid.columns // 2]
+    grid.set_distances(middle.distances())
+
+    save(grid.to_img(cell_size=20), "recursive_division_rooms_colored.png")
+
+
+if __name__ == "__main__":
+    recursive_division_demo()
+    recursive_division_rooms_demo()
