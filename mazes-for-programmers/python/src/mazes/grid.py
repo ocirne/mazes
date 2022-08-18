@@ -227,7 +227,7 @@ class Grid:
     def background_color_for(self, cell):
         return None
 
-    def to_img(self, cell_size=100, wall_size=3, inset=0.0):
+    def to_img(self, cell_size=20, wall_size=3, inset=0.0):
         img_width = cell_size * self.columns
         img_height = cell_size * self.rows
         inset = int(cell_size * inset)

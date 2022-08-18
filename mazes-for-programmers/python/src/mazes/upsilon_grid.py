@@ -41,7 +41,7 @@ class UpsilonGrid(Grid):
                 cell.southeast = self[row + 1, col + 1]
                 cell.southwest = self[row + 1, col - 1]
 
-    def to_img(self, base_size=10, wall_size=3, inset=0.0):
+    def to_img(self, base_size=20, wall_size=3, inset=0.0):
         cell_size = self.correction_factor * base_size
         if inset != 0.0:
             raise NotImplementedError
@@ -137,12 +137,12 @@ def upsilon_grid_demo():
     grid = UpsilonGrid(11, 11)
     RecursiveBacktracker.on(grid)
 
-    save(grid.to_img(base_size=20), filename="upsilon.png")
+    save(grid.to_img(), "upsilon.png")
 
     middle = grid[grid.rows // 2, grid.columns // 2]
     grid.set_distances(middle.distances())
 
-    save(grid.to_img(base_size=20), "upsilon_colored.png")
+    save(grid.to_img(), "upsilon_colored.png")
 
 
 def masked_upsilon_grid_demo():
@@ -151,12 +151,12 @@ def masked_upsilon_grid_demo():
     grid = UpsilonGrid(rows, columns, mask)
     RecursiveBacktracker.on(grid)
 
-    save(grid.to_img(base_size=20), filename="masked_upsilon.png")
+    save(grid.to_img(), "masked_upsilon.png")
 
     middle = grid[grid.rows // 2, grid.columns // 2]
     grid.set_distances(middle.distances())
 
-    save(grid.to_img(base_size=20), "masked_upsilon_colored.png")
+    save(grid.to_img(), "masked_upsilon_colored.png")
 
 
 if __name__ == "__main__":

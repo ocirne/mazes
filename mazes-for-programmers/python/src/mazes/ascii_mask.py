@@ -8,4 +8,4 @@ if __name__ == "__main__":
     grid = MaskedGrid(mask)
     RecursiveBacktracker.on(grid)
 
-    save(grid.to_img(), filename="masked_grid.png")
+    save(grid.to_img(), "masked_grid.png")

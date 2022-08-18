@@ -29,12 +29,12 @@ class Wilsons:
 def wilsons_demo():
     grid = ColoredGrid(11, 11)
     Wilsons.on(grid)
-    save(grid.to_img(cell_size=20), filename="wilsons.png")
+    save(grid.to_img(), "wilsons.png")
 
     middle = grid[grid.rows // 2, grid.columns // 2]
     grid.set_distances(middle.distances())
 
-    save(grid.to_img(cell_size=20), "wilsons_colored.png")
+    save(grid.to_img(), "wilsons_colored.png")
 
 
 # Demo

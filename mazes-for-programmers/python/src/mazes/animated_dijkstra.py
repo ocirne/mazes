@@ -9,11 +9,11 @@ def create_animation(width, height):
     for x in range(width):
         start = grid[0, x]
         grid.set_distances(start.distances())
-        yield grid.to_img(cell_size=20)
+        yield grid.to_img()
     for x in range(width - 1, -1, -1):
         start = grid[0, x]
         grid.set_distances(start.distances())
-        yield grid.to_img(cell_size=20)
+        yield grid.to_img()
 
 
 if __name__ == "__main__":

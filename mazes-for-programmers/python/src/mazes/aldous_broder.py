@@ -20,12 +20,12 @@ class AldousBroder:
 def aldous_broder_demo():
     grid = ColoredGrid(11, 11)
     AldousBroder.on(grid)
-    save(grid.to_img(cell_size=20), "aldous_broder.png")
+    save(grid.to_img(), "aldous_broder.png")
 
     middle = grid[grid.rows // 2, grid.columns // 2]
     grid.set_distances(middle.distances())
 
-    save(grid.to_img(cell_size=20), "aldous_broder_colored.png")
+    save(grid.to_img(), "aldous_broder_colored.png")
 
 
 # Demo

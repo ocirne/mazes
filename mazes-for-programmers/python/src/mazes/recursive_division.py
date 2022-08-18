@@ -52,23 +52,23 @@ class RecursiveDivision:
 def recursive_division_demo():
     grid = ColoredGrid(11, 11)
     RecursiveDivision(grid).on()
-    save(grid.to_img(cell_size=20), "recursive_division.png")
+    save(grid.to_img(), "recursive_division.png")
 
     middle = grid[grid.rows // 2, grid.columns // 2]
     grid.set_distances(middle.distances())
 
-    save(grid.to_img(cell_size=20), "recursive_division_colored.png")
+    save(grid.to_img(), "recursive_division_colored.png")
 
 
 def recursive_division_rooms_demo():
     grid = ColoredGrid(11, 11)
     RecursiveDivision(grid, with_rooms=True).on()
-    save(grid.to_img(cell_size=20), "recursive_division_rooms.png")
+    save(grid.to_img(), "recursive_division_rooms.png")
 
     middle = grid[grid.rows // 2, grid.columns // 2]
     grid.set_distances(middle.distances())
 
-    save(grid.to_img(cell_size=20), "recursive_division_rooms_colored.png")
+    save(grid.to_img(), "recursive_division_rooms_colored.png")
 
 
 if __name__ == "__main__":

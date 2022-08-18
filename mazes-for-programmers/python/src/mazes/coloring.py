@@ -11,7 +11,7 @@ def coloring_binarytree_demo():
     start = grid[grid.rows // 2, grid.columns // 2]
     grid.set_distances(start.distances())
 
-    save(grid.to_img(cell_size=20), filename="coloring_binarytree.png")
+    save(grid.to_img(), "coloring_binarytree.png")
 
 
 def coloring_sidewinder_demo():
@@ -21,7 +21,7 @@ def coloring_sidewinder_demo():
     start = grid[grid.rows // 2, grid.columns // 2]
     grid.set_distances(start.distances())
 
-    save(grid.to_img(cell_size=20), filename="coloring_sidewinder.png")
+    save(grid.to_img(), "coloring_sidewinder.png")
 
 
 if __name__ == "__main__":

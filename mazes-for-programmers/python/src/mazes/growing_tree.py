@@ -26,10 +26,10 @@ def create_growing_tree_grid(desc, select_cell):
     grid = ColoredGrid(11, 11)
     middle = grid[5, 5]
     GrowingTree.on(grid, select_cell, start_at=middle)
-    save(grid.to_img(cell_size=20), filename="growing_tree_%s.png" % desc)
+    save(grid.to_img(), "growing_tree_%s.png" % desc)
 
     grid.set_distances(middle.distances())
-    save(grid.to_img(cell_size=20), filename="growing_tree_%s_colored.png" % desc)
+    save(grid.to_img(), "growing_tree_%s_colored.png" % desc)
 
 
 def growing_tree_demo():

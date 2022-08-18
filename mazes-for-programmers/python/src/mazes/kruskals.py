@@ -80,4 +80,4 @@ if __name__ == "__main__":
     grid = Grid(20, 20)
     Kruskals.on(grid)
 
-    save(grid.to_img(), filename="kruskals.png")
+    save(grid.to_img(), "kruskals.png")

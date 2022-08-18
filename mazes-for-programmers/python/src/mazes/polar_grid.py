@@ -240,5 +240,5 @@ if __name__ == "__main__":
     distances = start.distances()
     grid.set_distances(distances)
 
-    save(grid.to_img(cell_size=80, wall_size=3), filename="polar_grid.png")
-    save(grid.to_img(cell_size=80, wall_size=3, inset=0.1), filename="polar_grid_inset.png")
+    save(grid.to_img(cell_size=80, wall_size=3), "polar_grid.png")
+    save(grid.to_img(cell_size=80, wall_size=3, inset=0.1), "polar_grid_inset.png")

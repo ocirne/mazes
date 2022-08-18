@@ -38,7 +38,7 @@ def binary_tree_ascii_demo():
 
 def binary_tree_image_demo():
     maze = BinaryTree().on(Grid(4, 4))
-    save(maze.to_img(), filename="binary_tree.png")
+    save(maze.to_img(), "binary_tree.png")
 
 
 def binary_tree_unicode_demo():

@@ -39,7 +39,7 @@ class TriangleGrid(Grid):
             else:
                 cell.north = self[row - 1, col]
 
-    def to_img(self, base_size=10, wall_size=3, inset=0.0):
+    def to_img(self, base_size=20, wall_size=3, inset=0.0):
         cell_size = self.correction_factor * base_size
         if inset != 0.0:
             raise NotImplementedError
@@ -109,12 +109,12 @@ def triangle_grid_demo():
     grid = TriangleGrid(8, 13)
     RecursiveBacktracker.on(grid)
 
-    save(grid.to_img(base_size=20), filename="triangle.png")
+    save(grid.to_img(), "triangle.png")
 
     middle = grid[grid.rows // 2, grid.columns // 2]
     grid.set_distances(middle.distances())
 
-    save(grid.to_img(base_size=20), "triangle_colored.png")
+    save(grid.to_img(), "triangle_colored.png")
 
 
 def shaped_triangle_grid_demo():
@@ -124,7 +124,7 @@ def shaped_triangle_grid_demo():
     grid = TriangleGrid(rows, columns, mask)
     RecursiveBacktracker.on(grid)
 
-    save(grid.to_img(base_size=10), filename="shaped_triangle.png")
+    save(grid.to_img(base_size=10), "shaped_triangle.png")
 
     middle = grid[grid.rows // 2, grid.columns // 2]
     grid.set_distances(middle.distances())

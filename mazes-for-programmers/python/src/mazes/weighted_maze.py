@@ -12,10 +12,10 @@ if __name__ == "__main__":
     start, finish = grid[0, 0], grid[grid.rows - 1, grid.columns - 1]
 
     grid.set_distances(start.distances().path_to(finish))
-    save(grid.to_img(), filename="weighted_original.png")
+    save(grid.to_img(), "weighted_original.png")
 
     lava = choice(list(grid.distances.cells.keys()))
     lava.weight = 50
     grid.set_distances(start.distances().path_to(finish))
 
-    save(grid.to_img(), filename="weighted_rerouted.png")
+    save(grid.to_img(), "weighted_rerouted.png")

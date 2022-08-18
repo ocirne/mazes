@@ -26,7 +26,7 @@ class WeaveGrid(Grid):
         for cell in self.under_cells:
             yield cell
 
-    def to_img(self, cell_size=100, wall_size=3, inset=0.1):
+    def to_img(self, cell_size=20, wall_size=3, inset=0.1):
         return super().to_img(cell_size, wall_size, inset)
 
     def to_img_with_inset(self, draw, cell, mode, cell_size, wall_color, floor_color, wall_size, x, y, inset):
@@ -91,4 +91,4 @@ if __name__ == "__main__":
     distances = start.distances()
     grid.set_distances(distances)
 
-    save(grid.to_img(), filename="weave.png")
+    save(grid.to_img(), "weave.png")

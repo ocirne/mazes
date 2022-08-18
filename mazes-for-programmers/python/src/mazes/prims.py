@@ -48,23 +48,20 @@ def simplified_prims_demo():
     grid = ColoredGrid(21, 21)
     start = grid[10, 10]
     SimplifiedPrims.on(grid, start)
-    save(grid.to_img(), filename="prims_simple.png")
+    save(grid.to_img(), "prims_simple.png")
     grid.set_distances(start.distances())
-    save(grid.to_img(), filename="prims_simple_colored.png")
+    save(grid.to_img(), "prims_simple_colored.png")
 
 
 def true_prims_demo():
     grid = ColoredGrid(21, 21)
     start = grid[10, 10]
     TruePrims.on(grid, start)
-    save(grid.to_img(), filename="prims_true.png")
+    save(grid.to_img(), "prims_true.png")
     grid.set_distances(start.distances())
-    save(grid.to_img(), filename="prims_true_colored.png")
+    save(grid.to_img(), "prims_true_colored.png")
 
 
-#
-
-# Demo
 if __name__ == "__main__":
     simplified_prims_demo()
     true_prims_demo()

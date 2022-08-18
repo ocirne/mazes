@@ -46,4 +46,4 @@ if __name__ == "__main__":
     print(grid)
     print(grid.to_str_unicode())
 
-    save(grid.to_img(), filename="sidewinder.png")
+    save(grid.to_img(), "sidewinder.png")

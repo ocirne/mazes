@@ -58,9 +58,9 @@ if __name__ == "__main__":
 
     Kruskals.on(grid, state)
 
-    save(grid.to_img(inset=0.2), filename="kruskals_weave.png")
+    save(grid.to_img(inset=0.2), "kruskals_weave.png")
 
     start = grid[0, 0]
     grid.set_distances(start.distances())
 
-    save(grid.to_img(inset=0.2), filename="kruskal_weave_colored.png")
+    save(grid.to_img(inset=0.2), "kruskal_weave_colored.png")

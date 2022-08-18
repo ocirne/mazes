@@ -25,12 +25,12 @@ class RecursiveBacktracker:
 def recursive_backtracker_demo():
     grid = ColoredGrid(11, 11)
     RecursiveBacktracker.on(grid)
-    save(grid.to_img(cell_size=20), "recursive_backtracker.png")
+    save(grid.to_img(), "recursive_backtracker.png")
 
     middle = grid[grid.rows // 2, grid.columns // 2]
     grid.set_distances(middle.distances())
 
-    save(grid.to_img(cell_size=20), "recursive_backtracker_colored.png")
+    save(grid.to_img(), "recursive_backtracker_colored.png")
 
 
 # Demo

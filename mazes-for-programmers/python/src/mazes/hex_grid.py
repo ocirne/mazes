@@ -45,7 +45,7 @@ class HexGrid(Grid):
             cell.south = self[row + 1, col]
             cell.southeast = self[south_diagonal, col + 1]
 
-    def to_img(self, base_size=10, wall_size=3, inset=0.0):
+    def to_img(self, base_size=20, wall_size=3, inset=0.0):
         cell_size = self.correction_factor * base_size
         if inset != 0.0:
             raise NotImplementedError
@@ -118,12 +118,12 @@ def hex_grid_demo():
     grid = HexGrid(10, 11)
     RecursiveBacktracker.on(grid)
 
-    save(grid.to_img(base_size=20), filename="hex.png")
+    save(grid.to_img(), "hex.png")
 
     middle = grid[grid.rows // 2, grid.columns // 2]
     grid.set_distances(middle.distances())
 
-    save(grid.to_img(base_size=20), "hex_colored.png")
+    save(grid.to_img(), "hex_colored.png")
 
 
 def shaped_hex_grid_demo():
@@ -136,12 +136,12 @@ def shaped_hex_grid_demo():
     grid = HexGrid(rows, columns, mask)
     RecursiveBacktracker.on(grid)
 
-    save(grid.to_img(base_size=20), filename="shaped_hex.png")
+    save(grid.to_img(), "shaped_hex.png")
 
     middle = grid[grid.rows // 2, grid.columns // 2]
     grid.set_distances(middle.distances())
 
-    save(grid.to_img(base_size=20), "shaped_hex_colored.png")
+    save(grid.to_img(), "shaped_hex_colored.png")
 
 
 if __name__ == "__main__":

@@ -29,12 +29,12 @@ class HuntAndKill:
 def hunt_and_kill_demo():
     grid = ColoredGrid(11, 11)
     HuntAndKill.on(grid)
-    save(grid.to_img(cell_size=20), "hunt_and_kill.png")
+    save(grid.to_img(), "hunt_and_kill.png")
 
     middle = grid[grid.rows // 2, grid.columns // 2]
     grid.set_distances(middle.distances())
 
-    save(grid.to_img(cell_size=20), "hunt_and_kill_colored.png")
+    save(grid.to_img(), "hunt_and_kill_colored.png")
 
 
 # Demo

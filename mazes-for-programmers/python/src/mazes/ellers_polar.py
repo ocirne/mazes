@@ -68,4 +68,4 @@ if __name__ == "__main__":
     distances = start.distances()
     grid.set_distances(distances)
 
-    save(grid.to_img(cell_size=40), filename="ellers_polar.png")
+    save(grid.to_img(cell_size=40), "ellers_polar.png")
