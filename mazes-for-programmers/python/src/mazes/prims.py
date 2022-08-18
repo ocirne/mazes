@@ -45,20 +45,22 @@ class TruePrims:
 
 
 def simplified_prims_demo():
-    grid = ColoredGrid(21, 21)
-    start = grid[10, 10]
-    SimplifiedPrims.on(grid, start)
+    grid = ColoredGrid(11, 11)
+    middle = grid[5, 5]
+    SimplifiedPrims.on(grid, start_at=middle)
     save(grid.to_img(), "prims_simple.png")
-    grid.set_distances(start.distances())
+
+    grid.set_distances(middle.distances())
     save(grid.to_img(), "prims_simple_colored.png")
 
 
 def true_prims_demo():
-    grid = ColoredGrid(21, 21)
-    start = grid[10, 10]
-    TruePrims.on(grid, start)
+    grid = ColoredGrid(11, 11)
+    middle = grid[5, 5]
+    TruePrims.on(grid, start_at=middle)
     save(grid.to_img(), "prims_true.png")
-    grid.set_distances(start.distances())
+
+    grid.set_distances(middle.distances())
     save(grid.to_img(), "prims_true_colored.png")
 
 

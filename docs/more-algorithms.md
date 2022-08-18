@@ -11,9 +11,21 @@ title: More Algorithms
 ### Your Turn
 
 ## Growing With Prim’s
-### Introducing Prim’s Algorithm
+
 ### Simplified Prim’s Algorithm
+
+![Simple Prim's](images/prims_simple.png)
+![Simple Prim's Colored](images/prims_simple_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/prims.py)
+
 ### True Prim’s Algorithm
+
+![True Prim's](images/prims_true.png)
+![True Prim's Colored](images/prims_true_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/prims.py)
+
 ### The Growing Tree Algorithm
 
 #### Select Random Cell
@@ -30,6 +42,8 @@ title: More Algorithms
 
 ![Growing Tree With Mix Strategy](images/growing_tree_mix.png)
 ![Growing Tree With Mix Strategy Colored](images/growing_tree_mix_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/growing_tree.py)
 
 ### Your Turn
 
