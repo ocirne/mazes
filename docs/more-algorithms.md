@@ -15,6 +15,22 @@ title: More Algorithms
 ### Simplified Prim’s Algorithm
 ### True Prim’s Algorithm
 ### The Growing Tree Algorithm
+
+#### Select Random Cell
+
+![Growing Tree With Random Cell](images/growing_tree_random.png)
+![Growing Tree With Random Cell Colored](images/growing_tree_random_colored.png)
+
+#### Select Last Cell
+
+![Growing Tree With Last Cell](images/growing_tree_last.png)
+![Growing Tree With Last Cell Colored](images/growing_tree_last_colored.png)
+
+#### Select 50 % Random Cell / 50 % Last Cell
+
+![Growing Tree With Mix Strategy](images/growing_tree_mix.png)
+![Growing Tree With Mix Strategy Colored](images/growing_tree_mix_colored.png)
+
 ### Your Turn
 
 ## Combining, Dividing

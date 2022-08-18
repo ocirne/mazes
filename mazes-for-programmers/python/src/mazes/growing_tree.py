@@ -23,17 +23,20 @@ class GrowingTree:
 
 
 def create_growing_tree_grid(desc, select_cell):
-    grid = ColoredGrid(21, 21)
-    start = grid[10, 10]
-    GrowingTree.on(grid, select_cell, start)
-    save(grid.to_img(), filename="growing_tree_%s.png" % desc)
+    grid = ColoredGrid(11, 11)
+    middle = grid[5, 5]
+    GrowingTree.on(grid, select_cell, start_at=middle)
+    save(grid.to_img(cell_size=20), filename="growing_tree_%s.png" % desc)
 
-    grid.set_distances(start.distances())
-    save(grid.to_img(), filename="growing_tree_%s_colored.png" % desc)
+    grid.set_distances(middle.distances())
+    save(grid.to_img(cell_size=20), filename="growing_tree_%s_colored.png" % desc)
 
 
-# Demo
-if __name__ == "__main__":
+def growing_tree_demo():
     create_growing_tree_grid("random", lambda cells: choice(cells))
     create_growing_tree_grid("last", lambda cells: cells[-1])
     create_growing_tree_grid("mix", lambda cells: cells[-1] if randint(0, 1) == 0 else choice(cells))
+
+
+if __name__ == "__main__":
+    growing_tree_demo()
