@@ -3,10 +3,6 @@ layout: page
 title: The Basics
 ---
 
-## Your First Random Mazes excerpt
-
-Nothing to code so far.
-
 ## Automating and Displaying Your Mazes
 
 ### Introducing Our Basic Grid & Displaying a Maze on a Terminal
