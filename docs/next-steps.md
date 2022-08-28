@@ -4,11 +4,40 @@ title: Next Steps
 ---
 
 ## Fitting Mazes to Shapes
-### Introducing Masking
-### Implementing a Mask
+
 ### ASCII Masks
+
+![Cartesian Maze with ASCII Mask](images/masked_ascii_grid.png)
+&nbsp;
+![Cartesian Maze with ASCII Mask Colored](images/masked_ascii_grid_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/ascii_mask.py)
+
 ### Image Masks
-### Your Turn
+
+![Cartesian Maze with Image Mask](images/masked_image_grid.png)
+&nbsp;
+![Cartesian Maze with Image Mask Colored](images/masked_image_grid_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/image_mask.py)
+
+### Bonus: Random Mask
+
+```
++---+---+---+---+---+    ┏━━━━━━━┓       ┏━━━┓
+|       |   |   |   |    ┃       ┃       ┃   ┃
++---+   +---+---+   +    ┗━━━┓   ┗━━━┯━━━┛   ┃
+|   |       |       |        ┃       │       ┃
++---+---+   +   +   +        ┗━━━┓   ╵   ╷   ┃
+|   |   |       |   |            ┃       │   ┃
++---+---+---+---+   +        ┏━━━┹───┲━━━┪   ┃
+|   |       |   |   |        ┃       ┃   ┃   ┃
++---+   +   +---+   +    ┏━━━┛   ╷   ┗━━━┛   ┃
+|       |           |    ┃       │           ┃
++---+---+---+---+---+    ┗━━━━━━━┷━━━━━━━━━━━┛
+```
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/ascii_mask.py)
 
 ## Going in Circles
 ### Understanding Polar Grids
