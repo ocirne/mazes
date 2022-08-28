@@ -95,5 +95,14 @@ title: Next Steps
 ### Cost versus Distance
 ### Implementing a Cost-Aware Dikstra’s Algorithm
 ### Introducing Weaves and Insets
+
+#### Insets
+
+![Cartesian Grid with Insets](images/insets.png)
+&nbsp;
+![Cartesian Grid with Insets Colored](images/insets_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/inset_demo.py)
+
 ### Generating Weave Mazes
 ### Your Turn
