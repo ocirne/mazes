@@ -52,9 +52,10 @@ class Cell:
             result.append(self.east)
         return result
 
-    def distances(self):
+    def distances(self, depth=None):
         distances = Distances(self)
         frontier = [self]
+        colored_cells = 0
         while frontier:
             new_frontier = []
             for cell in frontier:
@@ -63,8 +64,14 @@ class Cell:
                         continue
                     distances[linked] = distances[cell] + 1
                     new_frontier.append(linked)
+                    if depth is not None and colored_cells > depth:
+                        return distances, frontier, new_frontier
+                    colored_cells += 1
             frontier = new_frontier
-        return distances
+        if depth is None:
+            return distances
+        else:
+            return distances, None, None
 
     def __str__(self):
         return "%s %s" % (self.row, self.column)

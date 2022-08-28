@@ -144,9 +144,14 @@ Printing the (cartesian) grid as ASCII art:
 
 [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/coloring.py)
 
-### Your Turn
+### Bonus: Animated Dijkstra's Algorithm
+
+![Animated Dijkstra on a BinaryTree Maze](images/animated_dijkstra.gif)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/animated_dijkstra.py)
 
 ## Avoiding Bias with Random Walks excerpt
+
 ### Aldous-Broder
 
 ![Cartesian Aldous Broder](images/aldous_broder.png)
