@@ -52,11 +52,11 @@ class PolarGrid(Grid):
         col = randint(0, len(self.grid[row]) - 1)
         return self.grid[row][col]
 
-    def to_img(self, cell_size=10, wall_size=3, inset=None):
+    def to_img(self, cell_size=20, wall_size=3, inset=None):
         img_size = 2 * self.rows * cell_size
 
-        background = ImageColor.getrgb("black")
-        wall = ImageColor.getrgb("white")
+        background = ImageColor.getrgb("white")
+        wall = ImageColor.getrgb("black")
 
         img = Image.new("RGB", (img_size + 1, img_size + 1), background)
         draw = ImageDraw.Draw(img)
@@ -222,7 +222,7 @@ class PolarGrid(Grid):
         farthest, self.maximum = distances.max()
 
     def background_color_for(self, cell):
-        if cell not in self.distances:
+        if self.distances is None or cell not in self.distances:
             return None
         distance = self.distances[cell]
         intensity = (self.maximum - distance) / self.maximum

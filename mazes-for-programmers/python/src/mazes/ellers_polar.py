@@ -61,11 +61,18 @@ class EllersPolar:
                 row_state = next_row
 
 
-if __name__ == "__main__":
-    grid = PolarGrid(10)
+def ellers_polar_demo():
+    grid = PolarGrid(6)
     EllersPolar.on(grid)
-    start = grid[0, 0]
-    distances = start.distances()
-    grid.set_distances(distances)
+    save(grid.to_img(), "ellers_polar.png")
 
-    save(grid.to_img(cell_size=40), "ellers_polar.png")
+    start = grid[0, 0]
+    grid.set_distances(start.distances())
+    save(grid.to_img(), "ellers_polar_colored.png")
+
+
+# TODO Schleifen?
+
+
+if __name__ == "__main__":
+    ellers_polar_demo()
