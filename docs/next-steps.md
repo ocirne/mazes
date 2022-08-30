@@ -110,8 +110,18 @@ title: Next Steps
 
 [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/braid_demo.py)
 
-### Cost versus Distance
 ### Implementing a Cost-Aware Dikstra’s Algorithm
+
+#### Original
+
+![Weighted Maze Original](images/weighted_original.png)
+
+#### Rerouted
+
+![Weighted Maze Rerouted](images/weighted_rerouted.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/weighted_maze.py)
+
 ### Introducing Weaves and Insets
 
 #### Insets

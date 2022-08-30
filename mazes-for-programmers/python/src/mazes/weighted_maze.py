@@ -4,8 +4,9 @@ from recursive_backtracker import RecursiveBacktracker
 from image_saver import save
 from weighted_grid import WeightedGrid
 
-if __name__ == "__main__":
-    grid = WeightedGrid(10, 10)
+
+def weighted_maze_demo():
+    grid = WeightedGrid(11, 11)
     RecursiveBacktracker.on(grid)
 
     grid.braid(0.5)
@@ -19,3 +20,7 @@ if __name__ == "__main__":
     grid.set_distances(start.distances().path_to(finish))
 
     save(grid.to_img(), "weighted_rerouted.png")
+
+
+if __name__ == "__main__":
+    weighted_maze_demo()

@@ -9,7 +9,7 @@ class WeightedCell(Cell):
         super().__init__(row, column)
         self.weight = 1
 
-    def distances(self):
+    def distances(self, depth=None):
         weights = Distances(self)
         pending = []
         heappush(pending, (1, self))
