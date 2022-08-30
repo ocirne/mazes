@@ -122,9 +122,7 @@ title: Next Steps
 
 [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/weighted_maze.py)
 
-### Introducing Weaves and Insets
-
-#### Insets
+### Insets
 
 ![Cartesian Grid with Insets](images/insets.png)
 &nbsp;
@@ -133,6 +131,12 @@ title: Next Steps
 [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/inset_demo.py)
 
 ### Generating Weave Mazes
+
+![Weave Maze](images/weave.png)
+&nbsp;
+![Weave Maze Colored](images/weave_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/weave_grid.py)
 
 ### Bonus: Polar Grid with Insets
 

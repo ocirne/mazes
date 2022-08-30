@@ -1,7 +1,7 @@
 from random import sample, randint
 
-from grid import Grid
 from image_saver import save
+from colored_grid import ColoredGrid
 
 
 class State:
@@ -31,13 +31,15 @@ class State:
         left.link(right)
         winner = self.set_for_cell[left]
         loser = self.set_for_cell.get(right, None)
+        if loser is not None and loser in self.cells_in_set:
+            losers = self.cells_in_set[loser]
+        else:
+            losers = [right]
+        for cell in losers:
+            self.cells_in_set[winner].append(cell)
+            self.set_for_cell[cell] = winner
         if loser is not None:
-            losers = self.cells_in_set[loser] if loser in self.cells_in_set else [right]
-            for cell in losers:
-                self.cells_in_set[winner].append(cell)
-                self.set_for_cell[cell] = winner
             del self.cells_in_set[loser]
-            # TODO Bug: Da treten Schleifen auf.
 
     def add_crossing(self, cell):
         if cell.links or not self.can_merge(cell.east, cell.west) or not self.can_merge(cell.north, cell.south):
@@ -75,9 +77,15 @@ class Kruskals:
         return grid
 
 
-# Demo
-if __name__ == "__main__":
-    grid = Grid(20, 20)
+def kruskals_demo():
+    grid = ColoredGrid(11, 11)
     Kruskals.on(grid)
-
     save(grid.to_img(), "kruskals.png")
+
+    middle = grid[5, 5]
+    grid.set_distances(middle.distances())
+    save(grid.to_img(), "kruskals_colored.png")
+
+
+if __name__ == "__main__":
+    kruskals_demo()

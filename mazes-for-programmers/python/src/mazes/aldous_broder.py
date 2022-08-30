@@ -28,6 +28,5 @@ def aldous_broder_demo():
     save(grid.to_img(), "aldous_broder_colored.png")
 
 
-# Demo
 if __name__ == "__main__":
     aldous_broder_demo()

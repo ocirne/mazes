@@ -65,30 +65,29 @@ class WeaveGrid(Grid):
         farthest, self.maximum = distances.max()
 
     def background_color_for(self, cell):
-        if cell is None or cell not in self.distances:
+        if self.distances is None or cell not in self.distances:
             return None
         distance = self.distances[cell]
         intensity = (self.maximum - distance) / self.maximum
-        bright = round(255 * intensity)
-        return 0, bright, 0
+        dark = round(255 * intensity)
+        bright = 128 + round(127 * intensity)
+        return dark, bright, dark
 
     def background_color_for_under_cell(self, cell):
         if cell is None:
             return None
-        t = self.background_color_for(cell.over_cell)
-        if t is None:
-            return None
-        r, g, b = t
-        return 0, 0, g
+        return self.background_color_for(cell.over_cell)
 
 
-# Demo
-if __name__ == "__main__":
-    grid = WeaveGrid(20, 20)
+def weave_grid_demo():
+    grid = WeaveGrid(11, 11)
     RecursiveBacktracker.on(grid)
+    save(grid.to_img(), "weave.png")
 
     start = grid[0, 0]
-    distances = start.distances()
-    grid.set_distances(distances)
+    grid.set_distances(start.distances())
+    save(grid.to_img(), "weave_colored.png")
 
-    save(grid.to_img(), "weave.png")
+
+if __name__ == "__main__":
+    weave_grid_demo()

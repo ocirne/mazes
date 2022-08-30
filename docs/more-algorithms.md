@@ -4,10 +4,21 @@ title: More Algorithms
 ---
 
 ## Improving Your Weaving
+
 ### Kruskal’s Algorithm
-### Implementing Randomized Kruskal’s Algorithm
+
+![Kruskal Maze](images/kruskals.png)
+![Kruskal Maze Colored](images/kruskals_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/kruskals.py)
+
 ### Better Weaving With Kruskal
-### Implementing Better Weaving
+
+![Kruskal Weave Maze](images/kruskals_weave.png)
+![Kruskal Weave Maze Colored](images/kruskal_weave_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/kruskals_weave_demo.py)
+
 ### Your Turn
 
 ## Growing With Prim’s

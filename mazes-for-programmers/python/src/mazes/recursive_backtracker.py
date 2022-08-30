@@ -33,6 +33,5 @@ def recursive_backtracker_demo():
     save(grid.to_img(), "recursive_backtracker_colored.png")
 
 
-# Demo
 if __name__ == "__main__":
     recursive_backtracker_demo()

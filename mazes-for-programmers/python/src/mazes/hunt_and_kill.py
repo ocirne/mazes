@@ -37,6 +37,5 @@ def hunt_and_kill_demo():
     save(grid.to_img(), "hunt_and_kill_colored.png")
 
 
-# Demo
 if __name__ == "__main__":
     hunt_and_kill_demo()

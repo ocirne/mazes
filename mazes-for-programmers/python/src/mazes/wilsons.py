@@ -37,6 +37,5 @@ def wilsons_demo():
     save(grid.to_img(), "wilsons_colored.png")
 
 
-# Demo
 if __name__ == "__main__":
     wilsons_demo()

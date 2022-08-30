@@ -38,8 +38,9 @@ class PreconfiguredGrid(WeaveGrid):
             return None
         distance = self.distances[cell]
         intensity = (self.maximum - distance) / self.maximum
-        bright = round(128 * intensity)
-        return 0, bright, bright
+        dark = round(255 * intensity)
+        bright = 128 + round(127 * intensity)
+        return dark, bright, dark
 
     def background_color_for_under_cell(self, cell):
         if cell is None:
@@ -47,8 +48,8 @@ class PreconfiguredGrid(WeaveGrid):
         return self.background_color_for(cell.over_cell)
 
 
-if __name__ == "__main__":
-    grid = PreconfiguredGrid(20, 20)
+def kruskals_weave_demo():
+    grid = PreconfiguredGrid(11, 11)
     state = State(grid)
 
     for i in range(grid.size()):
@@ -57,10 +58,12 @@ if __name__ == "__main__":
         state.add_crossing(grid[row, column])
 
     Kruskals.on(grid, state)
-
     save(grid.to_img(inset=0.2), "kruskals_weave.png")
 
     start = grid[0, 0]
     grid.set_distances(start.distances())
-
     save(grid.to_img(inset=0.2), "kruskal_weave_colored.png")
+
+
+if __name__ == "__main__":
+    kruskals_weave_demo()
