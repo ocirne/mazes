@@ -231,14 +231,26 @@ class PolarGrid(Grid):
         return dark, bright, dark
 
 
-# Demo
-if __name__ == "__main__":
-    grid = PolarGrid(10)
+def polar_grid_demo():
+    grid = PolarGrid(6)
     RecursiveBacktracker.on(grid)
+    save(grid.to_img(), "polar_grid.png")
 
     start = grid[0, 0]
-    distances = start.distances()
-    grid.set_distances(distances)
+    grid.set_distances(start.distances())
+    save(grid.to_img(), "polar_grid_colored.png")
 
-    save(grid.to_img(cell_size=80, wall_size=3), "polar_grid.png")
-    save(grid.to_img(cell_size=80, wall_size=3, inset=0.1), "polar_grid_inset.png")
+
+def polar_grid_insets_demo():
+    grid = PolarGrid(6)
+    RecursiveBacktracker.on(grid)
+    save(grid.to_img(inset=0.1), "polar_grid_inset.png")
+
+    start = grid[0, 0]
+    grid.set_distances(start.distances())
+    save(grid.to_img(inset=0.1), "polar_grid_inset_colored.png")
+
+
+if __name__ == "__main__":
+    polar_grid_demo()
+    polar_grid_insets_demo()

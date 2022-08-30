@@ -40,11 +40,17 @@ title: Next Steps
 [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/ascii_mask.py)
 
 ## Going in Circles
-### Understanding Polar Grids
-### Drawing Polar Grids
-### Adaptively Subdividing the Grid
+
 ### Implementing a Polar Grid
+
+![Polar Grid](images/polar_grid.png)
+&nbsp;
+![Polar Grid Colored](images/polar_grid_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/polar_grid.py)
+
 ### Your Turn
+
 
 ## Exploring Other Grids excerpt
 
@@ -105,4 +111,11 @@ title: Next Steps
 [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/inset_demo.py)
 
 ### Generating Weave Mazes
-### Your Turn
+
+### Bonus: Polar Grid with Insets
+
+![Polar Grid with Inset](images/polar_grid_inset_colored.png)
+&nbsp;
+![Polar Grid with Inset Colored](images/polar_grid_inset.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/polar_grid.py)
