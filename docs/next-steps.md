@@ -98,6 +98,18 @@ title: Next Steps
 
 ## Braiding and Weaving Your Mazes
 ### Braiding Mazes
+#### Original
+
+![Not Braided Maze](images/non_braided.png)
+![Not Braided Maze Colored](images/non_braided_colored.png)
+
+#### Braided
+
+![Braided Maze](images/braided.png)
+![Braided Maze Colored](images/braided_colored.png)
+
+[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/braid_demo.py)
+
 ### Cost versus Distance
 ### Implementing a Cost-Aware Dikstra’s Algorithm
 ### Introducing Weaves and Insets

@@ -2,20 +2,24 @@ from colored_grid import ColoredGrid
 from recursive_backtracker import RecursiveBacktracker
 from image_saver import save
 
-if __name__ == "__main__":
-    grid = ColoredGrid(21, 21)
+
+def braid_demo():
+    grid = ColoredGrid(11, 11)
     RecursiveBacktracker.on(grid)
+    save(grid.to_img(), "non_braided.png")
 
-    start = grid[10, 10]
-    distances = start.distances()
-    grid.set_distances(distances)
+    start = grid[5, 5]
+    grid.set_distances(start.distances())
+    save(grid.to_img(), "non_braided_colored.png")
 
-    save(grid.to_img(), "recursive_backtracker_non_braided.png")
+    grid.reset_distances()
+    grid.braid()
+    save(grid.to_img(), "braided.png")
 
-    grid.braid(0.5)
+    start = grid[5, 5]
+    grid.set_distances(start.distances())
+    save(grid.to_img(), "braided_colored.png")
 
-    start = grid[10, 10]
-    distances = start.distances()
-    grid.set_distances(distances)
 
-    save(grid.to_img(), "recursive_backtracker_braided.png")
+if __name__ == "__main__":
+    braid_demo()

@@ -15,6 +15,10 @@ class ColoredGrid(Grid):
         self.distances = distances
         farthest, self.maximum = self.distances.max()
 
+    def reset_distances(self):
+        self.distances = None
+        self.maximum = None
+
     def set_frontiers(self, frontier, new_frontier):
         self.frontier = frontier
         self.new_frontier = new_frontier
