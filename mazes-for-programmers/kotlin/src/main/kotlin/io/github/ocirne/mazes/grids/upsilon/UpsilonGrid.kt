@@ -120,7 +120,7 @@ class UpsilonGrid(private val rows: Int, private val columns: Int) : GridProvide
         }
     }
 
-    class UpsilonCell(val row: Int, val column: Int) : Cell() {
+    class UpsilonCell(row: Int, column: Int) : Cell(row, column) {
 
         var north: UpsilonCell? = null
         var northeast: UpsilonCell? = null

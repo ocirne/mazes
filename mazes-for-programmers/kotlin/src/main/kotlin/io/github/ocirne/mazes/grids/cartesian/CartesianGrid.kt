@@ -99,7 +99,7 @@ open class CartesianGrid(private val rows: Int, private val columns: Int): GridP
         }
     }
 
-    open class CartesianCell(val row: Int, val column: Int) : Cell() {
+    open class CartesianCell(row: Int, column: Int) : Cell(row, column) {
 
         var north: CartesianCell? = null
         var south: CartesianCell? = null

@@ -5,12 +5,22 @@ import io.github.ocirne.mazes.grids.GridProvider
 import io.github.ocirne.mazes.grids.Maze
 import io.github.ocirne.mazes.grids.cartesian.CartesianGrid.CartesianCell
 import io.github.ocirne.mazes.grids.cartesian.CartesianGrid.CartesianMaze
+import io.github.ocirne.mazes.grids.polar.PolarGrid
+import io.github.ocirne.mazes.grids.polar.PolarGrid.PolarCell
 import kotlin.random.Random.Default.nextInt
 
 class Ellers : PassageCarver {
 
     override fun on(gridProvider: GridProvider, startAt: (Maze) -> Cell): Maze {
-        val maze = gridProvider.forPassageCarver() as CartesianMaze
+        // sieht doof aus, aber funktioniert
+        return when (val grid = gridProvider.forPassageCarver()) {
+            is CartesianMaze -> on(grid)
+            is PolarGrid.PolarMaze -> on(grid)
+            else -> throw NotImplementedError()
+        }
+    }
+
+    fun on(maze: CartesianMaze): Maze {
         var rowState = RowState()
         for (row in maze.eachRow()) {
             for (cell in row) {
@@ -29,6 +39,7 @@ class Ellers : PassageCarver {
                 val nextRow = rowState.next()
                 for (cells in rowState.eachSet()) {
                     cells.shuffled().forEachIndexed { index, cell ->
+                        cell as CartesianCell
                         if (index == 0 || nextInt(3) == 0) {
                             cell.link(cell.south as CartesianCell)
                             nextRow.record(rowState.setFor(cell), cell.south as CartesianCell)
@@ -41,13 +52,47 @@ class Ellers : PassageCarver {
         return maze
     }
 
+    fun on(maze: PolarGrid.PolarMaze): Maze {
+        var rowState = RowState()
+        for (row in maze.eachRow()) {
+            for (cell in row) {
+                if (cell.cw == null) {
+                    continue
+                }
+                val currentSet = rowState.setFor(cell)
+                val priorSet = rowState.setFor(cell.cw as PolarCell)
+                val shouldLink = currentSet != priorSet && (cell.inward == null || nextInt(2) == 0)
+                if (shouldLink) {
+                    cell.link(cell.cw as PolarCell)
+                    rowState.merge(priorSet, currentSet)
+                }
+            }
+            if (row[0].inward != null) {
+                val nextRow = rowState.next()
+                for (cells in rowState.eachSet()) {
+                    cells.shuffled().forEachIndexed { index, cell ->
+                        cell as PolarCell
+                        if (index == 0 || nextInt(3) == 0) {
+                            if (cell.inward != null) {
+                                cell.link(cell.inward as PolarCell)
+                                nextRow.record(rowState.setFor(cell), cell.inward as PolarCell)
+                            }
+                        }
+                    }
+                }
+                rowState = nextRow
+            }
+        }
+        return maze
+    }
+
     internal class RowState(startingSet: Int = 0) {
 
-        private val cellsInSet = mutableMapOf<Int, MutableSet<CartesianCell>>()
+        private val cellsInSet = mutableMapOf<Int, MutableSet<Cell>>()
         private val setForCell = mutableMapOf<Int, Int>()
         private var nextSet = startingSet
 
-        fun record(set: Int, cell: CartesianCell) {
+        fun record(set: Int, cell: Cell) {
             setForCell[cell.column] = set
             if (!cellsInSet.contains(set)) {
                 cellsInSet[set] = mutableSetOf()
@@ -55,7 +100,7 @@ class Ellers : PassageCarver {
             cellsInSet[set]!!.add(cell)
         }
 
-        fun setFor(cell: CartesianCell): Int {
+        fun setFor(cell: Cell): Int {
             if (!setForCell.contains(cell.column)) {
                 record(nextSet, cell)
                 nextSet++
@@ -75,7 +120,7 @@ class Ellers : PassageCarver {
             return RowState(nextSet)
         }
 
-        fun eachSet(): MutableCollection<MutableSet<CartesianCell>> {
+        fun eachSet(): MutableCollection<MutableSet<Cell>> {
             return cellsInSet.values
         }
     }

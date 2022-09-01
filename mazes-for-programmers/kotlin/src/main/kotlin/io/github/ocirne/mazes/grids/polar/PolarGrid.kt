@@ -5,6 +5,7 @@ import io.github.ocirne.mazes.colorization.Strokes
 import io.github.ocirne.mazes.grids.Cell
 import io.github.ocirne.mazes.grids.GridProvider
 import io.github.ocirne.mazes.grids.Maze
+import io.github.ocirne.mazes.grids.cartesian.CartesianGrid
 import io.github.ocirne.mazes.output.createImage
 import java.awt.BasicStroke
 import java.awt.Color
@@ -12,6 +13,7 @@ import java.awt.Font
 import java.awt.Graphics2D
 import java.awt.geom.*
 import java.awt.image.BufferedImage
+import java.lang.Thread.yield
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.roundToInt
@@ -98,6 +100,10 @@ open class PolarGrid(private val rows: Int) : GridProvider {
 
         override fun eachCell(): List<PolarCell> {
             return grid.flatten()
+        }
+
+        fun eachRow(): Iterator<Array<PolarCell>> {
+            return grid.iterator()
         }
 
         private fun debugGrid(g: Graphics2D, cellSize: Double, center: Double, wallInset: Double) {
@@ -194,7 +200,7 @@ open class PolarGrid(private val rows: Int) : GridProvider {
         }
     }
 
-    open class PolarCell(val row: Int, val column: Int) : Cell() {
+    open class PolarCell(row: Int, column: Int) : Cell(row, column) {
 
         var cw: PolarCell? = null
         var ccw: PolarCell? = null
