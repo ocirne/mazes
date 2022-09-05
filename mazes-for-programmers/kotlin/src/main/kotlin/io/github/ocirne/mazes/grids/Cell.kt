@@ -4,7 +4,7 @@ import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.colorization.Strokes
 import java.awt.Graphics2D
 
-abstract class Cell(val row: Int, val column: Int) {
+abstract class Cell {
 
     private val links: MutableMap<Cell, Boolean> = mutableMapOf()
 

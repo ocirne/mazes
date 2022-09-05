@@ -113,7 +113,7 @@ class HexGrid(private val rows: Int, private val columns: Int): GridProvider {
         }
     }
 
-    class HexCell(row: Int, column: Int) : Cell(row, column) {
+    class HexCell(val row: Int, val column: Int) : Cell() {
 
         var north: HexCell? = null
         var northeast: HexCell? = null

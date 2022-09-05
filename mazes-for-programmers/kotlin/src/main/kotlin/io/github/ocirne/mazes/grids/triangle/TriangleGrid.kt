@@ -113,7 +113,7 @@ class TriangleGrid(private val rows: Int, private val columns: Int) : GridProvid
         }
     }
 
-    class TriangleCell(row: Int, column: Int) : Cell(row, column) {
+    class TriangleCell(val row: Int, val column: Int) : Cell() {
 
         var east: TriangleCell? = null
         var west: TriangleCell? = null

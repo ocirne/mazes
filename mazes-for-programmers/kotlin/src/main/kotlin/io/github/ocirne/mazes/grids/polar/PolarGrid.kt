@@ -200,7 +200,7 @@ open class PolarGrid(private val rows: Int) : GridProvider {
         }
     }
 
-    open class PolarCell(row: Int, column: Int) : Cell(row, column) {
+    open class PolarCell(val row: Int, val column: Int) : Cell() {
 
         var cw: PolarCell? = null
         var ccw: PolarCell? = null
