@@ -72,8 +72,9 @@ class Ellers : PassageCarver {
                 for (cells in rowState.eachSet()) {
                     cells.shuffled().forEachIndexed { index, cell ->
                         cell as PolarCell
+                        val currentSet = rowState.getSetForCell(cell)!!
                         if (index == 0 || nextInt(3) == 0) {
-                            if (cell.inward != null) {
+                            if (cell.inward != null && !nextRow.containsSet(currentSet)) {
                                 cell.link(cell.inward as PolarCell)
                                 nextRow.record(rowState.setFor(cell), cell.inward as PolarCell)
                             }
@@ -89,11 +90,19 @@ class Ellers : PassageCarver {
     internal class RowState(startingSet: Int = 0) {
 
         private val cellsInSet = mutableMapOf<Int, MutableSet<Cell>>()
-        private val setForCell = mutableMapOf<Int, Int>()
+        private val setForCell = mutableMapOf<Cell, Int>()
         private var nextSet = startingSet
 
+        fun containsSet(set: Int): Boolean {
+            return cellsInSet.contains(set)
+        }
+
+        fun getSetForCell(cell: Cell): Int? {
+            return setForCell[cell]
+        }
+
         fun record(set: Int, cell: Cell) {
-            setForCell[cell.column] = set
+            setForCell[cell] = set
             if (!cellsInSet.contains(set)) {
                 cellsInSet[set] = mutableSetOf()
             }
@@ -101,16 +110,16 @@ class Ellers : PassageCarver {
         }
 
         fun setFor(cell: Cell): Int {
-            if (!setForCell.contains(cell.column)) {
+            if (!setForCell.contains(cell)) {
                 record(nextSet, cell)
                 nextSet++
             }
-            return setForCell[cell.column]!!
+            return setForCell[cell]!!
         }
 
         fun merge(winner: Int, loser: Int) {
             for (cell in cellsInSet[loser]!!) {
-                setForCell[cell.column] = winner
+                setForCell[cell] = winner
                 cellsInSet[winner]!!.add(cell)
             }
             cellsInSet.remove(loser)
