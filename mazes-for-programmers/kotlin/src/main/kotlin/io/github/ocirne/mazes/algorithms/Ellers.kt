@@ -12,15 +12,11 @@ import kotlin.random.Random.Default.nextInt
 class Ellers : PassageCarver {
 
     override fun on(gridProvider: GridProvider, startAt: (Maze) -> Cell): Maze {
-        // sieht doof aus, aber funktioniert
-        return when (val grid = gridProvider.forPassageCarver()) {
-            is CartesianMaze -> on(grid)
-            is PolarGrid.PolarMaze -> on(grid)
-            else -> throw NotImplementedError()
-        }
+        throw NotImplementedError("Please use specialized functions")
     }
 
-    fun on(maze: CartesianMaze): Maze {
+    fun onCartesianGrid(grid: GridProvider): Maze {
+        val maze = grid.forPassageCarver() as CartesianMaze
         var rowState = RowState()
         for (row in maze.eachRow()) {
             for (cell in row) {
@@ -52,9 +48,14 @@ class Ellers : PassageCarver {
         return maze
     }
 
-    fun on(maze: PolarGrid.PolarMaze): Maze {
+    fun onPolarGrid(grid: GridProvider, fromCenter: Boolean): Maze {
+        val maze = grid.forPassageCarver() as PolarGrid.PolarMaze
+        return if (fromCenter) onPolarFromCenter(maze) else onPolarFromEdge(maze)
+    }
+
+    private fun onPolarFromEdge(maze: PolarGrid.PolarMaze): Maze {
         var rowState = RowState()
-        for (row in maze.eachRow()) {
+        for (row in maze.eachRow(reversed = true)) {
             for (cell in row) {
                 if (cell.cw == null) {
                     continue
@@ -77,6 +78,43 @@ class Ellers : PassageCarver {
                             if (cell.inward != null && !nextRow.containsSet(currentSet)) {
                                 cell.link(cell.inward as PolarCell)
                                 nextRow.record(rowState.setFor(cell), cell.inward as PolarCell)
+                            }
+                        }
+                    }
+                }
+                rowState = nextRow
+            }
+        }
+        return maze
+    }
+
+    private fun onPolarFromCenter(maze: PolarGrid.PolarMaze): Maze {
+        var rowState = RowState()
+        for (row in maze.eachRow()) {
+            for (cell in row) {
+                val currentSet = rowState.setFor(cell)
+                if (cell.cw == null) {
+                    continue
+                }
+                val priorSet = rowState.setFor(cell.cw as PolarCell)
+                val shouldLink = currentSet != priorSet && (cell.outward.isEmpty() || nextInt(2) == 0)
+                if (shouldLink) {
+                    cell.link(cell.cw as PolarCell)
+                    rowState.merge(priorSet, currentSet)
+                }
+            }
+            if (row[0].outward.isNotEmpty()) {
+                val nextRow = rowState.next()
+                for (cells in rowState.eachSet()) {
+                    cells.shuffled().forEachIndexed { index, cell ->
+                        cell as PolarCell
+                        val currentSet = rowState.getSetForCell(cell)!!
+                        for (nextCell in cell.outward) {
+                            if (index == 0 || nextInt(3) == 0) {
+                                if (nextCell != null && !nextRow.containsSet(currentSet)) {
+                                    cell.link(nextCell as PolarCell)
+                                    nextRow.record(rowState.setFor(cell), nextCell as PolarCell)
+                                }
                             }
                         }
                     }

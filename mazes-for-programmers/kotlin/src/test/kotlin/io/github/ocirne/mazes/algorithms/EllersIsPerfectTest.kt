@@ -1,7 +1,9 @@
 package io.github.ocirne.mazes.algorithms
 
+import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.grids.cartesian.CartesianGrid
 import io.github.ocirne.mazes.grids.polar.PolarGrid
+import io.github.ocirne.mazes.output.save
 import org.junit.jupiter.api.Test
 
 class EllersIsPerfectTest {
@@ -11,15 +13,26 @@ class EllersIsPerfectTest {
     @Test
     fun `Cartesian Grid with Ellers maze is perfect`() {
         val grid = CartesianGrid(size, size)
-        val maze = Ellers().on(grid)
+        val maze = Ellers().onCartesianGrid(grid)
 
         CycleDetection(maze).assertNoCycle()
     }
 
     @Test
-    fun `Polar Grid with Ellers maze is perfect`() {
+    fun `Polar Grid with Ellers maze from edge is perfect`() {
         val grid = PolarGrid(size)
-        val maze = Ellers().on(grid)
+        val maze = Ellers().onPolarGrid(grid, fromCenter = false)
+
+        CycleDetection(maze).assertNoCycle()
+    }
+
+    @Test
+    fun `Polar Grid with Ellers maze from center is perfect`() {
+        val grid = PolarGrid(size)
+        val maze = Ellers().onPolarGrid(grid, fromCenter = true)
+
+        val colorization = Colorization(maze).dijkstra(maze[0, 0]!!)
+        maze.toImage(baseSize = 100.0, backgroundColors = colorization).save("polar_ellers_colorized")
 
         CycleDetection(maze).assertNoCycle()
     }

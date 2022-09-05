@@ -81,6 +81,9 @@ open class Colorization(
     open fun valueFor(cell: Cell): Color {
         val distance = weights[cell] ?: return defaultColor
         val maximum = max().value
+        if (maximum == 0) {
+            return defaultColor
+        }
         val intensity = (maximum - distance).toFloat() / maximum
         val rangeRed = toColor.red - fromColor.red
         val rangeGreen = toColor.green - fromColor.green

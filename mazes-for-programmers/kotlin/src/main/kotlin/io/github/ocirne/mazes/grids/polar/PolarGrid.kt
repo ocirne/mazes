@@ -102,8 +102,8 @@ open class PolarGrid(private val rows: Int) : GridProvider {
             return grid.flatten()
         }
 
-        fun eachRow(): Iterator<Array<PolarCell>> {
-            return grid.reversed().iterator()
+        fun eachRow(reversed: Boolean = false): Iterator<Array<PolarCell>> {
+            return if (reversed) grid.reversed().iterator() else grid.iterator()
         }
 
         private fun debugGrid(g: Graphics2D, cellSize: Double, center: Double, wallInset: Double) {
