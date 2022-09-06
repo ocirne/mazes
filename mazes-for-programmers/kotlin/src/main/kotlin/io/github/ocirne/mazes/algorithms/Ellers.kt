@@ -15,6 +15,10 @@ class Ellers : PassageCarver {
         throw NotImplementedError("Please use specialized functions")
     }
 
+    private fun generalizedEllers() {
+        TODO()
+    }
+
     fun onCartesianGrid(grid: GridProvider): Maze {
         val maze = grid.forPassageCarver() as CartesianMaze
         var rowState = RowState()
