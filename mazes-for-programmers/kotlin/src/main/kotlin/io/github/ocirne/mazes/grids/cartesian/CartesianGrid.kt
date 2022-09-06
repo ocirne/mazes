@@ -71,7 +71,10 @@ open class CartesianGrid(private val rows: Int, private val columns: Int): GridP
             return rows * columns
         }
 
-        fun eachRow(): Iterator<Array<CartesianCell>> {
+        override fun eachRow(reversed: Boolean): Iterator<Array<CartesianCell>> {
+            if (reversed) {
+                throw NotImplementedError()
+            }
             return grid.iterator()
         }
 

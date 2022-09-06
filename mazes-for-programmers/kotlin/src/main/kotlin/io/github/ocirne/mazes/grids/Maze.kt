@@ -14,6 +14,10 @@ interface Maze {
 
     fun eachCell(): List<Cell>
 
+    fun eachRow(reversed: Boolean = false): Iterator<Array<out Cell>> {
+        throw NotImplementedError()
+    }
+
     fun randomCell(noNeighborsAllowed:Boolean=true): Cell {
         while (true) {
             val result = eachCell().random()

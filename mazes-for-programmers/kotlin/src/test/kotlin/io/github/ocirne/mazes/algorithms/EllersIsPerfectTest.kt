@@ -21,7 +21,7 @@ class EllersIsPerfectTest {
     @Test
     fun `Polar Grid with Ellers maze from edge is perfect`() {
         val grid = PolarGrid(size)
-        val maze = Ellers().onPolarGrid(grid, fromCenter = false)
+        val maze = Ellers().onPolarGridFromEdge(grid)
 
         CycleDetection(maze).assertNoCycle()
     }
@@ -29,7 +29,7 @@ class EllersIsPerfectTest {
     @Test
     fun `Polar Grid with Ellers maze from center is perfect`() {
         val grid = PolarGrid(size)
-        val maze = Ellers().onPolarGrid(grid, fromCenter = true)
+        val maze = Ellers().onPolarGridFromCenter(grid)
 
         val colorization = Colorization(maze).dijkstra(maze[0, 0]!!)
         maze.toImage(baseSize = 100.0, backgroundColors = colorization).save("polar_ellers_colored")

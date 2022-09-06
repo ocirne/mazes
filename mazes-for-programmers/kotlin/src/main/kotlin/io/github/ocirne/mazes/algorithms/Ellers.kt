@@ -4,8 +4,6 @@ import io.github.ocirne.mazes.grids.Cell
 import io.github.ocirne.mazes.grids.GridProvider
 import io.github.ocirne.mazes.grids.Maze
 import io.github.ocirne.mazes.grids.cartesian.CartesianGrid.CartesianCell
-import io.github.ocirne.mazes.grids.cartesian.CartesianGrid.CartesianMaze
-import io.github.ocirne.mazes.grids.polar.PolarGrid
 import io.github.ocirne.mazes.grids.polar.PolarGrid.PolarCell
 import kotlin.random.Random.Default.nextInt
 
@@ -15,109 +13,35 @@ class Ellers : PassageCarver {
         throw NotImplementedError("Please use specialized functions")
     }
 
-    private fun generalizedEllers() {
-        TODO()
-    }
-
-    fun onCartesianGrid(grid: GridProvider): Maze {
-        val maze = grid.forPassageCarver() as CartesianMaze
+    private fun <C: Cell> generalizedEllers(grid: GridProvider,
+                                  reversedRows: Boolean,
+                                  left: (C) -> C?,
+                                  down: (C) -> List<C>): Maze {
+        val maze = grid.forPassageCarver()
         var rowState = RowState()
-        for (row in maze.eachRow()) {
+        for (row in maze.eachRow(reversedRows)) {
             for (cell in row) {
-                if (cell.west == null) {
-                    continue
-                }
+                cell as C
                 val currentSet = rowState.setFor(cell)
-                val priorSet = rowState.setFor(cell.west as CartesianCell)
-                val shouldLink = currentSet != priorSet && (cell.south == null || nextInt(2) == 0)
+                val leftCell = left(cell) ?: continue
+                val priorSet = rowState.setFor(leftCell)
+                val shouldLink = currentSet != priorSet && (down(cell).isEmpty() || nextInt(2) == 0)
                 if (shouldLink) {
-                    cell.link(cell.west as CartesianCell)
+                    cell.link(leftCell)
                     rowState.merge(priorSet, currentSet)
                 }
             }
-            if (row[0].south != null) {
+            if (down(row[0] as C).isNotEmpty()) {
                 val nextRow = rowState.next()
                 for (cells in rowState.eachSet()) {
                     cells.shuffled().forEachIndexed { index, cell ->
-                        cell as CartesianCell
-                        if (index == 0 || nextInt(3) == 0) {
-                            cell.link(cell.south as CartesianCell)
-                            nextRow.record(rowState.setFor(cell), cell.south as CartesianCell)
-                        }
-                    }
-                }
-                rowState = nextRow
-            }
-        }
-        return maze
-    }
-
-    fun onPolarGrid(grid: GridProvider, fromCenter: Boolean): Maze {
-        val maze = grid.forPassageCarver() as PolarGrid.PolarMaze
-        return if (fromCenter) onPolarFromCenter(maze) else onPolarFromEdge(maze)
-    }
-
-    private fun onPolarFromEdge(maze: PolarGrid.PolarMaze): Maze {
-        var rowState = RowState()
-        for (row in maze.eachRow(reversed = true)) {
-            for (cell in row) {
-                if (cell.cw == null) {
-                    continue
-                }
-                val currentSet = rowState.setFor(cell)
-                val priorSet = rowState.setFor(cell.cw as PolarCell)
-                val shouldLink = currentSet != priorSet && (cell.inward == null || nextInt(2) == 0)
-                if (shouldLink) {
-                    cell.link(cell.cw as PolarCell)
-                    rowState.merge(priorSet, currentSet)
-                }
-            }
-            if (row[0].inward != null) {
-                val nextRow = rowState.next()
-                for (cells in rowState.eachSet()) {
-                    cells.shuffled().forEachIndexed { index, cell ->
-                        cell as PolarCell
+                        cell as C
                         val currentSet = rowState.getSetForCell(cell)!!
-                        if (index == 0 || nextInt(3) == 0) {
-                            if (cell.inward != null && !nextRow.containsSet(currentSet)) {
-                                cell.link(cell.inward as PolarCell)
-                                nextRow.record(rowState.setFor(cell), cell.inward as PolarCell)
-                            }
-                        }
-                    }
-                }
-                rowState = nextRow
-            }
-        }
-        return maze
-    }
-
-    private fun onPolarFromCenter(maze: PolarGrid.PolarMaze): Maze {
-        var rowState = RowState()
-        for (row in maze.eachRow()) {
-            for (cell in row) {
-                val currentSet = rowState.setFor(cell)
-                if (cell.cw == null) {
-                    continue
-                }
-                val priorSet = rowState.setFor(cell.cw as PolarCell)
-                val shouldLink = currentSet != priorSet && (cell.outward.isEmpty() || nextInt(2) == 0)
-                if (shouldLink) {
-                    cell.link(cell.cw as PolarCell)
-                    rowState.merge(priorSet, currentSet)
-                }
-            }
-            if (row[0].outward.isNotEmpty()) {
-                val nextRow = rowState.next()
-                for (cells in rowState.eachSet()) {
-                    cells.shuffled().forEachIndexed { index, cell ->
-                        cell as PolarCell
-                        val currentSet = rowState.getSetForCell(cell)!!
-                        for (nextCell in cell.outward) {
+                        for (nextCell in down(cell)) {
                             if (index == 0 || nextInt(3) == 0) {
-                                if (nextCell != null && !nextRow.containsSet(currentSet)) {
-                                    cell.link(nextCell as PolarCell)
-                                    nextRow.record(rowState.setFor(cell), nextCell as PolarCell)
+                                if (!nextRow.containsSet(currentSet)) {
+                                    cell.link(nextCell)
+                                    nextRow.record(rowState.setFor(cell), nextCell)
                                 }
                             }
                         }
@@ -127,6 +51,24 @@ class Ellers : PassageCarver {
             }
         }
         return maze
+    }
+
+    fun onCartesianGrid(grid: GridProvider): Maze {
+        return generalizedEllers<CartesianCell>(grid, false,
+            left = { cell -> cell.west },
+            down = { cell -> listOfNotNull(cell.south) })
+    }
+
+    fun onPolarGridFromCenter(grid: GridProvider): Maze {
+        return generalizedEllers<PolarCell>(grid, false,
+            left = { cell -> cell.cw },
+            down = { cell -> cell.outward })
+    }
+
+    fun onPolarGridFromEdge(grid: GridProvider): Maze {
+        return generalizedEllers<PolarCell>(grid, true,
+            left = { cell -> cell.cw },
+            down = { cell -> listOfNotNull(cell.inward) })
     }
 
     internal class RowState(startingSet: Int = 0) {
