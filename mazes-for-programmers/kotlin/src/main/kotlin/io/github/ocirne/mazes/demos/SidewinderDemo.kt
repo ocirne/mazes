@@ -13,6 +13,6 @@ fun main() {
         maze.toImage().save("cartesian_sidewinder_$i")
 
         val colorization = Colorization(maze).dijkstra(maze[20, 10]!!)
-        maze.toImage(backgroundColors = colorization).save("cartesian_sidewinder_${i}_colorized")
+        maze.toImage(backgroundColors = colorization).save("cartesian_sidewinder_${i}_colored")
     }
 }

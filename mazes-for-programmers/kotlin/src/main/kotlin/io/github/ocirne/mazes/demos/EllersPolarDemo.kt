@@ -11,11 +11,11 @@ fun main() {
     mazeFromEdge.toImage().save("polar_ellers_from_edge")
 
     val colorizationFromEdge = Colorization(mazeFromEdge).dijkstra(mazeFromEdge[0, 0]!!)
-    mazeFromEdge.toImage(backgroundColors = colorizationFromEdge).save("polar_ellers_from_edge_colorized")
+    mazeFromEdge.toImage(backgroundColors = colorizationFromEdge).save("polar_ellers_from_edge_colored")
 
     val mazeFromCenter = Ellers().onPolarGrid(grid, fromCenter = true)
     mazeFromCenter.toImage().save("polar_ellers_from_center")
 
     val colorizationFromCenter = Colorization(mazeFromCenter).dijkstra(mazeFromCenter[0, 0]!!)
-    mazeFromCenter.toImage(backgroundColors = colorizationFromCenter).save("polar_ellers_from_center_colorized")
+    mazeFromCenter.toImage(backgroundColors = colorizationFromCenter).save("polar_ellers_from_center_colored")
 }

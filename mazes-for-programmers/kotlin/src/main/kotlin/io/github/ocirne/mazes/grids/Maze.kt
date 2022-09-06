@@ -32,7 +32,7 @@ interface Maze {
     }
 
     fun toImage(
-        baseSize: Double = 10.0,
+        baseSize: Double = 20.0,
         wallInset: Double = 0.0,
         backInset: Double = 0.0,
         drawDeadCells: Boolean = true,

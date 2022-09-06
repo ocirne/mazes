@@ -82,4 +82,15 @@ title: More Algorithms
 
 ### Bonus: Eller's on Polar Grid
 
-TODO
+#### From Edge to Center
+
+![Polar Maze with Ellers from Edge](images/polar_ellers_from_edge.png)
+![Polar Maze with Ellers from Edge Colored](images/polar_ellers_from_edge_colored.png)
+
+#### From Center to Edge
+
+![Polar Maze with Ellers from Center](images/polar_ellers_from_center.png)
+![Polar Maze with Ellers from Center Colored](images/polar_ellers_from_center_colored.png)
+
+[Kotlin](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/kotlin/src/main/kotlin/io/github/ocirne/mazes/demos/EllersPolarDemo.kt)
+| [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/ellers_polar.py)

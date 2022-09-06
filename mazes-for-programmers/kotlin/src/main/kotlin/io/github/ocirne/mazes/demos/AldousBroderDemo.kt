@@ -13,5 +13,5 @@ fun main() {
     saveImage(maze.toImage(), "cartesian_aldous_broder")
 
     val colorization = Colorization(maze).dijkstra(maze[10, 5]!!)
-    saveImage(maze.toImage(backgroundColors = colorization), "cartesian_aldous_broder_colorized")
+    saveImage(maze.toImage(backgroundColors = colorization), "cartesian_aldous_broder_colored")
 }

@@ -11,8 +11,8 @@ fun main() {
     saveImage(maze.toImage(), "upsilon_recursive_backtracker")
 
     val colorization1 = Colorization(maze).dijkstra(maze[10, 5]!!)
-    saveImage(maze.toImage(backgroundColors = colorization1), "upsilon_recursive_backtracker_colorized1")
+    saveImage(maze.toImage(backgroundColors = colorization1), "upsilon_recursive_backtracker_colored1")
 
     val colorization2 = Colorization(maze).countLinks()
-    saveImage(maze.toImage(backgroundColors = colorization2), "upsilon_recursive_backtracker_colorized2")
+    saveImage(maze.toImage(backgroundColors = colorization2), "upsilon_recursive_backtracker_colored2")
 }

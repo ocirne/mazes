@@ -13,7 +13,7 @@ private fun wrap(grid: GridProvider, name: String, f : (List<Cell>) -> Cell) {
     saveImage(maze.toImage(), "cartesian_growingTree_$name")
 
     val colorization = Colorization(maze).dijkstra(maze[10, 5]!!)
-    saveImage(maze.toImage(backgroundColors = colorization), "cartesian_growingTree_${name}_colorized")
+    saveImage(maze.toImage(backgroundColors = colorization), "cartesian_growingTree_${name}_colored")
 }
 
 fun main() {

@@ -17,14 +17,14 @@ fun main() {
     val background = Colorization(maze).dijkstra(maze[10, 5]!!)
     maze.createImage()
         .withBackgroundColors(background)
-        .save("cartesian_wilsons_colorized")
+        .save("cartesian_wilsons_colored")
 
 /*    saveImage(maze.toImage(), "cartesian_wilsons")
 
     val colorization1 = Colorization(maze).dijkstra(maze[10, 5]!!)
-    saveImage(maze.toImage(backgroundColors = colorization1), "cartesian_wilsons_colorized1")
+    saveImage(maze.toImage(backgroundColors = colorization1), "cartesian_wilsons_colored1")
 
     val colorization2 = Colorization(maze).countLinks()
-    saveImage(maze.toImage(backgroundColors = colorization2), "cartesian_wilsons_colorized2")
+    saveImage(maze.toImage(backgroundColors = colorization2), "cartesian_wilsons_colored2")
  */
 }

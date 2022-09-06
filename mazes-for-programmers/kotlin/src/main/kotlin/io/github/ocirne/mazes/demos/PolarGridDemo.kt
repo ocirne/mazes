@@ -16,8 +16,8 @@ fun main() {
     saveImage(maze.toImage(wallInset=0.2), "polar_recursive_backtracker_inset_2")
 
     val colorization = Colorization(maze, fromColor = Color.LIGHT_GRAY, toColor = Color.LIGHT_GRAY).dijkstra(maze[2, 0]!!)
-    saveImage(maze.toImage(backgroundColors = colorization), "polar_recursive_backtracker_colorized")
-    saveImage(maze.toImage(wallInset=0.2, backInset=0.1, backgroundColors = colorization), "polar_recursive_backtracker_colorized_inset")
+    saveImage(maze.toImage(backgroundColors = colorization), "polar_recursive_backtracker_colored")
+    saveImage(maze.toImage(wallInset=0.2, backInset=0.1, backgroundColors = colorization), "polar_recursive_backtracker_colored_inset")
 
     val longestPath = Colorization(maze).longestPath()
     val markers = Colorization(maze)

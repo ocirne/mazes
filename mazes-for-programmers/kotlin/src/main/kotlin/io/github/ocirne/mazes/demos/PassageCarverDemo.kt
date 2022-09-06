@@ -34,14 +34,14 @@ fun allGridsWith(algorithm: PassageCarver) {
     formatForPages(images, 3, 2).save("all_grids_${algorithm::class.simpleName}")
 }
 
-fun cartesianBinaryTreeColorized(algorithm: PassageCarver) {
+fun cartesianBinaryTreeColored(algorithm: PassageCarver) {
     val images = (1..6).map {
         val grid = CartesianGrid(15, 15)
         val maze = algorithm.on(grid)
         val colorization = Colorization(maze).dijkstra(maze[7, 7]!!)
         maze.toImage(baseSize = 15.0, backgroundColors = colorization)
     }
-    formatForPages(images, 3, 2).save("cartesian_${algorithm::class.simpleName}_colorized")
+    formatForPages(images, 3, 2).save("cartesian_${algorithm::class.simpleName}_colored")
 }
 
 fun main() {
@@ -50,6 +50,6 @@ fun main() {
     val passageCarvers = listOf(AldousBroder(), BinaryTree(), HuntAndKill(), RecursiveBacktracker(), Wilsons())
     passageCarvers.forEach {
         allGridsWith(it)
-        cartesianBinaryTreeColorized(it)
+        cartesianBinaryTreeColored(it)
     }
 }

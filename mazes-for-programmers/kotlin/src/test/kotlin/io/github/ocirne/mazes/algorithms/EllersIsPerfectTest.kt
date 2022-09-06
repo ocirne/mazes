@@ -32,7 +32,7 @@ class EllersIsPerfectTest {
         val maze = Ellers().onPolarGrid(grid, fromCenter = true)
 
         val colorization = Colorization(maze).dijkstra(maze[0, 0]!!)
-        maze.toImage(baseSize = 100.0, backgroundColors = colorization).save("polar_ellers_colorized")
+        maze.toImage(baseSize = 100.0, backgroundColors = colorization).save("polar_ellers_colored")
 
         CycleDetection(maze).assertNoCycle()
     }

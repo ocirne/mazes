@@ -11,5 +11,5 @@ fun main() {
     val maze = BinaryTree().on(grid)
 
     val colorization = Colorization(maze).dijkstra(maze[20, 10]!!)
-    maze.toImage(backgroundColors = colorization).save("cartesian_binarytree_colorized")
+    maze.toImage(backgroundColors = colorization).save("cartesian_binarytree_colored")
 }

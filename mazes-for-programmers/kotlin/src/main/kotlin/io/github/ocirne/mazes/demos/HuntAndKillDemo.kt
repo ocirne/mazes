@@ -12,8 +12,8 @@ fun main() {
     saveImage(maze.toImage(), "cartesian_huntAndKill_backtracker")
 
     val colorization1 = Colorization(maze).dijkstra(maze[10, 5]!!)
-    saveImage(maze.toImage(backgroundColors = colorization1), "cartesian_huntAndKill_colorized1")
+    saveImage(maze.toImage(backgroundColors = colorization1), "cartesian_huntAndKill_colored1")
 
     val colorization2 = Colorization(maze).countLinks()
-    saveImage(maze.toImage(backgroundColors = colorization2), "cartesian_huntAndKill_colorized2")
+    saveImage(maze.toImage(backgroundColors = colorization2), "cartesian_huntAndKill_colored2")
 }
