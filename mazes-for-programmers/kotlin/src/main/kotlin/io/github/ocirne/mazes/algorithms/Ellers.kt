@@ -4,7 +4,10 @@ import io.github.ocirne.mazes.grids.Cell
 import io.github.ocirne.mazes.grids.GridProvider
 import io.github.ocirne.mazes.grids.Maze
 import io.github.ocirne.mazes.grids.cartesian.CartesianGrid.CartesianCell
+import io.github.ocirne.mazes.grids.hex.HexGrid.HexCell
 import io.github.ocirne.mazes.grids.polar.PolarGrid.PolarCell
+import io.github.ocirne.mazes.grids.triangle.TriangleGrid.TriangleCell
+import io.github.ocirne.mazes.grids.upsilon.UpsilonGrid.UpsilonCell
 import kotlin.random.Random.Default.nextInt
 
 class Ellers : PassageCarver {
@@ -13,10 +16,12 @@ class Ellers : PassageCarver {
         throw NotImplementedError("Please use specialized functions")
     }
 
-    private fun <C: Cell> generalizedEllers(grid: GridProvider,
-                                  reversedRows: Boolean,
-                                  left: (C) -> C?,
-                                  down: (C) -> List<C>): Maze {
+    private fun <C : Cell> generalizedEllers(
+        grid: GridProvider,
+        left: (C) -> C?,
+        down: (C) -> List<C>,
+        reversedRows: Boolean = false
+    ): Maze {
         val maze = grid.forPassageCarver()
         var rowState = RowState()
         for (row in maze.eachRow(reversedRows)) {
@@ -54,21 +59,42 @@ class Ellers : PassageCarver {
     }
 
     fun onCartesianGrid(grid: GridProvider): Maze {
-        return generalizedEllers<CartesianCell>(grid, false,
+        return generalizedEllers<CartesianCell>(grid,
             left = { cell -> cell.west },
             down = { cell -> listOfNotNull(cell.south) })
     }
 
     fun onPolarGridFromCenter(grid: GridProvider): Maze {
-        return generalizedEllers<PolarCell>(grid, false,
+        return generalizedEllers<PolarCell>(grid,
             left = { cell -> cell.cw },
             down = { cell -> cell.outward })
     }
 
     fun onPolarGridFromEdge(grid: GridProvider): Maze {
-        return generalizedEllers<PolarCell>(grid, true,
+        return generalizedEllers<PolarCell>(grid,
             left = { cell -> cell.cw },
-            down = { cell -> listOfNotNull(cell.inward) })
+            down = { cell -> listOfNotNull(cell.inward) },
+            reversedRows = true)
+    }
+
+    fun onTriangleGrid(grid: GridProvider): Maze {
+        TODO("Mazes are not perfect")
+        return generalizedEllers<TriangleCell>(grid,
+            left = { cell -> cell.west },
+            down = { cell -> if (cell.isUpright()) listOfNotNull(cell.south) else listOfNotNull() })
+    }
+
+    fun onHexGrid(grid: GridProvider): Maze {
+        TODO("Mazes are not perfect")
+        return generalizedEllers<HexCell>(grid,
+            left = { cell -> cell.northwest },
+            down = { cell -> listOfNotNull(cell.southwest, cell.south, cell.southeast) })
+    }
+
+    fun onUpsilonGrid(grid: GridProvider): Maze {
+        return generalizedEllers<UpsilonCell>(grid,
+            left = { cell -> cell.west },
+            down = { cell -> listOfNotNull(cell.southeast, cell.south, cell.southwest) })
     }
 
     internal class RowState(startingSet: Int = 0) {

@@ -77,6 +77,13 @@ class HexGrid(private val rows: Int, private val columns: Int): GridProvider {
             return grid.flatten()
         }
 
+        override fun eachRow(reversed: Boolean): Iterator<Array<out Cell>> {
+            if (reversed) {
+                throw NotImplementedError()
+            }
+            return grid.iterator()
+        }
+
         override fun toImage(
             baseSize: Double,
             wallInset: Double,

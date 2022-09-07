@@ -1,9 +1,10 @@
 package io.github.ocirne.mazes.algorithms
 
-import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.grids.cartesian.CartesianGrid
+import io.github.ocirne.mazes.grids.hex.HexGrid
 import io.github.ocirne.mazes.grids.polar.PolarGrid
-import io.github.ocirne.mazes.output.save
+import io.github.ocirne.mazes.grids.triangle.TriangleGrid
+import io.github.ocirne.mazes.grids.upsilon.UpsilonGrid
 import org.junit.jupiter.api.Test
 
 class EllersIsPerfectTest {
@@ -31,8 +32,29 @@ class EllersIsPerfectTest {
         val grid = PolarGrid(size)
         val maze = Ellers().onPolarGridFromCenter(grid)
 
-        val colorization = Colorization(maze).dijkstra(maze[0, 0]!!)
-        maze.toImage(baseSize = 100.0, backgroundColors = colorization).save("polar_ellers_colored")
+        CycleDetection(maze).assertNoCycle()
+    }
+
+    @Test
+    fun `Triangle Grid with Ellers maze is perfect`() {
+        val grid = TriangleGrid(size, size)
+        val maze = Ellers().onTriangleGrid(grid)
+
+        CycleDetection(maze).assertNoCycle()
+    }
+
+    @Test
+    fun `Hex Grid with Ellers maze is perfect`() {
+        val grid = HexGrid(size, size)
+        val maze = Ellers().onHexGrid(grid)
+
+        CycleDetection(maze).assertNoCycle()
+    }
+
+    @Test
+    fun `Upsilon Grid with Ellers maze is perfect`() {
+        val grid = UpsilonGrid(size, size)
+        val maze = Ellers().onUpsilonGrid(grid)
 
         CycleDetection(maze).assertNoCycle()
     }
