@@ -3,9 +3,16 @@ layout: page
 title: More Boni
 ---
 
+## Tests
+
+The mazes should be perfect, so that between two cells there is exactly one path.
+Let there be tests:
+
+[Kotlin](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/kotlin/src/test/kotlin/io/github/ocirne/mazes/algorithms)
+
 ## Eller's on other Grids
 
-### Bonus: Eller's on Polar Grid
+### Eller's on Polar Grid
 
 #### From Edge to Center
 
