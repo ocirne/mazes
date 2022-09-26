@@ -166,7 +166,8 @@ Printing the (cartesian) grid as ASCII art:
 ![Cartesian Wilsons](images/wilsons.png)
 ![Cartesian Wilsons Colored](images/wilsons_colored.png)
 
-[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/wilsons.py)
+[Kotlin](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/kotlin/src/main/kotlin/io/github/ocirne/mazes/demos/WilsonsDemo.kt)
+| [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/wilsons.py)
 
 ### Your Turn
 
