@@ -7,7 +7,7 @@ import io.github.ocirne.mazes.colorization.Strokes
 import io.github.ocirne.mazes.grids.cartesian.CartesianGrid.CartesianCell
 import io.github.ocirne.mazes.grids.Maze
 import io.github.ocirne.mazes.output.createImage
-import io.github.ocirne.mazes.output.save
+import io.github.ocirne.mazes.output.saveAs
 import java.awt.Graphics2D
 import java.awt.geom.Line2D
 import java.awt.geom.Rectangle2D
@@ -17,7 +17,7 @@ class CartesianImage(val maze: CartesianGrid.CartesianMaze) {
 
     private val correctionFactor = 1.0
 
-    val baseSize = 40.0
+    val baseSize = 20.0
     val wallInset = 0.0
     val backInset = 0.0
 
@@ -68,8 +68,8 @@ fun Maze.createImage(): CartesianImage {
     return CartesianImage(this as CartesianGrid.CartesianMaze)
 }
 
-fun CartesianImage.save(filename: String) {
-    this.render().save(filename)
+fun CartesianImage.saveAs(filename: String) {
+    this.render().saveAs(filename)
 }
 
 data class Coordinates(

@@ -8,7 +8,7 @@ import io.github.ocirne.mazes.grids.polar.PolarGrid
 import io.github.ocirne.mazes.grids.triangle.TriangleGrid
 import io.github.ocirne.mazes.grids.upsilon.UpsilonGrid
 import io.github.ocirne.mazes.output.formatForPages
-import io.github.ocirne.mazes.output.save
+import io.github.ocirne.mazes.output.saveAs
 import kotlin.random.Random.Default.nextBoolean
 
 fun allGridsWith(marker: String, algorithm: GrowingTree) {
@@ -24,7 +24,7 @@ fun allGridsWith(marker: String, algorithm: GrowingTree) {
         val colorization = Colorization(maze).dijkstra(maze[0, 0]!!)
         maze.toImage(baseSize = 20.0, backgroundColors = colorization)
     }
-    formatForPages(images, 3, 2).save("all_grids_${algorithm::class.simpleName}_${marker}_colored")
+    formatForPages(images, 3, 2).saveAs("all_grids_${algorithm::class.simpleName}_${marker}_colored")
 }
 
 fun main() {

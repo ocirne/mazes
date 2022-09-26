@@ -2,12 +2,12 @@ package io.github.ocirne.mazes.demos
 
 import io.github.ocirne.mazes.grids.cartesian.CartesianGrid
 import io.github.ocirne.mazes.grids.cartesian.createImage
-import io.github.ocirne.mazes.grids.cartesian.save
+import io.github.ocirne.mazes.grids.cartesian.saveAs
 
 
 fun main() {
     val grid = CartesianGrid(4, 4)
     val maze = grid.forPassageCarver()
 
-    maze.createImage().save("cartesian")
+    maze.createImage().saveAs("cartesian")
 }

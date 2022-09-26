@@ -157,7 +157,8 @@ Printing the (cartesian) grid as ASCII art:
 ![Cartesian Aldous Broder](images/aldous_broder.png)
 ![Cartesian Aldous Broder Colored](images/aldous_broder_colored.png)
 
-[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/aldous_broder.py)
+[Kotlin](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/kotlin/src/main/kotlin/io/github/ocirne/mazes/demos/AldousBroderDemo.kt)
+| [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/aldous_broder.py)
 
 ### Wilson’s Algorithm
 

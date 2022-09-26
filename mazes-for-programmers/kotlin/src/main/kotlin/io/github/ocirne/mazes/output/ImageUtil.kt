@@ -22,7 +22,7 @@ fun saveImage(image: BufferedImage, filename: String) {
     println("saved to $path")
 }
 
-fun BufferedImage.save(filename: String) {
+fun BufferedImage.saveAs(filename: String) {
     saveImage(this, filename)
 }
 

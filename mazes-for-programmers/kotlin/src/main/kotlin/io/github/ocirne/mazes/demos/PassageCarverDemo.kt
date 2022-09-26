@@ -9,7 +9,7 @@ import io.github.ocirne.mazes.grids.polar.PolarGrid
 import io.github.ocirne.mazes.grids.triangle.TriangleGrid
 import io.github.ocirne.mazes.grids.upsilon.UpsilonGrid
 import io.github.ocirne.mazes.output.formatForPages
-import io.github.ocirne.mazes.output.save
+import io.github.ocirne.mazes.output.saveAs
 
 fun createAllGrids(): List<GridProvider> {
     return listOf(
@@ -23,7 +23,7 @@ fun createAllGrids(): List<GridProvider> {
 
 fun allGridsPlain() {
     val images = createAllGrids().map { it.forPassageCarver().toImage(baseSize = 20.0) }
-    formatForPages(images, 3, 2).save("all_grids_plain")
+    formatForPages(images, 3, 2).saveAs("all_grids_plain")
 }
 
 fun allGridsWith(algorithm: PassageCarver) {
@@ -31,7 +31,7 @@ fun allGridsWith(algorithm: PassageCarver) {
         val maze = algorithm.on(grid)
         maze.toImage(baseSize = 20.0)
     }
-    formatForPages(images, 3, 2).save("all_grids_${algorithm::class.simpleName}")
+    formatForPages(images, 3, 2).saveAs("all_grids_${algorithm::class.simpleName}")
 }
 
 fun cartesianBinaryTreeColored(algorithm: PassageCarver) {
@@ -41,7 +41,7 @@ fun cartesianBinaryTreeColored(algorithm: PassageCarver) {
         val colorization = Colorization(maze).dijkstra(maze[7, 7]!!)
         maze.toImage(baseSize = 15.0, backgroundColors = colorization)
     }
-    formatForPages(images, 3, 2).save("cartesian_${algorithm::class.simpleName}_colored")
+    formatForPages(images, 3, 2).saveAs("cartesian_${algorithm::class.simpleName}_colored")
 }
 
 fun main() {

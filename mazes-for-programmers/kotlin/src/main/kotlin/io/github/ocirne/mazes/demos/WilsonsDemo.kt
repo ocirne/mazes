@@ -5,19 +5,19 @@ import io.github.ocirne.mazes.colorization.Colorization
 import io.github.ocirne.mazes.grids.cartesian.CartesianGrid
 import io.github.ocirne.mazes.grids.cartesian.createAsciiGrid
 import io.github.ocirne.mazes.grids.cartesian.createImage
-import io.github.ocirne.mazes.grids.cartesian.save
+import io.github.ocirne.mazes.grids.cartesian.saveAs
 
 fun main() {
     val grid = CartesianGrid(11, 11)
 
     val maze = Wilsons().on(grid)
     println(maze.createAsciiGrid())
-    maze.createImage().save("cartesian_wilsons")
+    maze.createImage().saveAs("cartesian_wilsons")
 
     val background = Colorization(maze).dijkstra(maze[10, 5]!!)
     maze.createImage()
         .withBackgroundColors(background)
-        .save("cartesian_wilsons_colored")
+        .saveAs("cartesian_wilsons_colored")
 
 /*    saveImage(maze.toImage(), "cartesian_wilsons")
 
