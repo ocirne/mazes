@@ -142,7 +142,8 @@ Printing the (cartesian) grid as ASCII art:
 ![Cartesian Binary Tree Colored](images/coloring_binarytree.png)
 ![Cartesian Sidewinder Colored](images/coloring_sidewinder.png)
 
-[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/coloring.py)
+[Kotlin](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/kotlin/src/main/kotlin/io/github/ocirne/mazes/demos/ColoringDemo.kt)
+| [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/coloring.py)
 
 ### Bonus: Animated Dijkstra's Algorithm
 
