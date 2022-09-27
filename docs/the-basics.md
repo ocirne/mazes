@@ -178,7 +178,8 @@ Printing the (cartesian) grid as ASCII art:
 ![Cartesian Hunt And Kill](images/hunt_and_kill.png)
 ![Cartesian Hunt And Kill Colored](images/hunt_and_kill_colored.png)
 
-[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/hunt_and_kill.py)
+[Kotlin](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/kotlin/src/main/kotlin/io/github/ocirne/mazes/demos/HuntAndKillDemo.kt)
+| [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/hunt_and_kill.py)
 
 ### Counting Dead-Ends
 
