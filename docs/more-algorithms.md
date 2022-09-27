@@ -64,7 +64,8 @@ title: More Algorithms
 ![Cartesian Maze with Eller's](images/ellers.png)
 ![Cartesian Maze with Ellers's Colored](images/ellers_colored.png)
 
-[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/ellers.py)
+[Kotlin](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/kotlin/src/main/kotlin/io/github/ocirne/mazes/demos/EllersDemo.kt)
+| [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/ellers.py)
 
 ### Recursive Division
 
