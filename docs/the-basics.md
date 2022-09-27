@@ -207,6 +207,7 @@ RecursiveBacktracker:  42/400 (std 3.782) (10%)
 ![Cartesian Recursive Backtracker](images/recursive_backtracker.png)
 ![Cartesian Recursive Backtracker Colored](images/recursive_backtracker_colored.png)
 
-[Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/recursive_backtracker.py)
+[Kotlin](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/kotlin/src/main/kotlin/io/github/ocirne/mazes/demos/RecursiveBacktrackerDemo.kt)
+| [Python](https://github.com/ocirne/mazes/tree/main/mazes-for-programmers/python/src/mazes/recursive_backtracker.py)
 
 ### Your Turn

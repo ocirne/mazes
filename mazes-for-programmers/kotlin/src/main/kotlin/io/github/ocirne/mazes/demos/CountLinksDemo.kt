@@ -10,10 +10,8 @@ fun main() {
     val grid = CartesianGrid(11, 11)
     val maze = RecursiveBacktracker().on(grid)
 
-    maze.createImage().saveAs("cartesian_recursive_backtracker")
-
-    val colorization = Colorization(maze).dijkstra(maze[5, 5]!!)
+    val colorization2 = Colorization(maze).countLinks()
     maze.createImage()
-        .withBackgroundColors(colorization)
-        .saveAs("cartesian_recursive_backtracker_colored")
+        .withBackgroundColors(colorization2)
+        .saveAs("cartesian_recursive_backtracker_colored2")
 }
